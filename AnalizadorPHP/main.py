@@ -44,7 +44,7 @@ reserved = {
 }
 
 #REYNALDO OLVERA
-tokens = (
+tokens = [
     'ID',
     'PHPSTART',
     'PHPEND',
@@ -79,36 +79,47 @@ tokens = (
     'ORLOGICAL',
     'NOTLOGICAL',
     'ARROW',
+    #'DECLAREVAR'        # $
 
 
-) + tuple(reserved.values())
+] + list(reserved.values())
 # Reynaldo end
 
-t_PHPSTART = r'\<\?php\s$'
-t_PHPEND = r'\s\?\>$'
+t_PHPSTART = r'\<\?php\s'
+t_PHPEND = r'\?\>'
+t_ARROW = r'=\>'
+#t_DECLAREVAR = r'\$'
+
+t_FLOAT = r'\d+\.\d+'
+t_NUMBER = r'\d+'
+t_STRING = r'\'.*\''
+t_STRINGCC = r'".*"'
+
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_EXPONENTIAL = r'\*\*'
+
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 T_RBRACKET = r'\]'
+
 t_COMMA = r','
 t_SEMICOLON = r';'
 t_DOUBLEPOINT = r':'
 t_LCURLY = r'{'
 t_RCURLY = r'}'
-t_FLOAT = r'\d+\.\d+'
-t_NUMBER = r'\d+'
-t_STRING = r'\'.*\''
-t_STRINGCC = r'".*"'
-t_EQUALS = r'\='
-t_EQUALSLOGICAL = r'=='
-t_DIFFERENT = r'!='
+
 t_IDENTICAL = r'==='
 t_NOTIDENTICAL = r'!=='
+
+t_EQUALSLOGICAL = r'=='
+t_EQUALS = r'\='
+
+t_DIFFERENT = r'!='
+
 t_GREATERTHAN = r'\>'
 t_LESSTHAN = r'\<'
 t_GREATEREQUAL = r'\>='
@@ -116,18 +127,18 @@ t_LESSEQUAL = r'\<='
 t_ANDlOGICAL = r'&&'
 t_ORLOGICAL = r'\|\|'
 t_NOTLOGICAL= r'!'
-t_ARROW = r'=\>'
 
-# 3ro
 
-phpVar = r'\$[A-Za-z_]+\w?'
-@TOKEN(phpVar)
 
 # Palabras Reservadas
 def t_ID(t):
-    r'[a-zA-Z_]\w*'
-    t.type = reserved.get(t.value, 'ID')
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
+
+def t_COMMENT(t):
+    r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
+    pass
 
 def t_newline(t):
     r'\n+'
@@ -135,9 +146,6 @@ def t_newline(t):
 
 t_ignore = ' \t'
 
-def t_COMMENT(t):
-    r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
-    pass
 
 # Error handling rule
 def t_error(t):
@@ -167,7 +175,27 @@ def leer(linea):
 
 # Test it out
 data = '''
-  ECHO '<p>Hola Mundo</p>';
+  <?php
+        if ($i == 0) {
+            echo "i es igual a 0";
+        } elseif ($i == 1) {
+            echo "i es igual a 1";
+        } elseif ($i == 2) {
+            echo "i es igual a 2";
+        }
+        
+        switch ($i) {
+            case 0:
+                echo "i es igual a 0";
+                break;
+            case 1:
+                echo "i es igual a 1";
+                break;
+            case 2:
+                echo "i es igual a 2";
+                break;
+        }
+    ?>
  '''
 
 # Give the lexer some input
