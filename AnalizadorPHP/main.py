@@ -45,6 +45,7 @@ reserved = {
 
 #REYNALDO OLVERA
 tokens = (
+    'ID',
     'PHPSTART',
     'PHPEND',
     'NUMBER',
@@ -63,7 +64,6 @@ tokens = (
     'DOUBLEPOINT', #    :
     'COMMA',
     'SEMICOLON',
-    'ID',
     'STRING',
     'STRINGCC',
     'EQUALS',
@@ -84,7 +84,7 @@ tokens = (
 ) + tuple(reserved.values())
 # Reynaldo end
 
-t_PHPSTAR = r'\<\?php\s$'
+t_PHPSTART = r'\<\?php\s$'
 t_PHPEND = r'\s\?\>$'
 t_PLUS = r'\+'
 t_MINUS = r'-'
@@ -102,9 +102,9 @@ t_LCURLY = r'{'
 t_RCURLY = r'}'
 t_FLOAT = r'\d+\.\d+'
 t_NUMBER = r'\d+'
-t_STRING = '\'.*\''
-t_STRINGCC = '".*"'
-t_EQUALS = "\="
+t_STRING = r'\'.*\''
+t_STRINGCC = r'".*"'
+t_EQUALS = r'\='
 t_EQUALSLOGICAL = r'=='
 t_DIFFERENT = r'!='
 t_IDENTICAL = r'==='
@@ -163,3 +163,19 @@ def leer(linea):
     print("Succesfull")
     return lista
 
+# TEST
+
+# Test it out
+data = '''
+  ECHO '<p>Hola Mundo</p>';
+ '''
+
+# Give the lexer some input
+lexer.input(data)
+
+# Tokenize
+while True:
+    tok = lexer.token()
+    if not tok:
+        break  # No more input
+    print(tok)
