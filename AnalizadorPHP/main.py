@@ -146,6 +146,8 @@ def t_newline(t):
 
 t_ignore = ' \t'
 
+phpVar = r'^\$[A-Za-z_]+\w?'
+@TOKEN(phpVar)
 
 # Error handling rule
 def t_error(t):
