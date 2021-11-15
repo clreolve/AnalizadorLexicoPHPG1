@@ -183,6 +183,7 @@ def leer(linea):
 # Test it out
 data = '''
   <?php
+        $a = 'Grupo1';
         if ($i == 0) {
             echo "$i es igual a 0";
         } elseif ($i == 1) {
