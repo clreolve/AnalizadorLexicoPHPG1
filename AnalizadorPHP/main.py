@@ -7,6 +7,7 @@ reserved = {
     #inicia - Vivanco
     'and' : 'AND',
     'as' : 'AS',
+    'break' : 'BREAK',
     'case' : 'CASE',
     'class' : 'CLASS',
     'do' : 'DO',
@@ -16,6 +17,8 @@ reserved = {
     'endfor' : 'ENDFOR',
     'endforeach' : 'ENDFOREACH',
     'endif' : 'ENDIF',
+    #Termina - Vivanco
+    #
     'endswitch' : 'ENDSWITCH',
     'endwhile' : 'ENDWHILE',
     'for' : 'FOR',
@@ -28,6 +31,8 @@ reserved = {
     'new' : 'NEW',
     'or' : 'OR',
     'print' : 'PRINT',
+    #
+    #
     'private' : 'PRIVATE',
     'protected' : 'PROTECTED',
     'public' : 'PUBLIC',
@@ -41,12 +46,13 @@ reserved = {
     'catch' : 'CATCH',
     'final' : 'FINAL',
     'extends' : 'EXTENDS',
-    #Termina - VIVANCO
+    #
 
 }
 
-#REYNALDO OLVERA
+
 tokens = [
+    #inicia - Vivanco
     'ID',
     'PHPSTART',
     'PHPEND',
@@ -58,6 +64,8 @@ tokens = [
     'DIVIDE',
     'EXPONENTIAL',
     'LPAREN',
+    #termina - Vivanco
+    #
     'RPAREN',
     'LBRACKET',
     'RBRACKET',
@@ -69,6 +77,8 @@ tokens = [
     'STRING',
     'STRINGCC',
     'EQUALS',
+    #
+    #
     'EQUALSLOGICAL',    # ==
     'IDENTICAL',        # ===
     'DIFFERENT',        # != diferente que , no igual
@@ -82,56 +92,55 @@ tokens = [
     'NOTLOGICAL',
     'ARROW',
     'VARIABLE',
-
+#
 
 ] + list(reserved.values())
-# Reynaldo end
+#inicia - Vivanco
 t_VARIABLE = r'\$[a-zA-Z_]\w*'
 t_PHPSTART = r'\<\?php\s'
 t_PHPEND = r'\?\>'
 t_ARROW = r'=\>'
-#t_DECLAREVAR = r'\$'
 
 t_FLOAT = r'\d+\.\d+'
 t_NUMBER = r'\d+'
 t_STRING = r'\'.*\''
 t_STRINGCC = r'".*"'
-
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_EXPONENTIAL = r'\*\*'
-
+#termina - Vivanco
+#
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 T_RBRACKET = r'\]'
-
 t_COMMA = r','
 t_SEMICOLON = r';'
 t_DOUBLEPOINT = r':'
 t_LCURLY = r'{'
 t_RCURLY = r'}'
-
+#
+#
 t_IDENTICAL = r'==='
 t_NOTIDENTICAL = r'!=='
-
 t_EQUALSLOGICAL = r'=='
 t_DIFFERENT = r'!='
-
 t_EQUALS = r'\='
-
 t_GREATEREQUAL = r'\>='
 t_LESSEQUAL = r'\<='
 t_GREATERTHAN = r'\>'
 t_LESSTHAN = r'\<'
-
 t_ANDlOGICAL = r'&&'
 t_ORLOGICAL = r'\|\|'
 t_NOTLOGICAL= r'!'
+#
+
+
 
 # Palabras Reservadas
+#
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value, 'ID')
@@ -140,7 +149,7 @@ def t_ID(t):
         t.lexer.skip(1)
     else:
         return t
-
+#
 #Comentarios
 def t_COMMENT(t):
     r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
@@ -183,7 +192,7 @@ def leer(linea):
 # Test it out
 data = '''
   <?php
-        if (i == 0) {
+        if ($i == 0) {
             echo "$i es igual a 0";
         } elseif ($i == 1) {
             echo "i es igual a 1";
@@ -214,3 +223,4 @@ while True:
     if not tok:
         break  # No more input
     print(tok)
+
