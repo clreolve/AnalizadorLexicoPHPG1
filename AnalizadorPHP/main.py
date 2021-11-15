@@ -1,101 +1,98 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 
-
-
 reserved = {
-    #inicia - Vivanco
-    'and' : 'AND',
-    'as' : 'AS',
-    'break' : 'BREAK',
-    'case' : 'CASE',
-    'class' : 'CLASS',
-    'do' : 'DO',
-    'echo' : 'ECHO',
-    'else' : 'ELSE',
-    'elseif' : 'ELSEIF',
-    'endfor' : 'ENDFOR',
-    'endforeach' : 'ENDFOREACH',
-    'endif' : 'ENDIF',
-    #Termina - Vivanco
+    # inicia - Vivanco
+    'and': 'AND',
+    'as': 'AS',
+    'break': 'BREAK',
+    'case': 'CASE',
+    'class': 'CLASS',
+    'do': 'DO',
+    'echo': 'ECHO',
+    'else': 'ELSE',
+    'elseif': 'ELSEIF',
+    'endfor': 'ENDFOR',
+    'endforeach': 'ENDFOREACH',
+    'endif': 'ENDIF',
+    # Termina - Vivanco
     #
-    'endswitch' : 'ENDSWITCH',
-    'endwhile' : 'ENDWHILE',
-    'for' : 'FOR',
-    'foreach' : 'FOREACH',
-    'function' : 'FUNCTION',
-    'global' : 'GLOBAL',
-    'if' : 'IF',
-    'implements' : 'IMPLEMENTS',
+    'endswitch': 'ENDSWITCH',
+    'endwhile': 'ENDWHILE',
+    'for': 'FOR',
+    'foreach': 'FOREACH',
+    'function': 'FUNCTION',
+    'global': 'GLOBAL',
+    'if': 'IF',
+    'implements': 'IMPLEMENTS',
     'interface': 'INTERFACE',
-    'new' : 'NEW',
-    'or' : 'OR',
-    'print' : 'PRINT',
+    'new': 'NEW',
+    'or': 'OR',
+    'print': 'PRINT',
     #
     #
-    'private' : 'PRIVATE',
-    'protected' : 'PROTECTED',
-    'public' : 'PUBLIC',
-    'return' : 'RETURN',
-    'static' : 'STATIC',
-    'switch' : 'SWITCH',
-    'throw' : 'THROW',
-    'while' : 'WHILE',
-    'var' : 'VAR',
-    'xor' : 'XOR',
-    'catch' : 'CATCH',
-    'final' : 'FINAL',
-    'extends' : 'EXTENDS',
+    'private': 'PRIVATE',
+    'protected': 'PROTECTED',
+    'public': 'PUBLIC',
+    'return': 'RETURN',
+    'static': 'STATIC',
+    'switch': 'SWITCH',
+    'throw': 'THROW',
+    'while': 'WHILE',
+    'var': 'VAR',
+    'xor': 'XOR',
+    'catch': 'CATCH',
+    'final': 'FINAL',
+    'extends': 'EXTENDS',
     #
 
 }
 
-
 tokens = [
-    #inicia - Vivanco
-    'ID',
-    'PHPSTART',
-    'PHPEND',
-    'NUMBER',
-    'FLOAT',
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIVIDE',
-    'EXPONENTIAL',
-    'LPAREN',
-    #termina - Vivanco
-    #
-    'RPAREN',
-    'LBRACKET',
-    'RBRACKET',
-    'LCURLY',
-    'RCURLY',
-    'DOUBLEPOINT', #    :
-    'COMMA',
-    'SEMICOLON',
-    'STRING',
-    'STRINGCC',
-    'EQUALS',
-    #
-    #
-    'EQUALSLOGICAL',    # ==
-    'IDENTICAL',        # ===
-    'DIFFERENT',        # != diferente que , no igual
-    'NOTIDENTICAL',     # !==
-    'GREATERTHAN',      # > Mayor que
-    'LESSTHAN',         # < Menor Que
-    'GREATEREQUAL',     # >=
-    'LESSEQUAL',        # <=
-    'ANDlOGICAL',
-    'ORLOGICAL',
-    'NOTLOGICAL',
-    'ARROW',
-    'VARIABLE',
-#
+             # inicia - Vivanco
+             'ID',
+             'PHPSTART',
+             'PHPEND',
+             'NUMBER',
+             'FLOAT',
+             'PLUS',
+             'MINUS',
+             'TIMES',
+             'DIVIDE',
+             'EXPONENTIAL',
+             'LPAREN',
+             # termina - Vivanco
+             #
+             'RPAREN',
+             'LBRACKET',
+             'RBRACKET',
+             'LCURLY',
+             'RCURLY',
+             'DOUBLEPOINT',  # :
+             'COMMA',
+             'SEMICOLON',
+             'STRING',
+             'STRINGCC',
+             'EQUALS',
+             #
+             #
+             'EQUALSLOGICAL',  # ==
+             'IDENTICAL',  # ===
+             'DIFFERENT',  # != diferente que , no igual
+             'NOTIDENTICAL',  # !==
+             'GREATERTHAN',  # > Mayor que
+             'LESSTHAN',  # < Menor Que
+             'GREATEREQUAL',  # >=
+             'LESSEQUAL',  # <=
+             'ANDlOGICAL',
+             'ORLOGICAL',
+             'NOTLOGICAL',
+             'ARROW',
+             'VARIABLE',
+             #
 
-] + list(reserved.values())
-#inicia - Vivanco
+         ] + list(reserved.values())
+# inicia - Vivanco
 t_VARIABLE = r'\$[a-zA-Z_]\w*'
 t_PHPSTART = r'\<\?php\s'
 t_PHPEND = r'\?\>'
@@ -110,7 +107,7 @@ t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_EXPONENTIAL = r'\*\*'
-#termina - Vivanco
+# termina - Vivanco
 #
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -134,9 +131,10 @@ t_GREATERTHAN = r'\>'
 t_LESSTHAN = r'\<'
 t_ANDlOGICAL = r'&&'
 t_ORLOGICAL = r'\|\|'
-t_NOTLOGICAL= r'!'
-#
+t_NOTLOGICAL = r'!'
 
+
+#
 
 
 # Palabras Reservadas
@@ -149,26 +147,32 @@ def t_ID(t):
         t.lexer.skip(1)
     else:
         return t
+
+
 #
-#Comentarios
+# Comentarios
 def t_COMMENT(t):
     r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
     pass
 
-#saltos de Linea
+
+# saltos de Linea
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+
 t_ignore = ' \t'
+
 
 # Regla de errores
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+
 def getTokens(lexer):
-    lista=[]
+    lista = []
     while True:
         tok = lexer.token()
         if not tok:
@@ -176,15 +180,19 @@ def getTokens(lexer):
         print(tok)
         lista.append(tok)
     return lista
+
+
 # Build the lexer
 lexer = lex.lex()
 
+
 def leer(linea):
     lexer.input(linea)
-    lista=getTokens(lexer)
+    lista = getTokens(lexer)
     # Tokenize
     print("Succesfull")
     return lista
+
 
 # ------------------------------------------------------------------------------
 # TEST
@@ -199,7 +207,7 @@ data = '''
         } elseif ($i == 2) {
             echo "i es igual a 2";
         }
-        
+
         switch ($i) {
             case 0:
                 echo "i es igual a 0";
@@ -224,3 +232,4 @@ while True:
         break  # No more input
     print(tok)
 
+#XD
