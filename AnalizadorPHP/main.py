@@ -141,17 +141,19 @@ def t_ID(t):
     else:
         return t
 
+#Comentarios
 def t_COMMENT(t):
     r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
     pass
 
+#saltos de Linea
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
 t_ignore = ' \t'
 
-# Error handling rule
+# Regla de errores
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
