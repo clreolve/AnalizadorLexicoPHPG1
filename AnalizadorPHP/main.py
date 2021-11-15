@@ -1,5 +1,4 @@
 import ply.lex as lex
-from ply.lex import TOKEN
 
 
 
@@ -41,6 +40,7 @@ reserved = {
     'catch' : 'CATCH',
     'final' : 'FINAL',
     'extends' : 'EXTENDS',
+    'break': 'BREAK',
     #Termina - VIVANCO
 
 }
@@ -85,7 +85,7 @@ tokens = [
 
 
 ] + list(reserved.values())
-# Reynaldo end
+
 t_VARIABLE = r'\$[a-zA-Z_]\w*'
 t_PHPSTART = r'\<\?php\s'
 t_PHPEND = r'\?\>'
@@ -141,17 +141,19 @@ def t_ID(t):
     else:
         return t
 
+#Comentarios
 def t_COMMENT(t):
     r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
     pass
 
+#saltos de Linea
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
 t_ignore = ' \t'
 
-# Error handling rule
+# Regla de errores
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -181,7 +183,7 @@ def leer(linea):
 # Test it out
 data = '''
   <?php
-        if (i == 0) {
+        if ($i == 0) {
             echo "$i es igual a 0";
         } elseif ($i == 1) {
             echo "i es igual a 1";
