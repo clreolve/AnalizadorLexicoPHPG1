@@ -196,7 +196,7 @@ def leer(linea):
 
 # ------------------------------------------------------------------------------
 # TEST
-
+# Inicia - Jaramillo
 # Test it out
 #
 data = '''
@@ -223,7 +223,7 @@ data = '''
     ?>
  '''
 #
-
+#Termina - Jaramillo
 # Give the lexer some input
 lexer.input(data)
 
