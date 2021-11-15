@@ -16,7 +16,7 @@ reserved = {
     'endforeach': 'ENDFOREACH',
     'endif': 'ENDIF',
     # Termina - Vivanco
-    #
+    # Inicia - Olvera
     'endswitch': 'ENDSWITCH',
     'endwhile': 'ENDWHILE',
     'for': 'FOR',
@@ -29,7 +29,7 @@ reserved = {
     'new': 'NEW',
     'or': 'OR',
     'print': 'PRINT',
-    #
+    # Termina - Olvera
     #
     'private': 'PRIVATE',
     'protected': 'PROTECTED',
@@ -61,8 +61,8 @@ tokens = [
              'DIVIDE',
              'EXPONENTIAL',
              'LPAREN',
-             # termina - Vivanco
-             #
+             # Termina - Vivanco
+             # Inicia - Olvera
              'RPAREN',
              'LBRACKET',
              'RBRACKET',
@@ -74,7 +74,7 @@ tokens = [
              'STRING',
              'STRINGCC',
              'EQUALS',
-             #
+             # Termina - Olvera
              #
              'EQUALSLOGICAL',  # ==
              'IDENTICAL',  # ===
@@ -108,7 +108,7 @@ t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_EXPONENTIAL = r'\*\*'
 # termina - Vivanco
-#
+# Inicia Olvera
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
@@ -118,7 +118,7 @@ t_SEMICOLON = r';'
 t_DOUBLEPOINT = r':'
 t_LCURLY = r'{'
 t_RCURLY = r'}'
-#
+# Termina Olvera
 #
 t_IDENTICAL = r'==='
 t_NOTIDENTICAL = r'!=='
@@ -138,7 +138,7 @@ t_NOTLOGICAL = r'!'
 
 
 # Palabras Reservadas
-#
+# Inicia - Olvera
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value, 'ID')
@@ -147,9 +147,9 @@ def t_ID(t):
         t.lexer.skip(1)
     else:
         return t
+# Termina - Olvera
 
 
-#
 # Comentarios
 def t_COMMENT(t):
     r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
@@ -198,6 +198,7 @@ def leer(linea):
 # TEST
 
 # Test it out
+#
 data = '''
   <?php
         if ($i == 0) {
@@ -221,6 +222,7 @@ data = '''
         }
     ?>
  '''
+#
 
 # Give the lexer some input
 lexer.input(data)
