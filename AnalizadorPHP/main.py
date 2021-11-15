@@ -1,6 +1,8 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 
+
+
 reserved = {
     #inicia - Vivanco
     'and' : 'AND',
@@ -67,24 +69,24 @@ tokens = [
     'STRING',
     'STRINGCC',
     'EQUALS',
-    'EQUALSLOGICAL', #  ==
-    'IDENTICAL',         # ===
-    'DIFFERENT',        # diferente que , no igual
+    'EQUALSLOGICAL',    # ==
+    'IDENTICAL',        # ===
+    'DIFFERENT',        # != diferente que , no igual
     'NOTIDENTICAL',     # !==
-    'GREATERTHAN', #    > Mayor que
-    'LESSTHAN', # <     Menor Que
-    'GREATEREQUAL', #   >=
-    'LESSEQUAL', #      <=
+    'GREATERTHAN',      # > Mayor que
+    'LESSTHAN',         # < Menor Que
+    'GREATEREQUAL',     # >=
+    'LESSEQUAL',        # <=
     'ANDlOGICAL',
     'ORLOGICAL',
     'NOTLOGICAL',
     'ARROW',
-    #'DECLAREVAR'        # $
+    'VARIABLE',
 
 
 ] + list(reserved.values())
 # Reynaldo end
-
+t_VARIABLE = r'\$[a-zA-Z_]\w*'
 t_PHPSTART = r'\<\?php\s'
 t_PHPEND = r'\?\>'
 t_ARROW = r'=\>'
@@ -116,25 +118,28 @@ t_IDENTICAL = r'==='
 t_NOTIDENTICAL = r'!=='
 
 t_EQUALSLOGICAL = r'=='
-t_EQUALS = r'\='
-
 t_DIFFERENT = r'!='
 
-t_GREATERTHAN = r'\>'
-t_LESSTHAN = r'\<'
+t_EQUALS = r'\='
+
 t_GREATEREQUAL = r'\>='
 t_LESSEQUAL = r'\<='
+t_GREATERTHAN = r'\>'
+t_LESSTHAN = r'\<'
+
 t_ANDlOGICAL = r'&&'
 t_ORLOGICAL = r'\|\|'
 t_NOTLOGICAL= r'!'
 
-
-
 # Palabras Reservadas
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID')  # Check for reserved words
-    return t
+    r'[a-zA-Z_]\w*'
+    t.type = reserved.get(t.value, 'ID')
+    if t.type == 'ID':
+        print("Illegal character '%s'" % t.value[0])
+        t.lexer.skip(1)
+    else:
+        return t
 
 def t_COMMENT(t):
     r'(\#.*)|(\/\/.*)|(\/\*(.|\s)*\*\/)'
@@ -145,9 +150,6 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 t_ignore = ' \t'
-
-phpVar = r'^\$[A-Za-z_]+\w?'
-@TOKEN(phpVar)
 
 # Error handling rule
 def t_error(t):
@@ -173,13 +175,14 @@ def leer(linea):
     print("Succesfull")
     return lista
 
+# ------------------------------------------------------------------------------
 # TEST
 
 # Test it out
 data = '''
   <?php
-        if ($i == 0) {
-            echo "i es igual a 0";
+        if (i == 0) {
+            echo "$i es igual a 0";
         } elseif ($i == 1) {
             echo "i es igual a 1";
         } elseif ($i == 2) {
