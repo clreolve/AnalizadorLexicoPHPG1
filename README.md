@@ -2,6 +2,6 @@
 
 ## Integrantes
 
-Jose Vivanco
-Jose Jaramillo
-Claudio Olvera
+- Jose Vivanco
+- Jose Jaramillo
+- Claudio Olvera
