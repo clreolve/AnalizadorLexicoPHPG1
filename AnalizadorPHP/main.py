@@ -1,6 +1,6 @@
 #importacion tokens
-import tokens
-lexer = tokens.lexer
+import lexico
+lexer = lexico.lexer
 
 # TEST tokens
 def test_tokens():

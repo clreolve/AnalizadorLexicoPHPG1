@@ -181,14 +181,12 @@ def getTokens(lexer):
         lista.append(tok)
     return lista
 
-
-# Build the lexer
-lexer = lex.lex()
-
-
 def leer(linea):
     lexer.input(linea)
     lista = getTokens(lexer)
     # Tokenize
     print("Succesfull")
     return lista
+
+# Build the lexer
+lexer = lex.lex()

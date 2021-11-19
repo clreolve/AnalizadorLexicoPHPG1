@@ -1,0 +1,400 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    ANDlOGICAL
+    ARROW
+    AS
+    BREAK
+    CASE
+    CATCH
+    CLASS
+    COMMA
+    DIFFERENT
+    DO
+    DOUBLEPOINT
+    ECHO
+    ELSE
+    ELSEIF
+    ENDFOR
+    ENDFOREACH
+    ENDIF
+    ENDSWITCH
+    ENDWHILE
+    EQUALS
+    EQUALSLOGICAL
+    EXTENDS
+    FINAL
+    FOR
+    FOREACH
+    FUNCTION
+    GLOBAL
+    GREATEREQUAL
+    GREATERTHAN
+    ID
+    IDENTICAL
+    IF
+    IMPLEMENTS
+    INTERFACE
+    LBRACKET
+    LCURLY
+    LESSEQUAL
+    LESSTHAN
+    NEW
+    NOTIDENTICAL
+    NOTLOGICAL
+    OR
+    ORLOGICAL
+    PHPEND
+    PHPSTART
+    PRINT
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    RBRACKET
+    RCURLY
+    RETURN
+    SEMICOLON
+    STATIC
+    STRING
+    STRINGCC
+    SWITCH
+    THROW
+    VAR
+    WHILE
+    XOR
+
+Grammar
+
+Rule 0     S' -> expresiones
+Rule 1     expresiones -> elemento_numerico
+Rule 2     elemento_numerico -> elemento_numerico operador elemento_numerico
+Rule 3     elemento_numerico -> FLOAT
+Rule 4     elemento_numerico -> NUMBER
+Rule 5     elemento_numerico -> LPAREN elemento_numerico RPAREN
+Rule 6     elemento_numerico -> VARIABLE
+Rule 7     operador -> PLUS
+Rule 8     operador -> MINUS
+Rule 9     operador -> DIVIDE
+Rule 10    operador -> EXPONENTIAL
+Rule 11    operador -> TIMES
+
+Terminals, with rules where they appear
+
+AND                  : 
+ANDlOGICAL           : 
+ARROW                : 
+AS                   : 
+BREAK                : 
+CASE                 : 
+CATCH                : 
+CLASS                : 
+COMMA                : 
+DIFFERENT            : 
+DIVIDE               : 9
+DO                   : 
+DOUBLEPOINT          : 
+ECHO                 : 
+ELSE                 : 
+ELSEIF               : 
+ENDFOR               : 
+ENDFOREACH           : 
+ENDIF                : 
+ENDSWITCH            : 
+ENDWHILE             : 
+EQUALS               : 
+EQUALSLOGICAL        : 
+EXPONENTIAL          : 10
+EXTENDS              : 
+FINAL                : 
+FLOAT                : 3
+FOR                  : 
+FOREACH              : 
+FUNCTION             : 
+GLOBAL               : 
+GREATEREQUAL         : 
+GREATERTHAN          : 
+ID                   : 
+IDENTICAL            : 
+IF                   : 
+IMPLEMENTS           : 
+INTERFACE            : 
+LBRACKET             : 
+LCURLY               : 
+LESSEQUAL            : 
+LESSTHAN             : 
+LPAREN               : 5
+MINUS                : 8
+NEW                  : 
+NOTIDENTICAL         : 
+NOTLOGICAL           : 
+NUMBER               : 4
+OR                   : 
+ORLOGICAL            : 
+PHPEND               : 
+PHPSTART             : 
+PLUS                 : 7
+PRINT                : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+RBRACKET             : 
+RCURLY               : 
+RETURN               : 
+RPAREN               : 5
+SEMICOLON            : 
+STATIC               : 
+STRING               : 
+STRINGCC             : 
+SWITCH               : 
+THROW                : 
+TIMES                : 11
+VAR                  : 
+VARIABLE             : 6
+WHILE                : 
+XOR                  : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+elemento_numerico    : 1 2 2 5
+expresiones          : 0
+operador             : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expresiones
+    (1) expresiones -> . elemento_numerico
+    (2) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (3) elemento_numerico -> . FLOAT
+    (4) elemento_numerico -> . NUMBER
+    (5) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (6) elemento_numerico -> . VARIABLE
+
+    FLOAT           shift and go to state 3
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    VARIABLE        shift and go to state 6
+
+    expresiones                    shift and go to state 1
+    elemento_numerico              shift and go to state 2
+
+state 1
+
+    (0) S' -> expresiones .
+
+
+
+state 2
+
+    (1) expresiones -> elemento_numerico .
+    (2) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (7) operador -> . PLUS
+    (8) operador -> . MINUS
+    (9) operador -> . DIVIDE
+    (10) operador -> . EXPONENTIAL
+    (11) operador -> . TIMES
+
+    $end            reduce using rule 1 (expresiones -> elemento_numerico .)
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    DIVIDE          shift and go to state 10
+    EXPONENTIAL     shift and go to state 11
+    TIMES           shift and go to state 12
+
+    operador                       shift and go to state 7
+
+state 3
+
+    (3) elemento_numerico -> FLOAT .
+
+    PLUS            reduce using rule 3 (elemento_numerico -> FLOAT .)
+    MINUS           reduce using rule 3 (elemento_numerico -> FLOAT .)
+    DIVIDE          reduce using rule 3 (elemento_numerico -> FLOAT .)
+    EXPONENTIAL     reduce using rule 3 (elemento_numerico -> FLOAT .)
+    TIMES           reduce using rule 3 (elemento_numerico -> FLOAT .)
+    $end            reduce using rule 3 (elemento_numerico -> FLOAT .)
+    RPAREN          reduce using rule 3 (elemento_numerico -> FLOAT .)
+
+
+state 4
+
+    (4) elemento_numerico -> NUMBER .
+
+    PLUS            reduce using rule 4 (elemento_numerico -> NUMBER .)
+    MINUS           reduce using rule 4 (elemento_numerico -> NUMBER .)
+    DIVIDE          reduce using rule 4 (elemento_numerico -> NUMBER .)
+    EXPONENTIAL     reduce using rule 4 (elemento_numerico -> NUMBER .)
+    TIMES           reduce using rule 4 (elemento_numerico -> NUMBER .)
+    $end            reduce using rule 4 (elemento_numerico -> NUMBER .)
+    RPAREN          reduce using rule 4 (elemento_numerico -> NUMBER .)
+
+
+state 5
+
+    (5) elemento_numerico -> LPAREN . elemento_numerico RPAREN
+    (2) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (3) elemento_numerico -> . FLOAT
+    (4) elemento_numerico -> . NUMBER
+    (5) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (6) elemento_numerico -> . VARIABLE
+
+    FLOAT           shift and go to state 3
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    VARIABLE        shift and go to state 6
+
+    elemento_numerico              shift and go to state 13
+
+state 6
+
+    (6) elemento_numerico -> VARIABLE .
+
+    PLUS            reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    $end            reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    RPAREN          reduce using rule 6 (elemento_numerico -> VARIABLE .)
+
+
+state 7
+
+    (2) elemento_numerico -> elemento_numerico operador . elemento_numerico
+    (2) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (3) elemento_numerico -> . FLOAT
+    (4) elemento_numerico -> . NUMBER
+    (5) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (6) elemento_numerico -> . VARIABLE
+
+    FLOAT           shift and go to state 3
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    VARIABLE        shift and go to state 6
+
+    elemento_numerico              shift and go to state 14
+
+state 8
+
+    (7) operador -> PLUS .
+
+    FLOAT           reduce using rule 7 (operador -> PLUS .)
+    NUMBER          reduce using rule 7 (operador -> PLUS .)
+    LPAREN          reduce using rule 7 (operador -> PLUS .)
+    VARIABLE        reduce using rule 7 (operador -> PLUS .)
+
+
+state 9
+
+    (8) operador -> MINUS .
+
+    FLOAT           reduce using rule 8 (operador -> MINUS .)
+    NUMBER          reduce using rule 8 (operador -> MINUS .)
+    LPAREN          reduce using rule 8 (operador -> MINUS .)
+    VARIABLE        reduce using rule 8 (operador -> MINUS .)
+
+
+state 10
+
+    (9) operador -> DIVIDE .
+
+    FLOAT           reduce using rule 9 (operador -> DIVIDE .)
+    NUMBER          reduce using rule 9 (operador -> DIVIDE .)
+    LPAREN          reduce using rule 9 (operador -> DIVIDE .)
+    VARIABLE        reduce using rule 9 (operador -> DIVIDE .)
+
+
+state 11
+
+    (10) operador -> EXPONENTIAL .
+
+    FLOAT           reduce using rule 10 (operador -> EXPONENTIAL .)
+    NUMBER          reduce using rule 10 (operador -> EXPONENTIAL .)
+    LPAREN          reduce using rule 10 (operador -> EXPONENTIAL .)
+    VARIABLE        reduce using rule 10 (operador -> EXPONENTIAL .)
+
+
+state 12
+
+    (11) operador -> TIMES .
+
+    FLOAT           reduce using rule 11 (operador -> TIMES .)
+    NUMBER          reduce using rule 11 (operador -> TIMES .)
+    LPAREN          reduce using rule 11 (operador -> TIMES .)
+    VARIABLE        reduce using rule 11 (operador -> TIMES .)
+
+
+state 13
+
+    (5) elemento_numerico -> LPAREN elemento_numerico . RPAREN
+    (2) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (7) operador -> . PLUS
+    (8) operador -> . MINUS
+    (9) operador -> . DIVIDE
+    (10) operador -> . EXPONENTIAL
+    (11) operador -> . TIMES
+
+    RPAREN          shift and go to state 15
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    DIVIDE          shift and go to state 10
+    EXPONENTIAL     shift and go to state 11
+    TIMES           shift and go to state 12
+
+    operador                       shift and go to state 7
+
+state 14
+
+    (2) elemento_numerico -> elemento_numerico operador elemento_numerico .
+    (2) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (7) operador -> . PLUS
+    (8) operador -> . MINUS
+    (9) operador -> . DIVIDE
+    (10) operador -> . EXPONENTIAL
+    (11) operador -> . TIMES
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EXPONENTIAL resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+    $end            reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    RPAREN          reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    DIVIDE          shift and go to state 10
+    EXPONENTIAL     shift and go to state 11
+    TIMES           shift and go to state 12
+
+  ! PLUS            [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! MINUS           [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! DIVIDE          [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! EXPONENTIAL     [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! TIMES           [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+
+    operador                       shift and go to state 7
+
+state 15
+
+    (5) elemento_numerico -> LPAREN elemento_numerico RPAREN .
+
+    PLUS            reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    MINUS           reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    DIVIDE          reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    EXPONENTIAL     reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    TIMES           reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    $end            reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    RPAREN          reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 14 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 14 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 14 resolved as shift
+WARNING: shift/reduce conflict for EXPONENTIAL in state 14 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 14 resolved as shift
