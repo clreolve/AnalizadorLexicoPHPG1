@@ -2,9 +2,8 @@
 import tokens
 lexer = tokens.lexer
 
-
+# TEST tokens
 def test_tokens():
-    # TEST tokens
     data = '''
       <?php
             if ($i == 0) {
