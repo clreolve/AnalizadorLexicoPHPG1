@@ -40,6 +40,7 @@ def test_tokens():
         print(tok)
 
 def test_lexico_file():
+    print("Prueba sintaxis text.py:")
     texto = ""
     with open("test.txt", "r") as archivo:
         for linea in archivo:
@@ -52,13 +53,14 @@ def test_lexico_file():
         s = texto
         result = parser.parse(s)
         print(result)
-
-
     except EOFError:
         print('error')
 
+    print("Prueba finalizada\n")
+
 
 def test_lexico_cli():
+    print("Pruebas por CLI:")
     while True:
         try:
             s = input('Python > ')
@@ -69,3 +71,4 @@ def test_lexico_cli():
         print(result)
 
 test_lexico_file()
+test_lexico_cli()
