@@ -9,8 +9,7 @@ def p_expresiones(p):
 
 def p_expresion(p):
     '''
-    expresion : elemento_numerico
-                | var_asignar
+    expresion : var_asignar
                 | var_declarar
                 | expresiones_de_salida
                 | estructuras_de_control
