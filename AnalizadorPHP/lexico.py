@@ -12,6 +12,7 @@ reserved = {
     'echo': 'ECHO',
     'else': 'ELSE',
     'elseif': 'ELSEIF',
+    'else if': 'ElSE_IF',
     'endfor': 'ENDFOR',
     'endforeach': 'ENDFOREACH',
     'endif': 'ENDIF',

@@ -39,19 +39,24 @@ def test_tokens():
             break  # No more input
         print(tok)
 
-def test_texto():
-    data = '''
-            $var = readline();
-            $var = readline(“Ingresa :”);
-            $var = readline(‘Ingresa :’);
-            $var = readline($mensaje_str);
-        '''
+def test_lexico_file():
+    texto = ""
+    with open("test.txt", "r") as archivo:
+        for linea in archivo:
+            if(linea == " " or linea == "\n"):
+                texto = texto
+            else:
+                texto = texto + linea
+        archivo.close()
     try:
-        s = input(data)
+        s = texto
+        result = parser.parse(s)
+        print(result)
+
+
     except EOFError:
         print('error')
-    result = parser.parse(s)
-    print(result)
+
 
 def test_lexico_cli():
     while True:
@@ -63,6 +68,4 @@ def test_lexico_cli():
         result = parser.parse(s)
         print(result)
 
-#test_texto()
-
-test_lexico_cli()
+test_lexico_file()

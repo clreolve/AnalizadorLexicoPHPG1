@@ -13,6 +13,7 @@ def p_expresion(p):
                 | var_asignar
                 | var_declarar
                 | expresiones_de_salida
+                | estructuras_de_control
 
     '''
 
@@ -157,15 +158,36 @@ def p_funciones_ingreso_datos(p):
     '''
 
 # Estructuras de Control ###############################
-def p_else_if(p):
+def p_estructuras_de_control(p):
     '''
-    else_if : if
+    estructuras_de_control : if_structures
+    '''
+
+def p_if_structures(p):
+    '''
+    if_structures : if
+            | if else
+            | if else_if else
+            | if else_if
     '''
 
 def p_if(p):
     '''
-    if : IF LPAREN elemento_logico RPAREN LCURLY RCURLY
+    if : IF LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
     '''
+
+def p_else(p):
+    '''
+    else : ELSE LCURLY expresiones RCURLY
+    '''
+
+def p_else_if(p):
+    '''
+    else_if : ELSEIF LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
+            | ElSE_IF LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
+            | else_if else_if
+    '''
+
 
 # End - Claudio Olvera
 
