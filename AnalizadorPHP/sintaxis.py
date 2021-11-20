@@ -29,7 +29,6 @@ def p_var_plusminus(p):
     var_plusminus : VARIABLE PLUS PLUS SEMICOLON
                 | VARIABLE MINUS MINUS SEMICOLON
     '''
-
 # var variable = ...
 def p_var_asignar(p):
     '''
@@ -39,6 +38,7 @@ def p_var_asignar(p):
                     | VARIABLE EQUALS elemento_logico SEMICOLON
                     | VARIABLE EQUALS funciones_ingreso_datos SEMICOLON
     '''
+
 
 # 12212; (12+12/(12)); $asd + 12
 def p_elemento_numerico(p):
@@ -229,14 +229,16 @@ def p_estructuras_while(p):
     estructuras_while : while
 
     '''
+
 def p_while(p):
     '''
     while : WHILE LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
             | WHILE LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones ENDWHILE SEMICOLON
     '''
 
-
 # End - Claudio Olvera
+
+
 
 # Error rule for syntax errors
 def p_error(p):
