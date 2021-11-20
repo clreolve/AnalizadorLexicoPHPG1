@@ -12,7 +12,6 @@ reserved = {
     'echo': 'ECHO',
     'else': 'ELSE',
     'elseif': 'ELSEIF',
-    'else if': 'ElSE_IF',
     'endfor': 'ENDFOR',
     'endforeach': 'ENDFOREACH',
     'endif': 'ENDIF',
@@ -79,6 +78,7 @@ tokens = [
              'RCURLY',
              'DOUBLEPOINT',  # :
              'COMMA',
+            'POINT',
              'SEMICOLON',
              'STRING',
              'STRINGCC',
@@ -123,6 +123,7 @@ t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 T_RBRACKET = r'\]'
 t_COMMA = r','
+t_POINT = r'\.'
 t_SEMICOLON = r';'
 t_DOUBLEPOINT = r':'
 t_LCURLY = r'{'

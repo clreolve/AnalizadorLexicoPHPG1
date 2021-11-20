@@ -14,6 +14,7 @@ def p_expresion(p):
                 | var_declarar
                 | expresiones_de_salida
                 | estructuras_de_control
+                | var_plusminus
 
     '''
 
@@ -21,6 +22,12 @@ def p_expresion(p):
 def p_var_declarar(p):
     '''
     var_declarar : VAR var_asignar
+    '''
+
+def p_var_plusminus(p):
+    '''
+    var_plusminus : VARIABLE PLUS PLUS SEMICOLON
+                | VARIABLE MINUS MINUS SEMICOLON
     '''
 
 # var variable = ...
@@ -105,6 +112,12 @@ def p_params(p):
             | param COMMA params
     '''
 
+def p_params_points(p):
+    '''
+    params_points : param
+                | param POINT params_points
+    '''
+
 # parametros opcionales (cero o mas parametros)
 def p_optional_params(p):
     '''
@@ -128,6 +141,7 @@ def p_expresiones_de_salida(p):
 def p_echo(p):
     '''
     echo : ECHO params SEMICOLON
+            | ECHO params_points SEMICOLON
     '''
 
 def p_print(p):
@@ -161,6 +175,7 @@ def p_funciones_ingreso_datos(p):
 def p_estructuras_de_control(p):
     '''
     estructuras_de_control : if_structures
+                            | estructuras_while
     '''
 
 def p_if_structures(p):
@@ -169,6 +184,11 @@ def p_if_structures(p):
             | if else
             | if else_if else
             | if else_if
+            | if_r ENDIF SEMICOLON
+            | if_r else_r ENDIF SEMICOLON
+            | if_r elseif_r else_r ENDIF SEMICOLON
+            | if_r elseif_r ENDIF SEMICOLON
+
     '''
 
 def p_if(p):
@@ -184,8 +204,35 @@ def p_else(p):
 def p_else_if(p):
     '''
     else_if : ELSEIF LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
-            | ElSE_IF LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
+            | ELSE IF LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
             | else_if else_if
+    '''
+
+def p_if_r(p):
+    '''
+    if_r : IF LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones
+    '''
+
+def p_else_r(p):
+    '''
+    else_r : ELSE DOUBLEPOINT expresiones
+    '''
+
+def p_elseif_r(p):
+    '''
+    elseif_r : ELSEIF LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones
+                | elseif_r elseif_r
+    '''
+
+def p_estructuras_while(p):
+    '''
+    estructuras_while : while
+
+    '''
+def p_while(p):
+    '''
+    while : WHILE LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
+            | WHILE LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones ENDWHILE SEMICOLON
     '''
 
 

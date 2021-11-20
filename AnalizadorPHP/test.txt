@@ -1,9 +1,32 @@
-if ($a > $b) {
-    echo "a es mayor que b";
+if ($a > $b):
+    echo $a ," es mayor que ", $b;
+elseif ($a == $b):
+    echo $a ," igual " ,$b;
+else:
+    echo $a ," no es ni mayor ni igual a " ,$b;
+endif;
+
+if ($a > $b):
+    echo $a." es mayor que ".$b;
+elseif ($a == $b): // Tenga en cuenta la combinación de las palabras.
+    echo $a." igual ".$b;
+else:
+    echo $a." no es ni mayor ni igual a ".$b;
+endif;
+
+/* ejemplo 1 */
+
+$i = 1;
+while ($i <= 10) {
+    echo $i++;  /* el valor presentado sería
+                   $i antes del incremento
+                   (post-incremento) */
 }
-elseif ($a == $b) {
-    echo "a es igual que b";
-}
-else {
-    echo "a es menor que b";
-}
+
+/* ejemplo 2 */
+
+$i = 1;
+while ($i <= 10):
+    echo $i;
+    $i++;
+endwhile;
