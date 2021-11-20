@@ -1,6 +1,5 @@
 #importacion tokens
-import lexico
-lexer = lexico.lexer
+from lexico import lexer
 
 # TEST tokens
 def test_tokens():
@@ -39,4 +38,4 @@ def test_tokens():
             break  # No more input
         print(tok)
 
-test_tokens()
+#test_tokens()

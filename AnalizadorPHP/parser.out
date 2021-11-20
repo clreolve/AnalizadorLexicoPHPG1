@@ -22,7 +22,6 @@ Unused terminals:
     ENDIF
     ENDSWITCH
     ENDWHILE
-    EQUALS
     EQUALSLOGICAL
     EXTENDS
     FINAL
@@ -55,13 +54,11 @@ Unused terminals:
     RBRACKET
     RCURLY
     RETURN
-    SEMICOLON
     STATIC
     STRING
     STRINGCC
     SWITCH
     THROW
-    VAR
     WHILE
     XOR
 
@@ -69,16 +66,21 @@ Grammar
 
 Rule 0     S' -> expresiones
 Rule 1     expresiones -> elemento_numerico
-Rule 2     elemento_numerico -> elemento_numerico operador elemento_numerico
-Rule 3     elemento_numerico -> FLOAT
-Rule 4     elemento_numerico -> NUMBER
-Rule 5     elemento_numerico -> LPAREN elemento_numerico RPAREN
-Rule 6     elemento_numerico -> VARIABLE
-Rule 7     operador -> PLUS
-Rule 8     operador -> MINUS
-Rule 9     operador -> DIVIDE
-Rule 10    operador -> EXPONENTIAL
-Rule 11    operador -> TIMES
+Rule 2     expresiones -> var_asignar
+Rule 3     expresiones -> var_declarar
+Rule 4     var_declarar -> VAR var_asignar
+Rule 5     var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON
+Rule 6     var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON
+Rule 7     elemento_numerico -> elemento_numerico operador elemento_numerico
+Rule 8     elemento_numerico -> FLOAT
+Rule 9     elemento_numerico -> NUMBER
+Rule 10    elemento_numerico -> LPAREN elemento_numerico RPAREN
+Rule 11    elemento_numerico -> VARIABLE
+Rule 12    operador -> PLUS
+Rule 13    operador -> MINUS
+Rule 14    operador -> DIVIDE
+Rule 15    operador -> EXPONENTIAL
+Rule 16    operador -> TIMES
 
 Terminals, with rules where they appear
 
@@ -92,7 +94,7 @@ CATCH                :
 CLASS                : 
 COMMA                : 
 DIFFERENT            : 
-DIVIDE               : 9
+DIVIDE               : 14
 DO                   : 
 DOUBLEPOINT          : 
 ECHO                 : 
@@ -103,12 +105,12 @@ ENDFOREACH           :
 ENDIF                : 
 ENDSWITCH            : 
 ENDWHILE             : 
-EQUALS               : 
+EQUALS               : 5 6
 EQUALSLOGICAL        : 
-EXPONENTIAL          : 10
+EXPONENTIAL          : 15
 EXTENDS              : 
 FINAL                : 
-FLOAT                : 3
+FLOAT                : 8
 FOR                  : 
 FOREACH              : 
 FUNCTION             : 
@@ -124,17 +126,17 @@ LBRACKET             :
 LCURLY               : 
 LESSEQUAL            : 
 LESSTHAN             : 
-LPAREN               : 5
-MINUS                : 8
+LPAREN               : 10
+MINUS                : 13
 NEW                  : 
 NOTIDENTICAL         : 
 NOTLOGICAL           : 
-NUMBER               : 4
+NUMBER               : 9
 OR                   : 
 ORLOGICAL            : 
 PHPEND               : 
 PHPSTART             : 
-PLUS                 : 7
+PLUS                 : 12
 PRINT                : 
 PRIVATE              : 
 PROTECTED            : 
@@ -142,25 +144,27 @@ PUBLIC               :
 RBRACKET             : 
 RCURLY               : 
 RETURN               : 
-RPAREN               : 5
-SEMICOLON            : 
+RPAREN               : 10
+SEMICOLON            : 5 6
 STATIC               : 
 STRING               : 
 STRINGCC             : 
 SWITCH               : 
 THROW                : 
-TIMES                : 11
-VAR                  : 
-VARIABLE             : 6
+TIMES                : 16
+VAR                  : 4
+VARIABLE             : 5 5 6 11
 WHILE                : 
 XOR                  : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-elemento_numerico    : 1 2 2 5
+elemento_numerico    : 1 6 7 7 10
 expresiones          : 0
-operador             : 2
+operador             : 7
+var_asignar          : 2 4
+var_declarar         : 3
 
 Parsing method: LALR
 
@@ -168,19 +172,27 @@ state 0
 
     (0) S' -> . expresiones
     (1) expresiones -> . elemento_numerico
-    (2) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (3) elemento_numerico -> . FLOAT
-    (4) elemento_numerico -> . NUMBER
-    (5) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (6) elemento_numerico -> . VARIABLE
+    (2) expresiones -> . var_asignar
+    (3) expresiones -> . var_declarar
+    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (8) elemento_numerico -> . FLOAT
+    (9) elemento_numerico -> . NUMBER
+    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (11) elemento_numerico -> . VARIABLE
+    (5) var_asignar -> . VARIABLE EQUALS VARIABLE SEMICOLON
+    (6) var_asignar -> . VARIABLE EQUALS elemento_numerico SEMICOLON
+    (4) var_declarar -> . VAR var_asignar
 
-    FLOAT           shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-    VARIABLE        shift and go to state 6
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    LPAREN          shift and go to state 7
+    VARIABLE        shift and go to state 8
+    VAR             shift and go to state 9
 
     expresiones                    shift and go to state 1
     elemento_numerico              shift and go to state 2
+    var_asignar                    shift and go to state 3
+    var_declarar                   shift and go to state 4
 
 state 1
 
@@ -191,210 +203,336 @@ state 1
 state 2
 
     (1) expresiones -> elemento_numerico .
-    (2) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (7) operador -> . PLUS
-    (8) operador -> . MINUS
-    (9) operador -> . DIVIDE
-    (10) operador -> . EXPONENTIAL
-    (11) operador -> . TIMES
+    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (12) operador -> . PLUS
+    (13) operador -> . MINUS
+    (14) operador -> . DIVIDE
+    (15) operador -> . EXPONENTIAL
+    (16) operador -> . TIMES
 
     $end            reduce using rule 1 (expresiones -> elemento_numerico .)
-    PLUS            shift and go to state 8
-    MINUS           shift and go to state 9
-    DIVIDE          shift and go to state 10
-    EXPONENTIAL     shift and go to state 11
-    TIMES           shift and go to state 12
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
 
-    operador                       shift and go to state 7
+    operador                       shift and go to state 10
 
 state 3
 
-    (3) elemento_numerico -> FLOAT .
+    (2) expresiones -> var_asignar .
 
-    PLUS            reduce using rule 3 (elemento_numerico -> FLOAT .)
-    MINUS           reduce using rule 3 (elemento_numerico -> FLOAT .)
-    DIVIDE          reduce using rule 3 (elemento_numerico -> FLOAT .)
-    EXPONENTIAL     reduce using rule 3 (elemento_numerico -> FLOAT .)
-    TIMES           reduce using rule 3 (elemento_numerico -> FLOAT .)
-    $end            reduce using rule 3 (elemento_numerico -> FLOAT .)
-    RPAREN          reduce using rule 3 (elemento_numerico -> FLOAT .)
+    $end            reduce using rule 2 (expresiones -> var_asignar .)
 
 
 state 4
 
-    (4) elemento_numerico -> NUMBER .
+    (3) expresiones -> var_declarar .
 
-    PLUS            reduce using rule 4 (elemento_numerico -> NUMBER .)
-    MINUS           reduce using rule 4 (elemento_numerico -> NUMBER .)
-    DIVIDE          reduce using rule 4 (elemento_numerico -> NUMBER .)
-    EXPONENTIAL     reduce using rule 4 (elemento_numerico -> NUMBER .)
-    TIMES           reduce using rule 4 (elemento_numerico -> NUMBER .)
-    $end            reduce using rule 4 (elemento_numerico -> NUMBER .)
-    RPAREN          reduce using rule 4 (elemento_numerico -> NUMBER .)
+    $end            reduce using rule 3 (expresiones -> var_declarar .)
 
 
 state 5
 
-    (5) elemento_numerico -> LPAREN . elemento_numerico RPAREN
-    (2) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (3) elemento_numerico -> . FLOAT
-    (4) elemento_numerico -> . NUMBER
-    (5) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (6) elemento_numerico -> . VARIABLE
+    (8) elemento_numerico -> FLOAT .
 
-    FLOAT           shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-    VARIABLE        shift and go to state 6
+    PLUS            reduce using rule 8 (elemento_numerico -> FLOAT .)
+    MINUS           reduce using rule 8 (elemento_numerico -> FLOAT .)
+    DIVIDE          reduce using rule 8 (elemento_numerico -> FLOAT .)
+    EXPONENTIAL     reduce using rule 8 (elemento_numerico -> FLOAT .)
+    TIMES           reduce using rule 8 (elemento_numerico -> FLOAT .)
+    $end            reduce using rule 8 (elemento_numerico -> FLOAT .)
+    RPAREN          reduce using rule 8 (elemento_numerico -> FLOAT .)
+    SEMICOLON       reduce using rule 8 (elemento_numerico -> FLOAT .)
 
-    elemento_numerico              shift and go to state 13
 
 state 6
 
-    (6) elemento_numerico -> VARIABLE .
+    (9) elemento_numerico -> NUMBER .
 
-    PLUS            reduce using rule 6 (elemento_numerico -> VARIABLE .)
-    MINUS           reduce using rule 6 (elemento_numerico -> VARIABLE .)
-    DIVIDE          reduce using rule 6 (elemento_numerico -> VARIABLE .)
-    EXPONENTIAL     reduce using rule 6 (elemento_numerico -> VARIABLE .)
-    TIMES           reduce using rule 6 (elemento_numerico -> VARIABLE .)
-    $end            reduce using rule 6 (elemento_numerico -> VARIABLE .)
-    RPAREN          reduce using rule 6 (elemento_numerico -> VARIABLE .)
+    PLUS            reduce using rule 9 (elemento_numerico -> NUMBER .)
+    MINUS           reduce using rule 9 (elemento_numerico -> NUMBER .)
+    DIVIDE          reduce using rule 9 (elemento_numerico -> NUMBER .)
+    EXPONENTIAL     reduce using rule 9 (elemento_numerico -> NUMBER .)
+    TIMES           reduce using rule 9 (elemento_numerico -> NUMBER .)
+    $end            reduce using rule 9 (elemento_numerico -> NUMBER .)
+    RPAREN          reduce using rule 9 (elemento_numerico -> NUMBER .)
+    SEMICOLON       reduce using rule 9 (elemento_numerico -> NUMBER .)
 
 
 state 7
 
-    (2) elemento_numerico -> elemento_numerico operador . elemento_numerico
-    (2) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (3) elemento_numerico -> . FLOAT
-    (4) elemento_numerico -> . NUMBER
-    (5) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (6) elemento_numerico -> . VARIABLE
+    (10) elemento_numerico -> LPAREN . elemento_numerico RPAREN
+    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (8) elemento_numerico -> . FLOAT
+    (9) elemento_numerico -> . NUMBER
+    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (11) elemento_numerico -> . VARIABLE
 
-    FLOAT           shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-    VARIABLE        shift and go to state 6
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    LPAREN          shift and go to state 7
+    VARIABLE        shift and go to state 17
 
-    elemento_numerico              shift and go to state 14
+    elemento_numerico              shift and go to state 16
 
 state 8
 
-    (7) operador -> PLUS .
+    (11) elemento_numerico -> VARIABLE .
+    (5) var_asignar -> VARIABLE . EQUALS VARIABLE SEMICOLON
+    (6) var_asignar -> VARIABLE . EQUALS elemento_numerico SEMICOLON
 
-    FLOAT           reduce using rule 7 (operador -> PLUS .)
-    NUMBER          reduce using rule 7 (operador -> PLUS .)
-    LPAREN          reduce using rule 7 (operador -> PLUS .)
-    VARIABLE        reduce using rule 7 (operador -> PLUS .)
+    PLUS            reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    $end            reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    EQUALS          shift and go to state 18
 
 
 state 9
 
-    (8) operador -> MINUS .
+    (4) var_declarar -> VAR . var_asignar
+    (5) var_asignar -> . VARIABLE EQUALS VARIABLE SEMICOLON
+    (6) var_asignar -> . VARIABLE EQUALS elemento_numerico SEMICOLON
 
-    FLOAT           reduce using rule 8 (operador -> MINUS .)
-    NUMBER          reduce using rule 8 (operador -> MINUS .)
-    LPAREN          reduce using rule 8 (operador -> MINUS .)
-    VARIABLE        reduce using rule 8 (operador -> MINUS .)
+    VARIABLE        shift and go to state 20
 
+    var_asignar                    shift and go to state 19
 
 state 10
 
-    (9) operador -> DIVIDE .
+    (7) elemento_numerico -> elemento_numerico operador . elemento_numerico
+    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (8) elemento_numerico -> . FLOAT
+    (9) elemento_numerico -> . NUMBER
+    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (11) elemento_numerico -> . VARIABLE
 
-    FLOAT           reduce using rule 9 (operador -> DIVIDE .)
-    NUMBER          reduce using rule 9 (operador -> DIVIDE .)
-    LPAREN          reduce using rule 9 (operador -> DIVIDE .)
-    VARIABLE        reduce using rule 9 (operador -> DIVIDE .)
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    LPAREN          shift and go to state 7
+    VARIABLE        shift and go to state 17
 
+    elemento_numerico              shift and go to state 21
 
 state 11
 
-    (10) operador -> EXPONENTIAL .
+    (12) operador -> PLUS .
 
-    FLOAT           reduce using rule 10 (operador -> EXPONENTIAL .)
-    NUMBER          reduce using rule 10 (operador -> EXPONENTIAL .)
-    LPAREN          reduce using rule 10 (operador -> EXPONENTIAL .)
-    VARIABLE        reduce using rule 10 (operador -> EXPONENTIAL .)
+    FLOAT           reduce using rule 12 (operador -> PLUS .)
+    NUMBER          reduce using rule 12 (operador -> PLUS .)
+    LPAREN          reduce using rule 12 (operador -> PLUS .)
+    VARIABLE        reduce using rule 12 (operador -> PLUS .)
 
 
 state 12
 
-    (11) operador -> TIMES .
+    (13) operador -> MINUS .
 
-    FLOAT           reduce using rule 11 (operador -> TIMES .)
-    NUMBER          reduce using rule 11 (operador -> TIMES .)
-    LPAREN          reduce using rule 11 (operador -> TIMES .)
-    VARIABLE        reduce using rule 11 (operador -> TIMES .)
+    FLOAT           reduce using rule 13 (operador -> MINUS .)
+    NUMBER          reduce using rule 13 (operador -> MINUS .)
+    LPAREN          reduce using rule 13 (operador -> MINUS .)
+    VARIABLE        reduce using rule 13 (operador -> MINUS .)
 
 
 state 13
 
-    (5) elemento_numerico -> LPAREN elemento_numerico . RPAREN
-    (2) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (7) operador -> . PLUS
-    (8) operador -> . MINUS
-    (9) operador -> . DIVIDE
-    (10) operador -> . EXPONENTIAL
-    (11) operador -> . TIMES
+    (14) operador -> DIVIDE .
 
-    RPAREN          shift and go to state 15
-    PLUS            shift and go to state 8
-    MINUS           shift and go to state 9
-    DIVIDE          shift and go to state 10
-    EXPONENTIAL     shift and go to state 11
-    TIMES           shift and go to state 12
+    FLOAT           reduce using rule 14 (operador -> DIVIDE .)
+    NUMBER          reduce using rule 14 (operador -> DIVIDE .)
+    LPAREN          reduce using rule 14 (operador -> DIVIDE .)
+    VARIABLE        reduce using rule 14 (operador -> DIVIDE .)
 
-    operador                       shift and go to state 7
 
 state 14
 
-    (2) elemento_numerico -> elemento_numerico operador elemento_numerico .
-    (2) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (7) operador -> . PLUS
-    (8) operador -> . MINUS
-    (9) operador -> . DIVIDE
-    (10) operador -> . EXPONENTIAL
-    (11) operador -> . TIMES
+    (15) operador -> EXPONENTIAL .
+
+    FLOAT           reduce using rule 15 (operador -> EXPONENTIAL .)
+    NUMBER          reduce using rule 15 (operador -> EXPONENTIAL .)
+    LPAREN          reduce using rule 15 (operador -> EXPONENTIAL .)
+    VARIABLE        reduce using rule 15 (operador -> EXPONENTIAL .)
+
+
+state 15
+
+    (16) operador -> TIMES .
+
+    FLOAT           reduce using rule 16 (operador -> TIMES .)
+    NUMBER          reduce using rule 16 (operador -> TIMES .)
+    LPAREN          reduce using rule 16 (operador -> TIMES .)
+    VARIABLE        reduce using rule 16 (operador -> TIMES .)
+
+
+state 16
+
+    (10) elemento_numerico -> LPAREN elemento_numerico . RPAREN
+    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (12) operador -> . PLUS
+    (13) operador -> . MINUS
+    (14) operador -> . DIVIDE
+    (15) operador -> . EXPONENTIAL
+    (16) operador -> . TIMES
+
+    RPAREN          shift and go to state 22
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
+
+    operador                       shift and go to state 10
+
+state 17
+
+    (11) elemento_numerico -> VARIABLE .
+
+    RPAREN          reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    PLUS            reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    $end            reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    SEMICOLON       reduce using rule 11 (elemento_numerico -> VARIABLE .)
+
+
+state 18
+
+    (5) var_asignar -> VARIABLE EQUALS . VARIABLE SEMICOLON
+    (6) var_asignar -> VARIABLE EQUALS . elemento_numerico SEMICOLON
+    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (8) elemento_numerico -> . FLOAT
+    (9) elemento_numerico -> . NUMBER
+    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (11) elemento_numerico -> . VARIABLE
+
+    VARIABLE        shift and go to state 23
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    LPAREN          shift and go to state 7
+
+    elemento_numerico              shift and go to state 24
+
+state 19
+
+    (4) var_declarar -> VAR var_asignar .
+
+    $end            reduce using rule 4 (var_declarar -> VAR var_asignar .)
+
+
+state 20
+
+    (5) var_asignar -> VARIABLE . EQUALS VARIABLE SEMICOLON
+    (6) var_asignar -> VARIABLE . EQUALS elemento_numerico SEMICOLON
+
+    EQUALS          shift and go to state 18
+
+
+state 21
+
+    (7) elemento_numerico -> elemento_numerico operador elemento_numerico .
+    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (12) operador -> . PLUS
+    (13) operador -> . MINUS
+    (14) operador -> . DIVIDE
+    (15) operador -> . EXPONENTIAL
+    (16) operador -> . TIMES
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for EXPONENTIAL resolved as shift
   ! shift/reduce conflict for TIMES resolved as shift
-    $end            reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
-    RPAREN          reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
-    PLUS            shift and go to state 8
-    MINUS           shift and go to state 9
-    DIVIDE          shift and go to state 10
-    EXPONENTIAL     shift and go to state 11
-    TIMES           shift and go to state 12
+    $end            reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    RPAREN          reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    SEMICOLON       reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
 
-  ! PLUS            [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! MINUS           [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! DIVIDE          [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! EXPONENTIAL     [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! TIMES           [ reduce using rule 2 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! PLUS            [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! MINUS           [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! DIVIDE          [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! EXPONENTIAL     [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! TIMES           [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
 
-    operador                       shift and go to state 7
+    operador                       shift and go to state 10
 
-state 15
+state 22
 
-    (5) elemento_numerico -> LPAREN elemento_numerico RPAREN .
+    (10) elemento_numerico -> LPAREN elemento_numerico RPAREN .
 
-    PLUS            reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    MINUS           reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    DIVIDE          reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    EXPONENTIAL     reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    TIMES           reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    $end            reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    RPAREN          reduce using rule 5 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    PLUS            reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    MINUS           reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    DIVIDE          reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    EXPONENTIAL     reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    TIMES           reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    $end            reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    RPAREN          reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    SEMICOLON       reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+
+
+state 23
+
+    (5) var_asignar -> VARIABLE EQUALS VARIABLE . SEMICOLON
+    (11) elemento_numerico -> VARIABLE .
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+    SEMICOLON       shift and go to state 25
+    PLUS            reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+
+  ! SEMICOLON       [ reduce using rule 11 (elemento_numerico -> VARIABLE .) ]
+
+
+state 24
+
+    (6) var_asignar -> VARIABLE EQUALS elemento_numerico . SEMICOLON
+    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (12) operador -> . PLUS
+    (13) operador -> . MINUS
+    (14) operador -> . DIVIDE
+    (15) operador -> . EXPONENTIAL
+    (16) operador -> . TIMES
+
+    SEMICOLON       shift and go to state 26
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
+
+    operador                       shift and go to state 10
+
+state 25
+
+    (5) var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON .
+
+    $end            reduce using rule 5 (var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON .)
+
+
+state 26
+
+    (6) var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON .
+
+    $end            reduce using rule 6 (var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 14 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 14 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 14 resolved as shift
-WARNING: shift/reduce conflict for EXPONENTIAL in state 14 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 14 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 21 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 21 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 21 resolved as shift
+WARNING: shift/reduce conflict for EXPONENTIAL in state 21 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 21 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 23 resolved as shift

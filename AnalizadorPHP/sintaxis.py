@@ -4,22 +4,22 @@ from lexico import tokens, lexer
 def p_expresiones(p):
     '''
     expresiones : elemento_numerico
+                | var_asignar
+                | var_declarar
     '''
 
-"""
 # var $variable = ...
 def p_var_declarar(p):
     '''
     var_declarar : VAR var_asignar
     '''
+
 # var variable = ...
 def p_var_asignar(p):
     '''
-    var_asignar : VARIABLE EQUALS VARIABLE
+    var_asignar : VARIABLE EQUALS VARIABLE SEMICOLON
                     | VARIABLE EQUALS elemento_numerico SEMICOLON
     '''
-
-"""
 
 def p_elemento_numerico(p):
     '''

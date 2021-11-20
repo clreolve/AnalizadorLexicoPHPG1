@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ANDlOGICAL ARROW AS BREAK CASE CATCH CLASS COMMA DIFFERENT DIVIDE DO DOUBLEPOINT ECHO ELSE ELSEIF ENDFOR ENDFOREACH ENDIF ENDSWITCH ENDWHILE EQUALS EQUALSLOGICAL EXPONENTIAL EXTENDS FINAL FLOAT FOR FOREACH FUNCTION GLOBAL GREATEREQUAL GREATERTHAN ID IDENTICAL IF IMPLEMENTS INTERFACE LBRACKET LCURLY LESSEQUAL LESSTHAN LPAREN MINUS NEW NOTIDENTICAL NOTLOGICAL NUMBER OR ORLOGICAL PHPEND PHPSTART PLUS PRINT PRIVATE PROTECTED PUBLIC RBRACKET RCURLY RETURN RPAREN SEMICOLON STATIC STRING STRINGCC SWITCH THROW TIMES VAR VARIABLE WHILE XOR\n    expresiones : elemento_numerico\n    \n    elemento_numerico : elemento_numerico operador elemento_numerico\n                        | FLOAT\n                        | NUMBER\n                        | LPAREN elemento_numerico RPAREN\n                        | VARIABLE\n    \n    operador : PLUS\n                | MINUS\n                | DIVIDE\n                | EXPONENTIAL\n                | TIMES\n    '
+_lr_signature = 'AND ANDlOGICAL ARROW AS BREAK CASE CATCH CLASS COMMA DIFFERENT DIVIDE DO DOUBLEPOINT ECHO ELSE ELSEIF ENDFOR ENDFOREACH ENDIF ENDSWITCH ENDWHILE EQUALS EQUALSLOGICAL EXPONENTIAL EXTENDS FINAL FLOAT FOR FOREACH FUNCTION GLOBAL GREATEREQUAL GREATERTHAN ID IDENTICAL IF IMPLEMENTS INTERFACE LBRACKET LCURLY LESSEQUAL LESSTHAN LPAREN MINUS NEW NOTIDENTICAL NOTLOGICAL NUMBER OR ORLOGICAL PHPEND PHPSTART PLUS PRINT PRIVATE PROTECTED PUBLIC RBRACKET RCURLY RETURN RPAREN SEMICOLON STATIC STRING STRINGCC SWITCH THROW TIMES VAR VARIABLE WHILE XOR\n    expresiones : elemento_numerico\n                | var_asignar\n                | var_declarar\n    \n    var_declarar : VAR var_asignar\n    \n    var_asignar : VARIABLE EQUALS VARIABLE SEMICOLON\n                    | VARIABLE EQUALS elemento_numerico SEMICOLON\n    \n    elemento_numerico : elemento_numerico operador elemento_numerico\n                        | FLOAT\n                        | NUMBER\n                        | LPAREN elemento_numerico RPAREN\n                        | VARIABLE\n    \n    operador : PLUS\n                | MINUS\n                | DIVIDE\n                | EXPONENTIAL\n                | TIMES\n    '
     
-_lr_action_items = {'FLOAT':([0,5,7,8,9,10,11,12,],[3,3,3,-7,-8,-9,-10,-11,]),'NUMBER':([0,5,7,8,9,10,11,12,],[4,4,4,-7,-8,-9,-10,-11,]),'LPAREN':([0,5,7,8,9,10,11,12,],[5,5,5,-7,-8,-9,-10,-11,]),'VARIABLE':([0,5,7,8,9,10,11,12,],[6,6,6,-7,-8,-9,-10,-11,]),'$end':([1,2,3,4,6,14,15,],[0,-1,-3,-4,-6,-2,-5,]),'PLUS':([2,3,4,6,13,14,15,],[8,-3,-4,-6,8,8,-5,]),'MINUS':([2,3,4,6,13,14,15,],[9,-3,-4,-6,9,9,-5,]),'DIVIDE':([2,3,4,6,13,14,15,],[10,-3,-4,-6,10,10,-5,]),'EXPONENTIAL':([2,3,4,6,13,14,15,],[11,-3,-4,-6,11,11,-5,]),'TIMES':([2,3,4,6,13,14,15,],[12,-3,-4,-6,12,12,-5,]),'RPAREN':([3,4,6,13,14,15,],[-3,-4,-6,15,-2,-5,]),}
+_lr_action_items = {'FLOAT':([0,7,10,11,12,13,14,15,18,],[5,5,5,-12,-13,-14,-15,-16,5,]),'NUMBER':([0,7,10,11,12,13,14,15,18,],[6,6,6,-12,-13,-14,-15,-16,6,]),'LPAREN':([0,7,10,11,12,13,14,15,18,],[7,7,7,-12,-13,-14,-15,-16,7,]),'VARIABLE':([0,7,9,10,11,12,13,14,15,18,],[8,17,20,17,-12,-13,-14,-15,-16,23,]),'VAR':([0,],[9,]),'$end':([1,2,3,4,5,6,8,17,19,21,22,25,26,],[0,-1,-2,-3,-8,-9,-11,-11,-4,-7,-10,-5,-6,]),'PLUS':([2,5,6,8,16,17,21,22,23,24,],[11,-8,-9,-11,11,-11,11,-10,-11,11,]),'MINUS':([2,5,6,8,16,17,21,22,23,24,],[12,-8,-9,-11,12,-11,12,-10,-11,12,]),'DIVIDE':([2,5,6,8,16,17,21,22,23,24,],[13,-8,-9,-11,13,-11,13,-10,-11,13,]),'EXPONENTIAL':([2,5,6,8,16,17,21,22,23,24,],[14,-8,-9,-11,14,-11,14,-10,-11,14,]),'TIMES':([2,5,6,8,16,17,21,22,23,24,],[15,-8,-9,-11,15,-11,15,-10,-11,15,]),'RPAREN':([5,6,16,17,21,22,],[-8,-9,22,-11,-7,-10,]),'SEMICOLON':([5,6,17,21,22,23,24,],[-8,-9,-11,-7,-10,25,26,]),'EQUALS':([8,20,],[18,18,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expresiones':([0,],[1,]),'elemento_numerico':([0,5,7,],[2,13,14,]),'operador':([2,13,14,],[7,7,7,]),}
+_lr_goto_items = {'expresiones':([0,],[1,]),'elemento_numerico':([0,7,10,18,],[2,16,21,24,]),'var_asignar':([0,9,],[3,19,]),'var_declarar':([0,],[4,]),'operador':([2,16,21,24,],[10,10,10,10,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,6 +28,11 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> expresiones","S'",1,None,None,None),
   ('expresiones -> elemento_numerico','expresiones',1,'p_expresiones','sintaxis.py',6),
+  ('expresiones -> var_asignar','expresiones',1,'p_expresiones','sintaxis.py',7),
+  ('expresiones -> var_declarar','expresiones',1,'p_expresiones','sintaxis.py',8),
+  ('var_declarar -> VAR var_asignar','var_declarar',2,'p_var_declarar','sintaxis.py',14),
+  ('var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON','var_asignar',4,'p_var_asignar','sintaxis.py',20),
+  ('var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON','var_asignar',4,'p_var_asignar','sintaxis.py',21),
   ('elemento_numerico -> elemento_numerico operador elemento_numerico','elemento_numerico',3,'p_elemento_numerico','sintaxis.py',26),
   ('elemento_numerico -> FLOAT','elemento_numerico',1,'p_elemento_numerico','sintaxis.py',27),
   ('elemento_numerico -> NUMBER','elemento_numerico',1,'p_elemento_numerico','sintaxis.py',28),
