@@ -6,4 +6,4 @@ elseif ($a == $b) {
 }
 else {
     echo "a es menor que b";
-}
+}qwe
