@@ -18,6 +18,7 @@ def p_expresion(p):
 
     '''
 
+#Start - Vivanco
 # var $variable = ...
 def p_var_declarar(p):
     '''
@@ -94,6 +95,7 @@ def p_comparador(p):
                | ORLOGICAL
     '''
 
+# End - Vivanco
 # Start - Claudio Olvera
 
 # clave precisa para poner en las llamadas de funciones
@@ -237,6 +239,12 @@ def p_while(p):
     '''
 
 # End - Claudio Olvera
+
+# Start - Vivanco
+# End - Vivanco
+
+# Start - Jaramillo
+# End - Jaramillo
 
 
 

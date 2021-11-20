@@ -47,12 +47,13 @@ reserved = {
     'true': 'TRUE',
     'false': 'FALSE',
 
+    #Inicia - Olvera
     # para funcione de salida
     'var_dump': 'VAR_DUMP',
     'print_r': 'PRINT_R',
     'var_export': 'VAR_EXPORT',
     'readline': 'READLINE'
-
+    #Termina - Olvera
 
 }
 
