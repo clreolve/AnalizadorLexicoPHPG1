@@ -3,9 +3,17 @@ from lexico import tokens, lexer
 
 def p_expresiones(p):
     '''
-    expresiones : elemento_numerico
+    expresiones : expresion
+                | expresion expresiones
+    '''
+
+def p_expresion(p):
+    '''
+    expresion : elemento_numerico
                 | var_asignar
                 | var_declarar
+                | expresiones_de_salida
+
     '''
 
 # var $variable = ...
@@ -21,6 +29,7 @@ def p_var_asignar(p):
                     | VARIABLE EQUALS elemento_numerico SEMICOLON
                     | VARIABLE EQUALS elemento_string SEMICOLON
                     | VARIABLE EQUALS elemento_logico SEMICOLON
+                    | VARIABLE EQUALS funciones_ingreso_datos SEMICOLON
     '''
 
 # 12212; (12+12/(12)); $asd + 12
@@ -64,29 +73,104 @@ def p_elemento_logico(p):
     '''
 
 def p_comparador(p):
-    '''comparador : IDENTICAL
-                   | NOTIDENTICAL
-                   | EQUALSLOGICAL
-                   | DIFFERENT
-                   | GREATEREQUAL
-                   | LESSEQUAL
-                   | GREATERTHAN
-                   | LESSTHAN
-                   | ANDlOGICAL
-                   | ORLOGICAL
     '''
+    comparador : IDENTICAL
+               | NOTIDENTICAL
+               | EQUALSLOGICAL
+               | DIFFERENT
+               | GREATEREQUAL
+               | LESSEQUAL
+               | GREATERTHAN
+               | LESSTHAN
+               | ANDlOGICAL
+               | ORLOGICAL
+    '''
+
+# Start - Claudio Olvera
+
+# clave precisa para poner en las llamadas de funciones
+def p_param(p):
+    '''
+    param : VARIABLE
+            | elemento_string
+            | elemento_numerico
+            | elemento_logico
+    '''
+
+# uno o mas parametros
+def p_params(p):
+    '''
+    params : param
+            | param COMMA params
+    '''
+
+# parametros opcionales (cero o mas parametros)
+def p_optional_params(p):
+    '''
+    optional_params : param
+                        | ""
+                        | param COMMA optional_params
+    '''
+
+
+#echo $param,.., $paramN;
+def p_expresiones_de_salida(p):
+    '''
+    expresiones_de_salida : echo
+                            | print
+                            | var_dump
+                            | print_r
+                            | var_export
+    '''
+
+
+def p_echo(p):
+    '''
+    echo : ECHO params SEMICOLON
+    '''
+
+def p_print(p):
+    '''
+    print : PRINT param SEMICOLON
+    '''
+
+def p_print_r(p):
+    '''
+    print_r : PRINT_R LPAREN param RPAREN SEMICOLON
+    '''
+
+def p_var_dump(p):
+    '''
+    var_dump : VAR_DUMP LPAREN param RPAREN SEMICOLON
+    '''
+
+def p_var_export(p):
+    '''
+    var_export : VAR_EXPORT LPAREN param RPAREN SEMICOLON
+    '''
+
+def p_funciones_ingreso_datos(p):
+    '''
+    funciones_ingreso_datos : VAR_EXPORT LPAREN param COMMA elemento_logico RPAREN
+                        | READLINE LPAREN RPAREN
+                        | READLINE LPAREN elemento_string RPAREN
+    '''
+
+# Estructuras de Control ###############################
+def p_else_if(p):
+    '''
+    else_if : if
+    '''
+
+def p_if(p):
+    '''
+    if : IF LPAREN elemento_logico RPAREN LCURLY RCURLY
+    '''
+
+# End - Claudio Olvera
 
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
 # Build the parser
 parser = yacc.yacc()
-
-while True:
-    try:
-        s = input('Python > ')
-    except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)
-    print(result)

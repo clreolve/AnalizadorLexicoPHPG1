@@ -46,7 +46,13 @@ reserved = {
     'extends': 'EXTENDS',
     'true': 'TRUE',
     'false': 'FALSE',
-    #
+
+    # para funcione de salida
+    'var_dump': 'VAR_DUMP',
+    'print_r': 'PRINT_R',
+    'var_export': 'VAR_EXPORT',
+    'readline': 'READLINE'
+
 
 }
 

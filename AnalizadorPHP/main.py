@@ -1,5 +1,6 @@
 #importacion tokens
 from lexico import lexer
+from sintaxis import parser
 
 # TEST tokens
 def test_tokens():
@@ -38,4 +39,30 @@ def test_tokens():
             break  # No more input
         print(tok)
 
-#test_tokens()
+def test_texto():
+    data = '''
+            $var = readline();
+            $var = readline(“Ingresa :”);
+            $var = readline(‘Ingresa :’);
+            $var = readline($mensaje_str);
+        '''
+    try:
+        s = input(data)
+    except EOFError:
+        print('error')
+    result = parser.parse(s)
+    print(result)
+
+def test_lexico_cli():
+    while True:
+        try:
+            s = input('Python > ')
+        except EOFError:
+            break
+        if not s: continue
+        result = parser.parse(s)
+        print(result)
+
+#test_texto()
+
+test_lexico_cli()
