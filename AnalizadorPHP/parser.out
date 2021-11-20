@@ -3,7 +3,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     AND
-    ANDlOGICAL
     ARROW
     AS
     BREAK
@@ -11,7 +10,6 @@ Unused terminals:
     CATCH
     CLASS
     COMMA
-    DIFFERENT
     DO
     DOUBLEPOINT
     ECHO
@@ -22,29 +20,20 @@ Unused terminals:
     ENDIF
     ENDSWITCH
     ENDWHILE
-    EQUALSLOGICAL
     EXTENDS
     FINAL
     FOR
     FOREACH
     FUNCTION
     GLOBAL
-    GREATEREQUAL
-    GREATERTHAN
     ID
-    IDENTICAL
     IF
     IMPLEMENTS
     INTERFACE
     LBRACKET
     LCURLY
-    LESSEQUAL
-    LESSTHAN
     NEW
-    NOTIDENTICAL
-    NOTLOGICAL
     OR
-    ORLOGICAL
     PHPEND
     PHPSTART
     PRINT
@@ -55,8 +44,6 @@ Unused terminals:
     RCURLY
     RETURN
     STATIC
-    STRING
-    STRINGCC
     SWITCH
     THROW
     WHILE
@@ -71,21 +58,44 @@ Rule 3     expresiones -> var_declarar
 Rule 4     var_declarar -> VAR var_asignar
 Rule 5     var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON
 Rule 6     var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON
-Rule 7     elemento_numerico -> elemento_numerico operador elemento_numerico
-Rule 8     elemento_numerico -> FLOAT
-Rule 9     elemento_numerico -> NUMBER
-Rule 10    elemento_numerico -> LPAREN elemento_numerico RPAREN
-Rule 11    elemento_numerico -> VARIABLE
-Rule 12    operador -> PLUS
-Rule 13    operador -> MINUS
-Rule 14    operador -> DIVIDE
-Rule 15    operador -> EXPONENTIAL
-Rule 16    operador -> TIMES
+Rule 7     var_asignar -> VARIABLE EQUALS elemento_string SEMICOLON
+Rule 8     var_asignar -> VARIABLE EQUALS elemento_logico SEMICOLON
+Rule 9     elemento_numerico -> elemento_numerico operador elemento_numerico
+Rule 10    elemento_numerico -> FLOAT
+Rule 11    elemento_numerico -> NUMBER
+Rule 12    elemento_numerico -> LPAREN elemento_numerico RPAREN
+Rule 13    elemento_numerico -> VARIABLE
+Rule 14    operador -> PLUS
+Rule 15    operador -> MINUS
+Rule 16    operador -> DIVIDE
+Rule 17    operador -> EXPONENTIAL
+Rule 18    operador -> TIMES
+Rule 19    elemento_string -> STRING
+Rule 20    elemento_string -> STRINGCC
+Rule 21    elemento_string -> VARIABLE
+Rule 22    elemento_logico -> TRUE
+Rule 23    elemento_logico -> FALSE
+Rule 24    elemento_logico -> elemento_logico comparador elemento_logico
+Rule 25    elemento_logico -> NOTLOGICAL elemento_logico
+Rule 26    elemento_logico -> LPAREN elemento_logico RPAREN
+Rule 27    elemento_logico -> VARIABLE
+Rule 28    elemento_logico -> elemento_numerico comparador elemento_numerico
+Rule 29    elemento_logico -> elemento_string comparador elemento_string
+Rule 30    comparador -> IDENTICAL
+Rule 31    comparador -> NOTIDENTICAL
+Rule 32    comparador -> EQUALSLOGICAL
+Rule 33    comparador -> DIFFERENT
+Rule 34    comparador -> GREATEREQUAL
+Rule 35    comparador -> LESSEQUAL
+Rule 36    comparador -> GREATERTHAN
+Rule 37    comparador -> LESSTHAN
+Rule 38    comparador -> ANDlOGICAL
+Rule 39    comparador -> ORLOGICAL
 
 Terminals, with rules where they appear
 
 AND                  : 
-ANDlOGICAL           : 
+ANDlOGICAL           : 38
 ARROW                : 
 AS                   : 
 BREAK                : 
@@ -93,8 +103,8 @@ CASE                 :
 CATCH                : 
 CLASS                : 
 COMMA                : 
-DIFFERENT            : 
-DIVIDE               : 14
+DIFFERENT            : 33
+DIVIDE               : 16
 DO                   : 
 DOUBLEPOINT          : 
 ECHO                 : 
@@ -105,38 +115,39 @@ ENDFOREACH           :
 ENDIF                : 
 ENDSWITCH            : 
 ENDWHILE             : 
-EQUALS               : 5 6
-EQUALSLOGICAL        : 
-EXPONENTIAL          : 15
+EQUALS               : 5 6 7 8
+EQUALSLOGICAL        : 32
+EXPONENTIAL          : 17
 EXTENDS              : 
+FALSE                : 23
 FINAL                : 
-FLOAT                : 8
+FLOAT                : 10
 FOR                  : 
 FOREACH              : 
 FUNCTION             : 
 GLOBAL               : 
-GREATEREQUAL         : 
-GREATERTHAN          : 
+GREATEREQUAL         : 34
+GREATERTHAN          : 36
 ID                   : 
-IDENTICAL            : 
+IDENTICAL            : 30
 IF                   : 
 IMPLEMENTS           : 
 INTERFACE            : 
 LBRACKET             : 
 LCURLY               : 
-LESSEQUAL            : 
-LESSTHAN             : 
-LPAREN               : 10
-MINUS                : 13
+LESSEQUAL            : 35
+LESSTHAN             : 37
+LPAREN               : 12 26
+MINUS                : 15
 NEW                  : 
-NOTIDENTICAL         : 
-NOTLOGICAL           : 
-NUMBER               : 9
+NOTIDENTICAL         : 31
+NOTLOGICAL           : 25
+NUMBER               : 11
 OR                   : 
-ORLOGICAL            : 
+ORLOGICAL            : 39
 PHPEND               : 
 PHPSTART             : 
-PLUS                 : 12
+PLUS                 : 14
 PRINT                : 
 PRIVATE              : 
 PROTECTED            : 
@@ -144,25 +155,29 @@ PUBLIC               :
 RBRACKET             : 
 RCURLY               : 
 RETURN               : 
-RPAREN               : 10
-SEMICOLON            : 5 6
+RPAREN               : 12 26
+SEMICOLON            : 5 6 7 8
 STATIC               : 
-STRING               : 
-STRINGCC             : 
+STRING               : 19
+STRINGCC             : 20
 SWITCH               : 
 THROW                : 
-TIMES                : 16
+TIMES                : 18
+TRUE                 : 22
 VAR                  : 4
-VARIABLE             : 5 5 6 11
+VARIABLE             : 5 5 6 7 8 13 21 27
 WHILE                : 
 XOR                  : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-elemento_numerico    : 1 6 7 7 10
+comparador           : 24 28 29
+elemento_logico      : 8 24 24 25 26
+elemento_numerico    : 1 6 9 9 12 28 28
+elemento_string      : 7 29 29
 expresiones          : 0
-operador             : 7
+operador             : 9
 var_asignar          : 2 4
 var_declarar         : 3
 
@@ -174,13 +189,15 @@ state 0
     (1) expresiones -> . elemento_numerico
     (2) expresiones -> . var_asignar
     (3) expresiones -> . var_declarar
-    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (8) elemento_numerico -> . FLOAT
-    (9) elemento_numerico -> . NUMBER
-    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (11) elemento_numerico -> . VARIABLE
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
     (5) var_asignar -> . VARIABLE EQUALS VARIABLE SEMICOLON
     (6) var_asignar -> . VARIABLE EQUALS elemento_numerico SEMICOLON
+    (7) var_asignar -> . VARIABLE EQUALS elemento_string SEMICOLON
+    (8) var_asignar -> . VARIABLE EQUALS elemento_logico SEMICOLON
     (4) var_declarar -> . VAR var_asignar
 
     FLOAT           shift and go to state 5
@@ -203,12 +220,12 @@ state 1
 state 2
 
     (1) expresiones -> elemento_numerico .
-    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (12) operador -> . PLUS
-    (13) operador -> . MINUS
-    (14) operador -> . DIVIDE
-    (15) operador -> . EXPONENTIAL
-    (16) operador -> . TIMES
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
 
     $end            reduce using rule 1 (expresiones -> elemento_numerico .)
     PLUS            shift and go to state 11
@@ -235,40 +252,60 @@ state 4
 
 state 5
 
-    (8) elemento_numerico -> FLOAT .
+    (10) elemento_numerico -> FLOAT .
 
-    PLUS            reduce using rule 8 (elemento_numerico -> FLOAT .)
-    MINUS           reduce using rule 8 (elemento_numerico -> FLOAT .)
-    DIVIDE          reduce using rule 8 (elemento_numerico -> FLOAT .)
-    EXPONENTIAL     reduce using rule 8 (elemento_numerico -> FLOAT .)
-    TIMES           reduce using rule 8 (elemento_numerico -> FLOAT .)
-    $end            reduce using rule 8 (elemento_numerico -> FLOAT .)
-    RPAREN          reduce using rule 8 (elemento_numerico -> FLOAT .)
-    SEMICOLON       reduce using rule 8 (elemento_numerico -> FLOAT .)
+    PLUS            reduce using rule 10 (elemento_numerico -> FLOAT .)
+    MINUS           reduce using rule 10 (elemento_numerico -> FLOAT .)
+    DIVIDE          reduce using rule 10 (elemento_numerico -> FLOAT .)
+    EXPONENTIAL     reduce using rule 10 (elemento_numerico -> FLOAT .)
+    TIMES           reduce using rule 10 (elemento_numerico -> FLOAT .)
+    $end            reduce using rule 10 (elemento_numerico -> FLOAT .)
+    RPAREN          reduce using rule 10 (elemento_numerico -> FLOAT .)
+    SEMICOLON       reduce using rule 10 (elemento_numerico -> FLOAT .)
+    IDENTICAL       reduce using rule 10 (elemento_numerico -> FLOAT .)
+    NOTIDENTICAL    reduce using rule 10 (elemento_numerico -> FLOAT .)
+    EQUALSLOGICAL   reduce using rule 10 (elemento_numerico -> FLOAT .)
+    DIFFERENT       reduce using rule 10 (elemento_numerico -> FLOAT .)
+    GREATEREQUAL    reduce using rule 10 (elemento_numerico -> FLOAT .)
+    LESSEQUAL       reduce using rule 10 (elemento_numerico -> FLOAT .)
+    GREATERTHAN     reduce using rule 10 (elemento_numerico -> FLOAT .)
+    LESSTHAN        reduce using rule 10 (elemento_numerico -> FLOAT .)
+    ANDlOGICAL      reduce using rule 10 (elemento_numerico -> FLOAT .)
+    ORLOGICAL       reduce using rule 10 (elemento_numerico -> FLOAT .)
 
 
 state 6
 
-    (9) elemento_numerico -> NUMBER .
+    (11) elemento_numerico -> NUMBER .
 
-    PLUS            reduce using rule 9 (elemento_numerico -> NUMBER .)
-    MINUS           reduce using rule 9 (elemento_numerico -> NUMBER .)
-    DIVIDE          reduce using rule 9 (elemento_numerico -> NUMBER .)
-    EXPONENTIAL     reduce using rule 9 (elemento_numerico -> NUMBER .)
-    TIMES           reduce using rule 9 (elemento_numerico -> NUMBER .)
-    $end            reduce using rule 9 (elemento_numerico -> NUMBER .)
-    RPAREN          reduce using rule 9 (elemento_numerico -> NUMBER .)
-    SEMICOLON       reduce using rule 9 (elemento_numerico -> NUMBER .)
+    PLUS            reduce using rule 11 (elemento_numerico -> NUMBER .)
+    MINUS           reduce using rule 11 (elemento_numerico -> NUMBER .)
+    DIVIDE          reduce using rule 11 (elemento_numerico -> NUMBER .)
+    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> NUMBER .)
+    TIMES           reduce using rule 11 (elemento_numerico -> NUMBER .)
+    $end            reduce using rule 11 (elemento_numerico -> NUMBER .)
+    RPAREN          reduce using rule 11 (elemento_numerico -> NUMBER .)
+    SEMICOLON       reduce using rule 11 (elemento_numerico -> NUMBER .)
+    IDENTICAL       reduce using rule 11 (elemento_numerico -> NUMBER .)
+    NOTIDENTICAL    reduce using rule 11 (elemento_numerico -> NUMBER .)
+    EQUALSLOGICAL   reduce using rule 11 (elemento_numerico -> NUMBER .)
+    DIFFERENT       reduce using rule 11 (elemento_numerico -> NUMBER .)
+    GREATEREQUAL    reduce using rule 11 (elemento_numerico -> NUMBER .)
+    LESSEQUAL       reduce using rule 11 (elemento_numerico -> NUMBER .)
+    GREATERTHAN     reduce using rule 11 (elemento_numerico -> NUMBER .)
+    LESSTHAN        reduce using rule 11 (elemento_numerico -> NUMBER .)
+    ANDlOGICAL      reduce using rule 11 (elemento_numerico -> NUMBER .)
+    ORLOGICAL       reduce using rule 11 (elemento_numerico -> NUMBER .)
 
 
 state 7
 
-    (10) elemento_numerico -> LPAREN . elemento_numerico RPAREN
-    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (8) elemento_numerico -> . FLOAT
-    (9) elemento_numerico -> . NUMBER
-    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (11) elemento_numerico -> . VARIABLE
+    (12) elemento_numerico -> LPAREN . elemento_numerico RPAREN
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
 
     FLOAT           shift and go to state 5
     NUMBER          shift and go to state 6
@@ -279,16 +316,18 @@ state 7
 
 state 8
 
-    (11) elemento_numerico -> VARIABLE .
+    (13) elemento_numerico -> VARIABLE .
     (5) var_asignar -> VARIABLE . EQUALS VARIABLE SEMICOLON
     (6) var_asignar -> VARIABLE . EQUALS elemento_numerico SEMICOLON
+    (7) var_asignar -> VARIABLE . EQUALS elemento_string SEMICOLON
+    (8) var_asignar -> VARIABLE . EQUALS elemento_logico SEMICOLON
 
-    PLUS            reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    MINUS           reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    DIVIDE          reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    TIMES           reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    $end            reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    PLUS            reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    $end            reduce using rule 13 (elemento_numerico -> VARIABLE .)
     EQUALS          shift and go to state 18
 
 
@@ -297,6 +336,8 @@ state 9
     (4) var_declarar -> VAR . var_asignar
     (5) var_asignar -> . VARIABLE EQUALS VARIABLE SEMICOLON
     (6) var_asignar -> . VARIABLE EQUALS elemento_numerico SEMICOLON
+    (7) var_asignar -> . VARIABLE EQUALS elemento_string SEMICOLON
+    (8) var_asignar -> . VARIABLE EQUALS elemento_logico SEMICOLON
 
     VARIABLE        shift and go to state 20
 
@@ -304,12 +345,12 @@ state 9
 
 state 10
 
-    (7) elemento_numerico -> elemento_numerico operador . elemento_numerico
-    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (8) elemento_numerico -> . FLOAT
-    (9) elemento_numerico -> . NUMBER
-    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (11) elemento_numerico -> . VARIABLE
+    (9) elemento_numerico -> elemento_numerico operador . elemento_numerico
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
 
     FLOAT           shift and go to state 5
     NUMBER          shift and go to state 6
@@ -320,63 +361,63 @@ state 10
 
 state 11
 
-    (12) operador -> PLUS .
+    (14) operador -> PLUS .
 
-    FLOAT           reduce using rule 12 (operador -> PLUS .)
-    NUMBER          reduce using rule 12 (operador -> PLUS .)
-    LPAREN          reduce using rule 12 (operador -> PLUS .)
-    VARIABLE        reduce using rule 12 (operador -> PLUS .)
+    FLOAT           reduce using rule 14 (operador -> PLUS .)
+    NUMBER          reduce using rule 14 (operador -> PLUS .)
+    LPAREN          reduce using rule 14 (operador -> PLUS .)
+    VARIABLE        reduce using rule 14 (operador -> PLUS .)
 
 
 state 12
 
-    (13) operador -> MINUS .
+    (15) operador -> MINUS .
 
-    FLOAT           reduce using rule 13 (operador -> MINUS .)
-    NUMBER          reduce using rule 13 (operador -> MINUS .)
-    LPAREN          reduce using rule 13 (operador -> MINUS .)
-    VARIABLE        reduce using rule 13 (operador -> MINUS .)
+    FLOAT           reduce using rule 15 (operador -> MINUS .)
+    NUMBER          reduce using rule 15 (operador -> MINUS .)
+    LPAREN          reduce using rule 15 (operador -> MINUS .)
+    VARIABLE        reduce using rule 15 (operador -> MINUS .)
 
 
 state 13
 
-    (14) operador -> DIVIDE .
+    (16) operador -> DIVIDE .
 
-    FLOAT           reduce using rule 14 (operador -> DIVIDE .)
-    NUMBER          reduce using rule 14 (operador -> DIVIDE .)
-    LPAREN          reduce using rule 14 (operador -> DIVIDE .)
-    VARIABLE        reduce using rule 14 (operador -> DIVIDE .)
+    FLOAT           reduce using rule 16 (operador -> DIVIDE .)
+    NUMBER          reduce using rule 16 (operador -> DIVIDE .)
+    LPAREN          reduce using rule 16 (operador -> DIVIDE .)
+    VARIABLE        reduce using rule 16 (operador -> DIVIDE .)
 
 
 state 14
 
-    (15) operador -> EXPONENTIAL .
+    (17) operador -> EXPONENTIAL .
 
-    FLOAT           reduce using rule 15 (operador -> EXPONENTIAL .)
-    NUMBER          reduce using rule 15 (operador -> EXPONENTIAL .)
-    LPAREN          reduce using rule 15 (operador -> EXPONENTIAL .)
-    VARIABLE        reduce using rule 15 (operador -> EXPONENTIAL .)
+    FLOAT           reduce using rule 17 (operador -> EXPONENTIAL .)
+    NUMBER          reduce using rule 17 (operador -> EXPONENTIAL .)
+    LPAREN          reduce using rule 17 (operador -> EXPONENTIAL .)
+    VARIABLE        reduce using rule 17 (operador -> EXPONENTIAL .)
 
 
 state 15
 
-    (16) operador -> TIMES .
+    (18) operador -> TIMES .
 
-    FLOAT           reduce using rule 16 (operador -> TIMES .)
-    NUMBER          reduce using rule 16 (operador -> TIMES .)
-    LPAREN          reduce using rule 16 (operador -> TIMES .)
-    VARIABLE        reduce using rule 16 (operador -> TIMES .)
+    FLOAT           reduce using rule 18 (operador -> TIMES .)
+    NUMBER          reduce using rule 18 (operador -> TIMES .)
+    LPAREN          reduce using rule 18 (operador -> TIMES .)
+    VARIABLE        reduce using rule 18 (operador -> TIMES .)
 
 
 state 16
 
-    (10) elemento_numerico -> LPAREN elemento_numerico . RPAREN
-    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (12) operador -> . PLUS
-    (13) operador -> . MINUS
-    (14) operador -> . DIVIDE
-    (15) operador -> . EXPONENTIAL
-    (16) operador -> . TIMES
+    (12) elemento_numerico -> LPAREN elemento_numerico . RPAREN
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
 
     RPAREN          shift and go to state 22
     PLUS            shift and go to state 11
@@ -389,34 +430,64 @@ state 16
 
 state 17
 
-    (11) elemento_numerico -> VARIABLE .
+    (13) elemento_numerico -> VARIABLE .
 
-    RPAREN          reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    PLUS            reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    MINUS           reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    DIVIDE          reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    TIMES           reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    $end            reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    SEMICOLON       reduce using rule 11 (elemento_numerico -> VARIABLE .)
+    RPAREN          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    PLUS            reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    $end            reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    SEMICOLON       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    IDENTICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    NOTIDENTICAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EQUALSLOGICAL   reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIFFERENT       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATEREQUAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSEQUAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATERTHAN     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSTHAN        reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ANDlOGICAL      reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ORLOGICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
 
 
 state 18
 
     (5) var_asignar -> VARIABLE EQUALS . VARIABLE SEMICOLON
     (6) var_asignar -> VARIABLE EQUALS . elemento_numerico SEMICOLON
-    (7) elemento_numerico -> . elemento_numerico operador elemento_numerico
-    (8) elemento_numerico -> . FLOAT
-    (9) elemento_numerico -> . NUMBER
-    (10) elemento_numerico -> . LPAREN elemento_numerico RPAREN
-    (11) elemento_numerico -> . VARIABLE
+    (7) var_asignar -> VARIABLE EQUALS . elemento_string SEMICOLON
+    (8) var_asignar -> VARIABLE EQUALS . elemento_logico SEMICOLON
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
+    (19) elemento_string -> . STRING
+    (20) elemento_string -> . STRINGCC
+    (21) elemento_string -> . VARIABLE
+    (22) elemento_logico -> . TRUE
+    (23) elemento_logico -> . FALSE
+    (24) elemento_logico -> . elemento_logico comparador elemento_logico
+    (25) elemento_logico -> . NOTLOGICAL elemento_logico
+    (26) elemento_logico -> . LPAREN elemento_logico RPAREN
+    (27) elemento_logico -> . VARIABLE
+    (28) elemento_logico -> . elemento_numerico comparador elemento_numerico
+    (29) elemento_logico -> . elemento_string comparador elemento_string
 
     VARIABLE        shift and go to state 23
     FLOAT           shift and go to state 5
     NUMBER          shift and go to state 6
-    LPAREN          shift and go to state 7
+    LPAREN          shift and go to state 27
+    STRING          shift and go to state 28
+    STRINGCC        shift and go to state 29
+    TRUE            shift and go to state 30
+    FALSE           shift and go to state 31
+    NOTLOGICAL      shift and go to state 32
 
     elemento_numerico              shift and go to state 24
+    elemento_string                shift and go to state 25
+    elemento_logico                shift and go to state 26
 
 state 19
 
@@ -429,104 +500,1163 @@ state 20
 
     (5) var_asignar -> VARIABLE . EQUALS VARIABLE SEMICOLON
     (6) var_asignar -> VARIABLE . EQUALS elemento_numerico SEMICOLON
+    (7) var_asignar -> VARIABLE . EQUALS elemento_string SEMICOLON
+    (8) var_asignar -> VARIABLE . EQUALS elemento_logico SEMICOLON
 
     EQUALS          shift and go to state 18
 
 
 state 21
 
-    (7) elemento_numerico -> elemento_numerico operador elemento_numerico .
-    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (12) operador -> . PLUS
-    (13) operador -> . MINUS
-    (14) operador -> . DIVIDE
-    (15) operador -> . EXPONENTIAL
-    (16) operador -> . TIMES
+    (9) elemento_numerico -> elemento_numerico operador elemento_numerico .
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for EXPONENTIAL resolved as shift
   ! shift/reduce conflict for TIMES resolved as shift
-    $end            reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
-    RPAREN          reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
-    SEMICOLON       reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    $end            reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    RPAREN          reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    SEMICOLON       reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    IDENTICAL       reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    NOTIDENTICAL    reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    EQUALSLOGICAL   reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    DIFFERENT       reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    GREATEREQUAL    reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    LESSEQUAL       reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    GREATERTHAN     reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    LESSTHAN        reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    ANDlOGICAL      reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
+    ORLOGICAL       reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .)
     PLUS            shift and go to state 11
     MINUS           shift and go to state 12
     DIVIDE          shift and go to state 13
     EXPONENTIAL     shift and go to state 14
     TIMES           shift and go to state 15
 
-  ! PLUS            [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! MINUS           [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! DIVIDE          [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! EXPONENTIAL     [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
-  ! TIMES           [ reduce using rule 7 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! PLUS            [ reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! MINUS           [ reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! DIVIDE          [ reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! EXPONENTIAL     [ reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
+  ! TIMES           [ reduce using rule 9 (elemento_numerico -> elemento_numerico operador elemento_numerico .) ]
 
     operador                       shift and go to state 10
 
 state 22
 
-    (10) elemento_numerico -> LPAREN elemento_numerico RPAREN .
+    (12) elemento_numerico -> LPAREN elemento_numerico RPAREN .
 
-    PLUS            reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    MINUS           reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    DIVIDE          reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    EXPONENTIAL     reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    TIMES           reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    $end            reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    RPAREN          reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
-    SEMICOLON       reduce using rule 10 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    PLUS            reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    MINUS           reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    DIVIDE          reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    EXPONENTIAL     reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    TIMES           reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    $end            reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    RPAREN          reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    SEMICOLON       reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    IDENTICAL       reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    NOTIDENTICAL    reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    EQUALSLOGICAL   reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    DIFFERENT       reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    GREATEREQUAL    reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    LESSEQUAL       reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    GREATERTHAN     reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    LESSTHAN        reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    ANDlOGICAL      reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
+    ORLOGICAL       reduce using rule 12 (elemento_numerico -> LPAREN elemento_numerico RPAREN .)
 
 
 state 23
 
     (5) var_asignar -> VARIABLE EQUALS VARIABLE . SEMICOLON
-    (11) elemento_numerico -> VARIABLE .
+    (13) elemento_numerico -> VARIABLE .
+    (21) elemento_string -> VARIABLE .
+    (27) elemento_logico -> VARIABLE .
 
   ! shift/reduce conflict for SEMICOLON resolved as shift
-    SEMICOLON       shift and go to state 25
-    PLUS            reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    MINUS           reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    DIVIDE          reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    EXPONENTIAL     reduce using rule 11 (elemento_numerico -> VARIABLE .)
-    TIMES           reduce using rule 11 (elemento_numerico -> VARIABLE .)
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+  ! reduce/reduce conflict for IDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for NOTIDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for EQUALSLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATEREQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSEQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ANDlOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ORLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+  ! reduce/reduce conflict for IDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for NOTIDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for EQUALSLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATEREQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSEQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ANDlOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ORLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+    SEMICOLON       shift and go to state 33
+    PLUS            reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    IDENTICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    NOTIDENTICAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EQUALSLOGICAL   reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIFFERENT       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATEREQUAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSEQUAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATERTHAN     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSTHAN        reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ANDlOGICAL      reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ORLOGICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
 
-  ! SEMICOLON       [ reduce using rule 11 (elemento_numerico -> VARIABLE .) ]
+  ! SEMICOLON       [ reduce using rule 13 (elemento_numerico -> VARIABLE .) ]
+  ! SEMICOLON       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! IDENTICAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! NOTIDENTICAL    [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! DIFFERENT       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! GREATEREQUAL    [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! LESSEQUAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! LESSTHAN        [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! ANDlOGICAL      [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! ORLOGICAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! SEMICOLON       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! IDENTICAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! NOTIDENTICAL    [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! DIFFERENT       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! GREATEREQUAL    [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! LESSEQUAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! LESSTHAN        [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! ANDlOGICAL      [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! ORLOGICAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
 
 
 state 24
 
     (6) var_asignar -> VARIABLE EQUALS elemento_numerico . SEMICOLON
-    (7) elemento_numerico -> elemento_numerico . operador elemento_numerico
-    (12) operador -> . PLUS
-    (13) operador -> . MINUS
-    (14) operador -> . DIVIDE
-    (15) operador -> . EXPONENTIAL
-    (16) operador -> . TIMES
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (28) elemento_logico -> elemento_numerico . comparador elemento_numerico
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
 
-    SEMICOLON       shift and go to state 26
+    SEMICOLON       shift and go to state 34
     PLUS            shift and go to state 11
     MINUS           shift and go to state 12
     DIVIDE          shift and go to state 13
     EXPONENTIAL     shift and go to state 14
     TIMES           shift and go to state 15
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
 
     operador                       shift and go to state 10
+    comparador                     shift and go to state 35
 
 state 25
+
+    (7) var_asignar -> VARIABLE EQUALS elemento_string . SEMICOLON
+    (29) elemento_logico -> elemento_string . comparador elemento_string
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+    SEMICOLON       shift and go to state 46
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+    comparador                     shift and go to state 47
+
+state 26
+
+    (8) var_asignar -> VARIABLE EQUALS elemento_logico . SEMICOLON
+    (24) elemento_logico -> elemento_logico . comparador elemento_logico
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+    SEMICOLON       shift and go to state 48
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+    comparador                     shift and go to state 49
+
+state 27
+
+    (12) elemento_numerico -> LPAREN . elemento_numerico RPAREN
+    (26) elemento_logico -> LPAREN . elemento_logico RPAREN
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
+    (22) elemento_logico -> . TRUE
+    (23) elemento_logico -> . FALSE
+    (24) elemento_logico -> . elemento_logico comparador elemento_logico
+    (25) elemento_logico -> . NOTLOGICAL elemento_logico
+    (26) elemento_logico -> . LPAREN elemento_logico RPAREN
+    (27) elemento_logico -> . VARIABLE
+    (28) elemento_logico -> . elemento_numerico comparador elemento_numerico
+    (29) elemento_logico -> . elemento_string comparador elemento_string
+    (19) elemento_string -> . STRING
+    (20) elemento_string -> . STRINGCC
+    (21) elemento_string -> . VARIABLE
+
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    LPAREN          shift and go to state 27
+    VARIABLE        shift and go to state 52
+    TRUE            shift and go to state 30
+    FALSE           shift and go to state 31
+    NOTLOGICAL      shift and go to state 32
+    STRING          shift and go to state 28
+    STRINGCC        shift and go to state 29
+
+    elemento_numerico              shift and go to state 50
+    elemento_logico                shift and go to state 51
+    elemento_string                shift and go to state 53
+
+state 28
+
+    (19) elemento_string -> STRING .
+
+    SEMICOLON       reduce using rule 19 (elemento_string -> STRING .)
+    IDENTICAL       reduce using rule 19 (elemento_string -> STRING .)
+    NOTIDENTICAL    reduce using rule 19 (elemento_string -> STRING .)
+    EQUALSLOGICAL   reduce using rule 19 (elemento_string -> STRING .)
+    DIFFERENT       reduce using rule 19 (elemento_string -> STRING .)
+    GREATEREQUAL    reduce using rule 19 (elemento_string -> STRING .)
+    LESSEQUAL       reduce using rule 19 (elemento_string -> STRING .)
+    GREATERTHAN     reduce using rule 19 (elemento_string -> STRING .)
+    LESSTHAN        reduce using rule 19 (elemento_string -> STRING .)
+    ANDlOGICAL      reduce using rule 19 (elemento_string -> STRING .)
+    ORLOGICAL       reduce using rule 19 (elemento_string -> STRING .)
+    RPAREN          reduce using rule 19 (elemento_string -> STRING .)
+
+
+state 29
+
+    (20) elemento_string -> STRINGCC .
+
+    SEMICOLON       reduce using rule 20 (elemento_string -> STRINGCC .)
+    IDENTICAL       reduce using rule 20 (elemento_string -> STRINGCC .)
+    NOTIDENTICAL    reduce using rule 20 (elemento_string -> STRINGCC .)
+    EQUALSLOGICAL   reduce using rule 20 (elemento_string -> STRINGCC .)
+    DIFFERENT       reduce using rule 20 (elemento_string -> STRINGCC .)
+    GREATEREQUAL    reduce using rule 20 (elemento_string -> STRINGCC .)
+    LESSEQUAL       reduce using rule 20 (elemento_string -> STRINGCC .)
+    GREATERTHAN     reduce using rule 20 (elemento_string -> STRINGCC .)
+    LESSTHAN        reduce using rule 20 (elemento_string -> STRINGCC .)
+    ANDlOGICAL      reduce using rule 20 (elemento_string -> STRINGCC .)
+    ORLOGICAL       reduce using rule 20 (elemento_string -> STRINGCC .)
+    RPAREN          reduce using rule 20 (elemento_string -> STRINGCC .)
+
+
+state 30
+
+    (22) elemento_logico -> TRUE .
+
+    SEMICOLON       reduce using rule 22 (elemento_logico -> TRUE .)
+    IDENTICAL       reduce using rule 22 (elemento_logico -> TRUE .)
+    NOTIDENTICAL    reduce using rule 22 (elemento_logico -> TRUE .)
+    EQUALSLOGICAL   reduce using rule 22 (elemento_logico -> TRUE .)
+    DIFFERENT       reduce using rule 22 (elemento_logico -> TRUE .)
+    GREATEREQUAL    reduce using rule 22 (elemento_logico -> TRUE .)
+    LESSEQUAL       reduce using rule 22 (elemento_logico -> TRUE .)
+    GREATERTHAN     reduce using rule 22 (elemento_logico -> TRUE .)
+    LESSTHAN        reduce using rule 22 (elemento_logico -> TRUE .)
+    ANDlOGICAL      reduce using rule 22 (elemento_logico -> TRUE .)
+    ORLOGICAL       reduce using rule 22 (elemento_logico -> TRUE .)
+    RPAREN          reduce using rule 22 (elemento_logico -> TRUE .)
+
+
+state 31
+
+    (23) elemento_logico -> FALSE .
+
+    SEMICOLON       reduce using rule 23 (elemento_logico -> FALSE .)
+    IDENTICAL       reduce using rule 23 (elemento_logico -> FALSE .)
+    NOTIDENTICAL    reduce using rule 23 (elemento_logico -> FALSE .)
+    EQUALSLOGICAL   reduce using rule 23 (elemento_logico -> FALSE .)
+    DIFFERENT       reduce using rule 23 (elemento_logico -> FALSE .)
+    GREATEREQUAL    reduce using rule 23 (elemento_logico -> FALSE .)
+    LESSEQUAL       reduce using rule 23 (elemento_logico -> FALSE .)
+    GREATERTHAN     reduce using rule 23 (elemento_logico -> FALSE .)
+    LESSTHAN        reduce using rule 23 (elemento_logico -> FALSE .)
+    ANDlOGICAL      reduce using rule 23 (elemento_logico -> FALSE .)
+    ORLOGICAL       reduce using rule 23 (elemento_logico -> FALSE .)
+    RPAREN          reduce using rule 23 (elemento_logico -> FALSE .)
+
+
+state 32
+
+    (25) elemento_logico -> NOTLOGICAL . elemento_logico
+    (22) elemento_logico -> . TRUE
+    (23) elemento_logico -> . FALSE
+    (24) elemento_logico -> . elemento_logico comparador elemento_logico
+    (25) elemento_logico -> . NOTLOGICAL elemento_logico
+    (26) elemento_logico -> . LPAREN elemento_logico RPAREN
+    (27) elemento_logico -> . VARIABLE
+    (28) elemento_logico -> . elemento_numerico comparador elemento_numerico
+    (29) elemento_logico -> . elemento_string comparador elemento_string
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
+    (19) elemento_string -> . STRING
+    (20) elemento_string -> . STRINGCC
+    (21) elemento_string -> . VARIABLE
+
+    TRUE            shift and go to state 30
+    FALSE           shift and go to state 31
+    NOTLOGICAL      shift and go to state 32
+    LPAREN          shift and go to state 55
+    VARIABLE        shift and go to state 56
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    STRING          shift and go to state 28
+    STRINGCC        shift and go to state 29
+
+    elemento_logico                shift and go to state 54
+    elemento_numerico              shift and go to state 57
+    elemento_string                shift and go to state 53
+
+state 33
 
     (5) var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON .
 
     $end            reduce using rule 5 (var_asignar -> VARIABLE EQUALS VARIABLE SEMICOLON .)
 
 
-state 26
+state 34
 
     (6) var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON .
 
     $end            reduce using rule 6 (var_asignar -> VARIABLE EQUALS elemento_numerico SEMICOLON .)
 
+
+state 35
+
+    (28) elemento_logico -> elemento_numerico comparador . elemento_numerico
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
+
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    LPAREN          shift and go to state 7
+    VARIABLE        shift and go to state 17
+
+    elemento_numerico              shift and go to state 58
+
+state 36
+
+    (30) comparador -> IDENTICAL .
+
+    FLOAT           reduce using rule 30 (comparador -> IDENTICAL .)
+    NUMBER          reduce using rule 30 (comparador -> IDENTICAL .)
+    LPAREN          reduce using rule 30 (comparador -> IDENTICAL .)
+    VARIABLE        reduce using rule 30 (comparador -> IDENTICAL .)
+    STRING          reduce using rule 30 (comparador -> IDENTICAL .)
+    STRINGCC        reduce using rule 30 (comparador -> IDENTICAL .)
+    TRUE            reduce using rule 30 (comparador -> IDENTICAL .)
+    FALSE           reduce using rule 30 (comparador -> IDENTICAL .)
+    NOTLOGICAL      reduce using rule 30 (comparador -> IDENTICAL .)
+
+
+state 37
+
+    (31) comparador -> NOTIDENTICAL .
+
+    FLOAT           reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    NUMBER          reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    LPAREN          reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    VARIABLE        reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    STRING          reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    STRINGCC        reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    TRUE            reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    FALSE           reduce using rule 31 (comparador -> NOTIDENTICAL .)
+    NOTLOGICAL      reduce using rule 31 (comparador -> NOTIDENTICAL .)
+
+
+state 38
+
+    (32) comparador -> EQUALSLOGICAL .
+
+    FLOAT           reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    NUMBER          reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    LPAREN          reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    VARIABLE        reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    STRING          reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    STRINGCC        reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    TRUE            reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    FALSE           reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+    NOTLOGICAL      reduce using rule 32 (comparador -> EQUALSLOGICAL .)
+
+
+state 39
+
+    (33) comparador -> DIFFERENT .
+
+    FLOAT           reduce using rule 33 (comparador -> DIFFERENT .)
+    NUMBER          reduce using rule 33 (comparador -> DIFFERENT .)
+    LPAREN          reduce using rule 33 (comparador -> DIFFERENT .)
+    VARIABLE        reduce using rule 33 (comparador -> DIFFERENT .)
+    STRING          reduce using rule 33 (comparador -> DIFFERENT .)
+    STRINGCC        reduce using rule 33 (comparador -> DIFFERENT .)
+    TRUE            reduce using rule 33 (comparador -> DIFFERENT .)
+    FALSE           reduce using rule 33 (comparador -> DIFFERENT .)
+    NOTLOGICAL      reduce using rule 33 (comparador -> DIFFERENT .)
+
+
+state 40
+
+    (34) comparador -> GREATEREQUAL .
+
+    FLOAT           reduce using rule 34 (comparador -> GREATEREQUAL .)
+    NUMBER          reduce using rule 34 (comparador -> GREATEREQUAL .)
+    LPAREN          reduce using rule 34 (comparador -> GREATEREQUAL .)
+    VARIABLE        reduce using rule 34 (comparador -> GREATEREQUAL .)
+    STRING          reduce using rule 34 (comparador -> GREATEREQUAL .)
+    STRINGCC        reduce using rule 34 (comparador -> GREATEREQUAL .)
+    TRUE            reduce using rule 34 (comparador -> GREATEREQUAL .)
+    FALSE           reduce using rule 34 (comparador -> GREATEREQUAL .)
+    NOTLOGICAL      reduce using rule 34 (comparador -> GREATEREQUAL .)
+
+
+state 41
+
+    (35) comparador -> LESSEQUAL .
+
+    FLOAT           reduce using rule 35 (comparador -> LESSEQUAL .)
+    NUMBER          reduce using rule 35 (comparador -> LESSEQUAL .)
+    LPAREN          reduce using rule 35 (comparador -> LESSEQUAL .)
+    VARIABLE        reduce using rule 35 (comparador -> LESSEQUAL .)
+    STRING          reduce using rule 35 (comparador -> LESSEQUAL .)
+    STRINGCC        reduce using rule 35 (comparador -> LESSEQUAL .)
+    TRUE            reduce using rule 35 (comparador -> LESSEQUAL .)
+    FALSE           reduce using rule 35 (comparador -> LESSEQUAL .)
+    NOTLOGICAL      reduce using rule 35 (comparador -> LESSEQUAL .)
+
+
+state 42
+
+    (36) comparador -> GREATERTHAN .
+
+    FLOAT           reduce using rule 36 (comparador -> GREATERTHAN .)
+    NUMBER          reduce using rule 36 (comparador -> GREATERTHAN .)
+    LPAREN          reduce using rule 36 (comparador -> GREATERTHAN .)
+    VARIABLE        reduce using rule 36 (comparador -> GREATERTHAN .)
+    STRING          reduce using rule 36 (comparador -> GREATERTHAN .)
+    STRINGCC        reduce using rule 36 (comparador -> GREATERTHAN .)
+    TRUE            reduce using rule 36 (comparador -> GREATERTHAN .)
+    FALSE           reduce using rule 36 (comparador -> GREATERTHAN .)
+    NOTLOGICAL      reduce using rule 36 (comparador -> GREATERTHAN .)
+
+
+state 43
+
+    (37) comparador -> LESSTHAN .
+
+    FLOAT           reduce using rule 37 (comparador -> LESSTHAN .)
+    NUMBER          reduce using rule 37 (comparador -> LESSTHAN .)
+    LPAREN          reduce using rule 37 (comparador -> LESSTHAN .)
+    VARIABLE        reduce using rule 37 (comparador -> LESSTHAN .)
+    STRING          reduce using rule 37 (comparador -> LESSTHAN .)
+    STRINGCC        reduce using rule 37 (comparador -> LESSTHAN .)
+    TRUE            reduce using rule 37 (comparador -> LESSTHAN .)
+    FALSE           reduce using rule 37 (comparador -> LESSTHAN .)
+    NOTLOGICAL      reduce using rule 37 (comparador -> LESSTHAN .)
+
+
+state 44
+
+    (38) comparador -> ANDlOGICAL .
+
+    FLOAT           reduce using rule 38 (comparador -> ANDlOGICAL .)
+    NUMBER          reduce using rule 38 (comparador -> ANDlOGICAL .)
+    LPAREN          reduce using rule 38 (comparador -> ANDlOGICAL .)
+    VARIABLE        reduce using rule 38 (comparador -> ANDlOGICAL .)
+    STRING          reduce using rule 38 (comparador -> ANDlOGICAL .)
+    STRINGCC        reduce using rule 38 (comparador -> ANDlOGICAL .)
+    TRUE            reduce using rule 38 (comparador -> ANDlOGICAL .)
+    FALSE           reduce using rule 38 (comparador -> ANDlOGICAL .)
+    NOTLOGICAL      reduce using rule 38 (comparador -> ANDlOGICAL .)
+
+
+state 45
+
+    (39) comparador -> ORLOGICAL .
+
+    FLOAT           reduce using rule 39 (comparador -> ORLOGICAL .)
+    NUMBER          reduce using rule 39 (comparador -> ORLOGICAL .)
+    LPAREN          reduce using rule 39 (comparador -> ORLOGICAL .)
+    VARIABLE        reduce using rule 39 (comparador -> ORLOGICAL .)
+    STRING          reduce using rule 39 (comparador -> ORLOGICAL .)
+    STRINGCC        reduce using rule 39 (comparador -> ORLOGICAL .)
+    TRUE            reduce using rule 39 (comparador -> ORLOGICAL .)
+    FALSE           reduce using rule 39 (comparador -> ORLOGICAL .)
+    NOTLOGICAL      reduce using rule 39 (comparador -> ORLOGICAL .)
+
+
+state 46
+
+    (7) var_asignar -> VARIABLE EQUALS elemento_string SEMICOLON .
+
+    $end            reduce using rule 7 (var_asignar -> VARIABLE EQUALS elemento_string SEMICOLON .)
+
+
+state 47
+
+    (29) elemento_logico -> elemento_string comparador . elemento_string
+    (19) elemento_string -> . STRING
+    (20) elemento_string -> . STRINGCC
+    (21) elemento_string -> . VARIABLE
+
+    STRING          shift and go to state 28
+    STRINGCC        shift and go to state 29
+    VARIABLE        shift and go to state 60
+
+    elemento_string                shift and go to state 59
+
+state 48
+
+    (8) var_asignar -> VARIABLE EQUALS elemento_logico SEMICOLON .
+
+    $end            reduce using rule 8 (var_asignar -> VARIABLE EQUALS elemento_logico SEMICOLON .)
+
+
+state 49
+
+    (24) elemento_logico -> elemento_logico comparador . elemento_logico
+    (22) elemento_logico -> . TRUE
+    (23) elemento_logico -> . FALSE
+    (24) elemento_logico -> . elemento_logico comparador elemento_logico
+    (25) elemento_logico -> . NOTLOGICAL elemento_logico
+    (26) elemento_logico -> . LPAREN elemento_logico RPAREN
+    (27) elemento_logico -> . VARIABLE
+    (28) elemento_logico -> . elemento_numerico comparador elemento_numerico
+    (29) elemento_logico -> . elemento_string comparador elemento_string
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
+    (19) elemento_string -> . STRING
+    (20) elemento_string -> . STRINGCC
+    (21) elemento_string -> . VARIABLE
+
+    TRUE            shift and go to state 30
+    FALSE           shift and go to state 31
+    NOTLOGICAL      shift and go to state 32
+    LPAREN          shift and go to state 55
+    VARIABLE        shift and go to state 56
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    STRING          shift and go to state 28
+    STRINGCC        shift and go to state 29
+
+    elemento_logico                shift and go to state 61
+    elemento_numerico              shift and go to state 57
+    elemento_string                shift and go to state 53
+
+state 50
+
+    (12) elemento_numerico -> LPAREN elemento_numerico . RPAREN
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (28) elemento_logico -> elemento_numerico . comparador elemento_numerico
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+    RPAREN          shift and go to state 22
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+    operador                       shift and go to state 10
+    comparador                     shift and go to state 35
+
+state 51
+
+    (26) elemento_logico -> LPAREN elemento_logico . RPAREN
+    (24) elemento_logico -> elemento_logico . comparador elemento_logico
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+    RPAREN          shift and go to state 62
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+    comparador                     shift and go to state 49
+
+state 52
+
+    (13) elemento_numerico -> VARIABLE .
+    (27) elemento_logico -> VARIABLE .
+    (21) elemento_string -> VARIABLE .
+
+  ! reduce/reduce conflict for RPAREN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for IDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for NOTIDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for EQUALSLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATEREQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSEQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ANDlOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ORLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for IDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for NOTIDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for EQUALSLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATEREQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSEQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ANDlOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ORLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+    RPAREN          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    PLUS            reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    IDENTICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    NOTIDENTICAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EQUALSLOGICAL   reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIFFERENT       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATEREQUAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSEQUAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATERTHAN     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSTHAN        reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ANDlOGICAL      reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ORLOGICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+
+  ! RPAREN          [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! IDENTICAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! NOTIDENTICAL    [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! DIFFERENT       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! GREATEREQUAL    [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! LESSEQUAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! LESSTHAN        [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! ANDlOGICAL      [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! ORLOGICAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! IDENTICAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! NOTIDENTICAL    [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! DIFFERENT       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! GREATEREQUAL    [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! LESSEQUAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! LESSTHAN        [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! ANDlOGICAL      [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! ORLOGICAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+
+
+state 53
+
+    (29) elemento_logico -> elemento_string . comparador elemento_string
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+    comparador                     shift and go to state 47
+
+state 54
+
+    (25) elemento_logico -> NOTLOGICAL elemento_logico .
+    (24) elemento_logico -> elemento_logico . comparador elemento_logico
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+  ! shift/reduce conflict for IDENTICAL resolved as shift
+  ! shift/reduce conflict for NOTIDENTICAL resolved as shift
+  ! shift/reduce conflict for EQUALSLOGICAL resolved as shift
+  ! shift/reduce conflict for DIFFERENT resolved as shift
+  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+  ! shift/reduce conflict for LESSEQUAL resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for ANDlOGICAL resolved as shift
+  ! shift/reduce conflict for ORLOGICAL resolved as shift
+    SEMICOLON       reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .)
+    RPAREN          reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .)
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+  ! IDENTICAL       [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! NOTIDENTICAL    [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! DIFFERENT       [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! GREATEREQUAL    [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! LESSEQUAL       [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! GREATERTHAN     [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! LESSTHAN        [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! ANDlOGICAL      [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+  ! ORLOGICAL       [ reduce using rule 25 (elemento_logico -> NOTLOGICAL elemento_logico .) ]
+
+    comparador                     shift and go to state 49
+
+state 55
+
+    (26) elemento_logico -> LPAREN . elemento_logico RPAREN
+    (12) elemento_numerico -> LPAREN . elemento_numerico RPAREN
+    (22) elemento_logico -> . TRUE
+    (23) elemento_logico -> . FALSE
+    (24) elemento_logico -> . elemento_logico comparador elemento_logico
+    (25) elemento_logico -> . NOTLOGICAL elemento_logico
+    (26) elemento_logico -> . LPAREN elemento_logico RPAREN
+    (27) elemento_logico -> . VARIABLE
+    (28) elemento_logico -> . elemento_numerico comparador elemento_numerico
+    (29) elemento_logico -> . elemento_string comparador elemento_string
+    (9) elemento_numerico -> . elemento_numerico operador elemento_numerico
+    (10) elemento_numerico -> . FLOAT
+    (11) elemento_numerico -> . NUMBER
+    (12) elemento_numerico -> . LPAREN elemento_numerico RPAREN
+    (13) elemento_numerico -> . VARIABLE
+    (19) elemento_string -> . STRING
+    (20) elemento_string -> . STRINGCC
+    (21) elemento_string -> . VARIABLE
+
+    TRUE            shift and go to state 30
+    FALSE           shift and go to state 31
+    NOTLOGICAL      shift and go to state 32
+    LPAREN          shift and go to state 55
+    VARIABLE        shift and go to state 56
+    FLOAT           shift and go to state 5
+    NUMBER          shift and go to state 6
+    STRING          shift and go to state 28
+    STRINGCC        shift and go to state 29
+
+    elemento_logico                shift and go to state 51
+    elemento_numerico              shift and go to state 63
+    elemento_string                shift and go to state 53
+
+state 56
+
+    (27) elemento_logico -> VARIABLE .
+    (13) elemento_numerico -> VARIABLE .
+    (21) elemento_string -> VARIABLE .
+
+  ! reduce/reduce conflict for IDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for NOTIDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for EQUALSLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATEREQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSEQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ANDlOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ORLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for IDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for NOTIDENTICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for EQUALSLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATEREQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSEQUAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ANDlOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+  ! reduce/reduce conflict for ORLOGICAL resolved using rule 13 (elemento_numerico -> VARIABLE .)
+    SEMICOLON       reduce using rule 27 (elemento_logico -> VARIABLE .)
+    IDENTICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    NOTIDENTICAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EQUALSLOGICAL   reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIFFERENT       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATEREQUAL    reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSEQUAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    GREATERTHAN     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    LESSTHAN        reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ANDlOGICAL      reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    ORLOGICAL       reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    PLUS            reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    MINUS           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    DIVIDE          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    EXPONENTIAL     reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    TIMES           reduce using rule 13 (elemento_numerico -> VARIABLE .)
+    RPAREN          reduce using rule 13 (elemento_numerico -> VARIABLE .)
+
+  ! IDENTICAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! NOTIDENTICAL    [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! DIFFERENT       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! GREATEREQUAL    [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! LESSEQUAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! LESSTHAN        [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! ANDlOGICAL      [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! ORLOGICAL       [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! RPAREN          [ reduce using rule 27 (elemento_logico -> VARIABLE .) ]
+  ! IDENTICAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! NOTIDENTICAL    [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! DIFFERENT       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! GREATEREQUAL    [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! LESSEQUAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! LESSTHAN        [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! ANDlOGICAL      [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+  ! ORLOGICAL       [ reduce using rule 21 (elemento_string -> VARIABLE .) ]
+
+
+state 57
+
+    (28) elemento_logico -> elemento_numerico . comparador elemento_numerico
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
+
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
+
+    comparador                     shift and go to state 35
+    operador                       shift and go to state 10
+
+state 58
+
+    (28) elemento_logico -> elemento_numerico comparador elemento_numerico .
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
+
+    SEMICOLON       reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    IDENTICAL       reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    NOTIDENTICAL    reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    EQUALSLOGICAL   reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    DIFFERENT       reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    GREATEREQUAL    reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    LESSEQUAL       reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    GREATERTHAN     reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    LESSTHAN        reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    ANDlOGICAL      reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    ORLOGICAL       reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    RPAREN          reduce using rule 28 (elemento_logico -> elemento_numerico comparador elemento_numerico .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
+
+    operador                       shift and go to state 10
+
+state 59
+
+    (29) elemento_logico -> elemento_string comparador elemento_string .
+
+    SEMICOLON       reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    IDENTICAL       reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    NOTIDENTICAL    reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    EQUALSLOGICAL   reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    DIFFERENT       reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    GREATEREQUAL    reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    LESSEQUAL       reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    GREATERTHAN     reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    LESSTHAN        reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    ANDlOGICAL      reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    ORLOGICAL       reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+    RPAREN          reduce using rule 29 (elemento_logico -> elemento_string comparador elemento_string .)
+
+
+state 60
+
+    (21) elemento_string -> VARIABLE .
+
+    SEMICOLON       reduce using rule 21 (elemento_string -> VARIABLE .)
+    IDENTICAL       reduce using rule 21 (elemento_string -> VARIABLE .)
+    NOTIDENTICAL    reduce using rule 21 (elemento_string -> VARIABLE .)
+    EQUALSLOGICAL   reduce using rule 21 (elemento_string -> VARIABLE .)
+    DIFFERENT       reduce using rule 21 (elemento_string -> VARIABLE .)
+    GREATEREQUAL    reduce using rule 21 (elemento_string -> VARIABLE .)
+    LESSEQUAL       reduce using rule 21 (elemento_string -> VARIABLE .)
+    GREATERTHAN     reduce using rule 21 (elemento_string -> VARIABLE .)
+    LESSTHAN        reduce using rule 21 (elemento_string -> VARIABLE .)
+    ANDlOGICAL      reduce using rule 21 (elemento_string -> VARIABLE .)
+    ORLOGICAL       reduce using rule 21 (elemento_string -> VARIABLE .)
+    RPAREN          reduce using rule 21 (elemento_string -> VARIABLE .)
+
+
+state 61
+
+    (24) elemento_logico -> elemento_logico comparador elemento_logico .
+    (24) elemento_logico -> elemento_logico . comparador elemento_logico
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+
+  ! shift/reduce conflict for IDENTICAL resolved as shift
+  ! shift/reduce conflict for NOTIDENTICAL resolved as shift
+  ! shift/reduce conflict for EQUALSLOGICAL resolved as shift
+  ! shift/reduce conflict for DIFFERENT resolved as shift
+  ! shift/reduce conflict for GREATEREQUAL resolved as shift
+  ! shift/reduce conflict for LESSEQUAL resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for ANDlOGICAL resolved as shift
+  ! shift/reduce conflict for ORLOGICAL resolved as shift
+    SEMICOLON       reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .)
+    RPAREN          reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .)
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+
+  ! IDENTICAL       [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! NOTIDENTICAL    [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! EQUALSLOGICAL   [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! DIFFERENT       [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! GREATEREQUAL    [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! LESSEQUAL       [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! GREATERTHAN     [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! LESSTHAN        [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! ANDlOGICAL      [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+  ! ORLOGICAL       [ reduce using rule 24 (elemento_logico -> elemento_logico comparador elemento_logico .) ]
+
+    comparador                     shift and go to state 49
+
+state 62
+
+    (26) elemento_logico -> LPAREN elemento_logico RPAREN .
+
+    SEMICOLON       reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    IDENTICAL       reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    NOTIDENTICAL    reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    EQUALSLOGICAL   reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    DIFFERENT       reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    GREATEREQUAL    reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    LESSEQUAL       reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    GREATERTHAN     reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    LESSTHAN        reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    ANDlOGICAL      reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    ORLOGICAL       reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+    RPAREN          reduce using rule 26 (elemento_logico -> LPAREN elemento_logico RPAREN .)
+
+
+state 63
+
+    (12) elemento_numerico -> LPAREN elemento_numerico . RPAREN
+    (28) elemento_logico -> elemento_numerico . comparador elemento_numerico
+    (9) elemento_numerico -> elemento_numerico . operador elemento_numerico
+    (30) comparador -> . IDENTICAL
+    (31) comparador -> . NOTIDENTICAL
+    (32) comparador -> . EQUALSLOGICAL
+    (33) comparador -> . DIFFERENT
+    (34) comparador -> . GREATEREQUAL
+    (35) comparador -> . LESSEQUAL
+    (36) comparador -> . GREATERTHAN
+    (37) comparador -> . LESSTHAN
+    (38) comparador -> . ANDlOGICAL
+    (39) comparador -> . ORLOGICAL
+    (14) operador -> . PLUS
+    (15) operador -> . MINUS
+    (16) operador -> . DIVIDE
+    (17) operador -> . EXPONENTIAL
+    (18) operador -> . TIMES
+
+    RPAREN          shift and go to state 22
+    IDENTICAL       shift and go to state 36
+    NOTIDENTICAL    shift and go to state 37
+    EQUALSLOGICAL   shift and go to state 38
+    DIFFERENT       shift and go to state 39
+    GREATEREQUAL    shift and go to state 40
+    LESSEQUAL       shift and go to state 41
+    GREATERTHAN     shift and go to state 42
+    LESSTHAN        shift and go to state 43
+    ANDlOGICAL      shift and go to state 44
+    ORLOGICAL       shift and go to state 45
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    DIVIDE          shift and go to state 13
+    EXPONENTIAL     shift and go to state 14
+    TIMES           shift and go to state 15
+
+    comparador                     shift and go to state 35
+    operador                       shift and go to state 10
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
@@ -536,3 +1666,37 @@ WARNING: shift/reduce conflict for DIVIDE in state 21 resolved as shift
 WARNING: shift/reduce conflict for EXPONENTIAL in state 21 resolved as shift
 WARNING: shift/reduce conflict for TIMES in state 21 resolved as shift
 WARNING: shift/reduce conflict for SEMICOLON in state 23 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 23 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 23 resolved as shift
+WARNING: shift/reduce conflict for IDENTICAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for NOTIDENTICAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for EQUALSLOGICAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 54 resolved as shift
+WARNING: shift/reduce conflict for GREATEREQUAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for LESSEQUAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 54 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 54 resolved as shift
+WARNING: shift/reduce conflict for ANDlOGICAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for ORLOGICAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for IDENTICAL in state 61 resolved as shift
+WARNING: shift/reduce conflict for NOTIDENTICAL in state 61 resolved as shift
+WARNING: shift/reduce conflict for EQUALSLOGICAL in state 61 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 61 resolved as shift
+WARNING: shift/reduce conflict for GREATEREQUAL in state 61 resolved as shift
+WARNING: shift/reduce conflict for LESSEQUAL in state 61 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 61 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 61 resolved as shift
+WARNING: shift/reduce conflict for ANDlOGICAL in state 61 resolved as shift
+WARNING: shift/reduce conflict for ORLOGICAL in state 61 resolved as shift
+WARNING: reduce/reduce conflict in state 23 resolved using rule (elemento_numerico -> VARIABLE)
+WARNING: rejected rule (elemento_string -> VARIABLE) in state 23
+WARNING: reduce/reduce conflict in state 23 resolved using rule (elemento_numerico -> VARIABLE)
+WARNING: rejected rule (elemento_logico -> VARIABLE) in state 23
+WARNING: reduce/reduce conflict in state 52 resolved using rule (elemento_numerico -> VARIABLE)
+WARNING: rejected rule (elemento_logico -> VARIABLE) in state 52
+WARNING: reduce/reduce conflict in state 52 resolved using rule (elemento_numerico -> VARIABLE)
+WARNING: rejected rule (elemento_string -> VARIABLE) in state 52
+WARNING: reduce/reduce conflict in state 56 resolved using rule (elemento_numerico -> VARIABLE)
+WARNING: rejected rule (elemento_logico -> VARIABLE) in state 56
+WARNING: reduce/reduce conflict in state 56 resolved using rule (elemento_numerico -> VARIABLE)
+WARNING: rejected rule (elemento_string -> VARIABLE) in state 56

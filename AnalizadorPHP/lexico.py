@@ -44,6 +44,8 @@ reserved = {
     'catch': 'CATCH',
     'final': 'FINAL',
     'extends': 'EXTENDS',
+    'true': 'TRUE',
+    'false': 'FALSE',
     #
 
 }

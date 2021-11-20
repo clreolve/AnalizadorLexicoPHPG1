@@ -19,8 +19,11 @@ def p_var_asignar(p):
     '''
     var_asignar : VARIABLE EQUALS VARIABLE SEMICOLON
                     | VARIABLE EQUALS elemento_numerico SEMICOLON
+                    | VARIABLE EQUALS elemento_string SEMICOLON
+                    | VARIABLE EQUALS elemento_logico SEMICOLON
     '''
 
+# 12212; (12+12/(12)); $asd + 12
 def p_elemento_numerico(p):
     '''
     elemento_numerico : elemento_numerico operador elemento_numerico
@@ -30,36 +33,48 @@ def p_elemento_numerico(p):
                         | VARIABLE
     '''
 
+# operadores numericos
 def p_operador(p):
     '''
     operador : PLUS
-                | MINUS
-                | DIVIDE
-                | EXPONENTIAL
-                | TIMES
+            | MINUS
+            | DIVIDE
+            | EXPONENTIAL
+            | TIMES
     '''
 
-"""
-def p_comparador(p):
-    '''comparador : IDENTICAL
-                       | NOTIDENTICAL
-                       | EQUALSLOGICAL
-                       | DIFFERENT
-                       | EQUALS
-                       | GREATEREQUAL
-                       | LESSEQUAL
-                       | GREATERTHAN
-                       | LESSTHAN
-                       | ANDlOGICAL
-                       | ORLOGICAL
-                       '''
-
-
+# "lorem ipsum" ; 'lorem ipsum'
 def p_elemento_string(p):
     '''elemento_string : STRING
-                    | STRINGCC
-        '''
-"""
+                        | STRINGCC
+                        | VARIABLE
+    '''
+
+# True False operaciones logicas
+def p_elemento_logico(p):
+    '''
+    elemento_logico : TRUE
+                    | FALSE
+                    | elemento_logico comparador elemento_logico
+                    | NOTLOGICAL elemento_logico
+                    | LPAREN elemento_logico RPAREN
+                    | VARIABLE
+                    | elemento_numerico comparador elemento_numerico
+                    | elemento_string comparador elemento_string
+    '''
+
+def p_comparador(p):
+    '''comparador : IDENTICAL
+                   | NOTIDENTICAL
+                   | EQUALSLOGICAL
+                   | DIFFERENT
+                   | GREATEREQUAL
+                   | LESSEQUAL
+                   | GREATERTHAN
+                   | LESSTHAN
+                   | ANDlOGICAL
+                   | ORLOGICAL
+    '''
 
 # Error rule for syntax errors
 def p_error(p):
