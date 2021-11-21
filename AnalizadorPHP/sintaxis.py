@@ -15,6 +15,7 @@ def p_expresion(p):
                 | estructuras_de_control
                 | var_plusminus
                 | datos_estructurados
+                | funciones_datos_estructurados
 
     '''
 
@@ -261,6 +262,7 @@ def p_datos_estructurados(p):
 def p_map(p):
     '''
     map : VARIABLE EQUALS NEW MAP LPAREN LBRACKET todos_clave_valor RBRACKET RPAREN SEMICOLON
+            | VARIABLE EQUALS NEW MAP LPAREN RPAREN SEMICOLON
     '''
 
 def p_clave_valor(p):
@@ -283,6 +285,7 @@ def p_todos_clave_valor(p):
 def p_vector(p):
     '''
     vector : VARIABLE EQUALS NEW VECTOR LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+                | VARIABLE EQUALS NEW VECTOR LPAREN RPAREN SEMICOLON
     '''
 
 def p_datos(p):
@@ -303,6 +306,61 @@ def p_llenar(p):
 def p_set(p):
     '''
     set : VARIABLE EQUALS NEW SET LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+            | VARIABLE EQUALS NEW SET LPAREN RPAREN SEMICOLON
+    '''
+
+
+#FUNCIONES DE DATOS ESTRUCTURADOS
+def p_funciones_datos_estructurados(p):
+    '''
+    funciones_datos_estructurados : funciones_map
+                                        | funciones_set
+                                        | funciones_vector
+    '''
+def p_funciones_map(p):
+    '''
+    funciones_map : key_map
+                       | diff_map
+    '''
+def p_key_map(p):
+    '''
+    key_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW KEYS LPAREN RPAREN RPAREN SEMICOLON
+    '''
+def p_diff_map(p):
+    '''
+    diff_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW DIFF LPAREN VARIABLE RPAREN RPAREN SEMICOLON
+    '''
+
+def p_funciones_vector(p):
+    '''
+    funciones_vector : find_vector
+                        | push_vector
+    '''
+def p_find_vector(p):
+    '''
+    find_vector : VAR_DUMP LPAREN VARIABLE SIMPLEARROW FIND LPAREN datos RPAREN RPAREN SEMICOLON
+    '''
+def p_push_vector(p):
+    '''
+    push_vector : VARIABLE SIMPLEARROW PUSH LPAREN datos RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW PUSH LPAREN llenar RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW PUSH LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+    '''
+
+def p_funciones_set(p):
+    '''
+    funciones_set : union_set
+                    | remove_set
+    '''
+def p_union_set(p):
+    '''
+    union_set : VAR_DUMP LPAREN VARIABLE SIMPLEARROW UNION LPAREN VARIABLE RPAREN RPAREN SEMICOLON
+    '''
+def p_remove_set(p):
+    '''
+    remove_set : VARIABLE SIMPLEARROW REMOVE LPAREN datos RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW REMOVE LPAREN llenar RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
     '''
 # End - JaramilloR
 

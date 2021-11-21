@@ -46,6 +46,12 @@ reserved = {
     'extends': 'EXTENDS',
     'true': 'TRUE',
     'false': 'FALSE',
+    'keys': 'KEYS',
+    'diff': 'DIFF',
+    'find': 'FIND',
+    'push': 'PUSH',
+    'union': 'UNION',
+    'remove': 'REMOVE',
     # Termina - Jaramillo
 
     #Inicia - Olvera
@@ -99,6 +105,7 @@ tokens = [
              'ORLOGICAL',
              'NOTLOGICAL',
              'ARROW',
+            'SIMPLEARROW',
              'VARIABLE',
             'MAP',
             'VECTOR',
@@ -111,6 +118,7 @@ t_VARIABLE = r'\$[a-zA-Z_]\w*'
 t_PHPSTART = r'\<\?php\s'
 t_PHPEND = r'\?\>'
 t_ARROW = r'=\>'
+t_SIMPLEARROW = r'-\>'
 
 t_FLOAT = r'\d+\.\d+'
 t_NUMBER = r'\d+'
