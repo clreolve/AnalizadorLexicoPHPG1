@@ -100,6 +100,9 @@ tokens = [
              'NOTLOGICAL',
              'ARROW',
              'VARIABLE',
+            'MAP',
+            'VECTOR',
+            'SET',
              # Termina - Jaramillo
 
          ] + list(reserved.values())
@@ -144,6 +147,9 @@ t_LESSTHAN = r'\<'
 t_ANDlOGICAL = r'&&'
 t_ORLOGICAL = r'\|\|'
 t_NOTLOGICAL = r'!'
+t_MAP = r'\\Ds\\Map'
+t_VECTOR = r'\\Ds\\Vector'
+t_SET = r'\\Ds\\Set'
 
 
 # Termina Jaramillo

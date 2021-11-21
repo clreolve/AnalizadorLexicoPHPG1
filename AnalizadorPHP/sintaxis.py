@@ -256,10 +256,11 @@ def p_datos_estructurados(p):
                             | vector
                             | set
     '''
-# $mapa = new (["a"=>1,"b"=>2]);
+# $mapa = new \Ds\Map (["a"=>1,"b"=>2]);    $mapa = new \Ds\Map (["a"=>"c","b"=>"d"]);
+# $mapa = new \Ds\Map (["a"=>true,2=>"d"]);
 def p_map(p):
     '''
-    map : VARIABLE EQUALS NEW LPAREN LBRACKET todos_clave_valor RBRACKET RPAREN SEMICOLON
+    map : VARIABLE EQUALS NEW MAP LPAREN LBRACKET todos_clave_valor RBRACKET RPAREN SEMICOLON
     '''
 
 def p_clave_valor(p):
@@ -278,10 +279,10 @@ def p_todos_clave_valor(p):
                             | clave_valor COMMA todos_clave_valor
     '''
 
-# $vector = new (["a",1,"b",true]);
+# $vector = new \Ds\Vector (["a",1,"b",true]);
 def p_vector(p):
     '''
-    vector : VARIABLE EQUALS NEW LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+    vector : VARIABLE EQUALS NEW VECTOR LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
     '''
 
 def p_datos(p):
@@ -301,7 +302,7 @@ def p_llenar(p):
 
 def p_set(p):
     '''
-    set : VARIABLE EQUALS NEW LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+    set : VARIABLE EQUALS NEW SET LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
     '''
 # End - JaramilloR
 
