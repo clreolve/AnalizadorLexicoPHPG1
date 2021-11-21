@@ -14,8 +14,7 @@ def p_expresion(p):
                 | expresiones_de_salida
                 | estructuras_de_control
                 | var_plusminus
-                | map
-                | vector
+                | datos_estructurados
 
     '''
 
@@ -251,6 +250,12 @@ def p_while(p):
 # End - Vivanco
 
 # Start - Jaramillo
+def p_datos_estructurados(p):
+    '''
+    datos_estructurados : map
+                            | vector
+                            | set
+    '''
 # $mapa = new (["a"=>1,"b"=>2]);
 def p_map(p):
     '''
@@ -276,7 +281,7 @@ def p_todos_clave_valor(p):
 # $vector = new (["a",1,"b",true]);
 def p_vector(p):
     '''
-    vector : VARIABLE EQUALS NEW LPAREN LBRACKET llenar_vector RBRACKET RPAREN SEMICOLON
+    vector : VARIABLE EQUALS NEW LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
     '''
 
 def p_datos(p):
@@ -288,10 +293,15 @@ def p_datos(p):
                 | elemento_logico_pri
     '''
 
-def p_llenar_vector(p):
+def p_llenar(p):
     '''
-    llenar_vector : datos
-                        | datos COMMA llenar_vector
+    llenar : datos
+                | datos COMMA llenar
+    '''
+
+def p_set(p):
+    '''
+    set : VARIABLE EQUALS NEW LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
     '''
 # End - JaramilloR
 
