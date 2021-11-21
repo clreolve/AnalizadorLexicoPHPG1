@@ -30,7 +30,7 @@ reserved = {
     'or': 'OR',
     'print': 'PRINT',
     # Termina - Olvera
-    #
+    # Inicia - Jaramillo
     'private': 'PRIVATE',
     'protected': 'PROTECTED',
     'public': 'PUBLIC',
@@ -46,6 +46,7 @@ reserved = {
     'extends': 'EXTENDS',
     'true': 'TRUE',
     'false': 'FALSE',
+    # Termina - Jaramillo
 
     #Inicia - Olvera
     # para funcione de salida
@@ -85,7 +86,7 @@ tokens = [
              'STRINGCC',
              'EQUALS',
              # Termina - Olvera
-             #
+             # Inicia - Jaramillo
              'EQUALSLOGICAL',  # ==
              'IDENTICAL',  # ===
              'DIFFERENT',  # != diferente que , no igual
@@ -99,7 +100,7 @@ tokens = [
              'NOTLOGICAL',
              'ARROW',
              'VARIABLE',
-             #
+             # Termina - Jaramillo
 
          ] + list(reserved.values())
 # inicia - Vivanco
@@ -130,7 +131,7 @@ t_DOUBLEPOINT = r':'
 t_LCURLY = r'{'
 t_RCURLY = r'}'
 # Termina Olvera
-#
+# Inicia Jaramillo
 t_IDENTICAL = r'==='
 t_NOTIDENTICAL = r'!=='
 t_EQUALSLOGICAL = r'=='
@@ -145,7 +146,7 @@ t_ORLOGICAL = r'\|\|'
 t_NOTLOGICAL = r'!'
 
 
-#
+# Termina Jaramillo
 
 
 # Palabras Reservadas
