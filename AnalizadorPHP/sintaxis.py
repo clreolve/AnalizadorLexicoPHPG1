@@ -14,6 +14,7 @@ def p_expresion(p):
                 | expresiones_de_salida
                 | estructuras_de_control
                 | var_plusminus
+                | map
 
     '''
 
@@ -70,14 +71,20 @@ def p_elemento_string(p):
 # True False operaciones logicas
 def p_elemento_logico(p):
     '''
-    elemento_logico : TRUE
-                    | FALSE
-                    | elemento_logico comparador elemento_logico
-                    | NOTLOGICAL elemento_logico
-                    | LPAREN elemento_logico RPAREN
+    elemento_logico : elemento_logico_pri
+                    | elemento_logico_pri comparador elemento_logico_pri
+                    | NOTLOGICAL elemento_logico_pri
+                    | LPAREN elemento_logico_pri RPAREN
                     | VARIABLE
                     | elemento_numerico comparador elemento_numerico
                     | elemento_string comparador elemento_string
+    '''
+
+###########
+def p_elemento_logico_pri(p):
+    '''
+    elemento_logico_pri : TRUE
+                        | FALSE
     '''
 
 def p_comparador(p):
@@ -243,7 +250,27 @@ def p_while(p):
 # End - Vivanco
 
 # Start - Jaramillo
-# End - Jaramillo
+def p_map(p):
+    '''
+    map : VARIABLE EQUALS NEW LPAREN LBRACKET todos_clave_valor RBRACKET RPAREN SEMICOLON
+    '''
+
+def p_clave_valor(p):
+    '''
+    clave_valor : elemento_string ARROW elemento_string
+                    | elemento_string ARROW NUMBER
+                    | NUMBER ARROW elemento_string
+                    | NUMBER ARROW NUMBER
+                    | NUMBER ARROW elemento_logico_pri
+                    | elemento_string ARROW elemento_logico_pri
+    '''
+
+def p_todos_clave_valor(p):
+    '''
+    todos_clave_valor : clave_valor
+                            | clave_valor COMMA todos_clave_valor
+    '''
+# End - JaramilloR
 
 
 
