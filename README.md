@@ -12,7 +12,7 @@
 
 - Por facilidad de uso la consola solo admitira sentencias directas de php sin usar la estructura ```php <!php ... ?>```
 
-- Se dispone de un archivo text.txt y un metodo opcional a activar en main.py que permite probar las sentencias que escritas en el mismo
+- Se dispone de un archivo text.txt y un metodo de prueba opcional **permite probar las sentencias que escritas en el mismo**; cuyo resultado se mostrara al inicio de la consola
 
 # El analizador sintáctico permite validar:
 
