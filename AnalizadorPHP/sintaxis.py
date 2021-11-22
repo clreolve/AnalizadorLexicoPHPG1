@@ -15,6 +15,9 @@ def p_expresion(p):
                 | estructuras_de_control
                 | var_plusminus
                 | funciones_datos_estructurados
+                | funcion_declaracion
+                | return
+                | funcion_ejecucion
     '''
 
 #Start - Vivanco ###################################################
@@ -28,6 +31,7 @@ def p_var_declarar(p):
 def p_var_asignar(p):
     '''
     var_asignar : VARIABLE EQUALS var_asignar_contenido SEMICOLON
+                | VARIABLE EQUALS funcion_ejecucion
     '''
 
 def p_var_asignar_contenido(p):
@@ -270,6 +274,44 @@ def p_while(p):
 # Start - Vivanco ###################################################
 
 # Funciones
+def p_funcion_declaracion(t):
+    '''
+    funcion_declaracion : FUNCTION funcion_cabecera_declaracion funciones_cuerpo
+                        | VARIABLE EQUALS FUNCTION LPAREN variables_por_comma RPAREN funciones_cuerpo
+                        | VAR VARIABLE EQUALS FUNCTION LPAREN variables_por_comma RPAREN funciones_cuerpo
+    '''
+
+
+def p_funcion_cabecera_declaracion(t):
+    '''
+    funcion_cabecera_declaracion : FUNCTION_NAME LPAREN variables_por_comma RPAREN
+                                    | FUNCTION_NAME LPAREN RPAREN
+    '''
+
+def p_funciones_cuerpo(t):
+    '''
+    funciones_cuerpo : LCURLY expresiones RCURLY
+                    | LCURLY RCURLY
+    '''
+
+def p_return(t):
+    '''
+    return : RETURN var_asignar_contenido SEMICOLON
+    '''
+
+
+def p_funcion_ejecucion(t):
+   '''
+   funcion_ejecucion : FUNCTION_NAME LPAREN params RPAREN SEMICOLON
+                    | FUNCTION_NAME LPAREN RPAREN SEMICOLON
+   '''
+
+# una o mas variables separada por coma
+def p_variables_por_comma(t):
+    '''
+    variables_por_comma : VARIABLE
+                        | VARIABLE COMMA variables_por_comma
+    '''
 
 
 # End - Vivanco ###################################################

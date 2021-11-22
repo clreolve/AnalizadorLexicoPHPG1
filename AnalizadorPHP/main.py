@@ -6,6 +6,7 @@ from sintaxis import parser
 def test_tokens():
     data = '''
       <?php
+            function i(
             if ($i == 0) {
                 echo "$i es igual a 0";
             } elseif ($i == 1) {

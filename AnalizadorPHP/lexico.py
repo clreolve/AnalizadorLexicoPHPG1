@@ -59,7 +59,7 @@ reserved = {
     'var_dump': 'VAR_DUMP',
     'print_r': 'PRINT_R',
     'var_export': 'VAR_EXPORT',
-    'readline': 'READLINE'
+    'readline': 'READLINE',
     #Termina - Olvera
 
 }
@@ -111,6 +111,8 @@ tokens = [
             'VECTOR',
             'SET',
              # Termina - Jaramillo
+        'FUNCTION_NAME',
+
 
          ] + list(reserved.values())
 # inicia - Vivanco
@@ -159,12 +161,15 @@ t_MAP = r'\\Ds\\Map'
 t_VECTOR = r'\\Ds\\Vector'
 t_SET = r'\\Ds\\Set'
 
-
 # Termina Jaramillo
 
 
 # Palabras Reservadas
 # Inicia - Olvera
+def t_FUNCTION_NAME(t):
+    r'[a-zA-Z_]+\w*(?=\()'
+    return t
+
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value, 'ID')
@@ -173,6 +178,7 @@ def t_ID(t):
         t.lexer.skip(1)
     else:
         return t
+
 # Termina - Olvera
 
 
