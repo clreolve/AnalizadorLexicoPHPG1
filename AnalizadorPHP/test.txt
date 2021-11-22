@@ -33,3 +33,10 @@ endwhile;
 
 echo "hola mundo";
 
+$map = new \Ds\Map(["a" => 1, "b" => 2, "c" => 3]);
+var_dump($map->keys());
+
+$a = new \Ds\Set([1, 2, 3]);
+$b = new \Ds\Set([3, 4, 5]);
+
+var_dump($a->union($b));

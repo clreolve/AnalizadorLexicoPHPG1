@@ -135,21 +135,31 @@ def p_params_points(p):
                 | param POINT params_points
     '''
 
-# clave precisa para poner en las llamadas de funciones
-def p_param_unitype(p):
-    '''
-    param_unictype : VARIABLE
-            | elemento_string
-            | elemento_numerico
-            | elemento_logico
-    '''
-
-# uno o mas parametros
 def p_params_unitype(p):
     '''
-    params_unitype : param
-            | param COMMA params
+    params_unitype : only_string
+                    | only_numerico
+                    | only_logico
     '''
+
+def p_only_string(p):
+    '''
+    only_string : elemento_string
+                | elemento_string COMMA only_string
+    '''
+
+def p_only_numerico(p):
+    '''
+    only_numerico : elemento_numerico
+                | elemento_numerico COMMA only_numerico
+    '''
+
+def p_only_logico(p):
+    '''
+    only_logico : elemento_logico
+                | elemento_logico COMMA only_logico
+    '''
+
 
 # parametros opcionales (cero o mas parametros)
 def p_optional_params(p):
@@ -165,7 +175,7 @@ def p_expresiones_de_salida(p):
     '''
     expresiones_de_salida : echo
                             | print
-                            | var_dump
+                            | vardump
                             | print_r
                             | var_export
     '''
@@ -187,9 +197,9 @@ def p_print_r(p):
     print_r : PRINT_R LPAREN param RPAREN SEMICOLON
     '''
 
-def p_var_dump(p):
+def p_vardump(p):
     '''
-    var_dump : VAR_DUMP LPAREN param RPAREN SEMICOLON
+    vardump : VAR_DUMP LPAREN param RPAREN SEMICOLON
     '''
 
 def p_var_export(p):
@@ -274,7 +284,7 @@ def p_while(p):
 # Start - Vivanco ###################################################
 
 # Funciones
-def p_funcion_declaracion(t):
+def p_funcion_declaracion(p):
     '''
     funcion_declaracion : FUNCTION funcion_cabecera_declaracion funciones_cuerpo
                         | VARIABLE EQUALS FUNCTION LPAREN variables_por_comma RPAREN funciones_cuerpo
@@ -282,32 +292,32 @@ def p_funcion_declaracion(t):
     '''
 
 
-def p_funcion_cabecera_declaracion(t):
+def p_funcion_cabecera_declaracion(p):
     '''
     funcion_cabecera_declaracion : FUNCTION_NAME LPAREN variables_por_comma RPAREN
                                     | FUNCTION_NAME LPAREN RPAREN
     '''
 
-def p_funciones_cuerpo(t):
+def p_funciones_cuerpo(p):
     '''
     funciones_cuerpo : LCURLY expresiones RCURLY
                     | LCURLY RCURLY
     '''
 
-def p_return(t):
+def p_return(p):
     '''
     return : RETURN var_asignar_contenido SEMICOLON
     '''
 
 
-def p_funcion_ejecucion(t):
+def p_funcion_ejecucion(p):
    '''
    funcion_ejecucion : FUNCTION_NAME LPAREN params RPAREN SEMICOLON
                     | FUNCTION_NAME LPAREN RPAREN SEMICOLON
    '''
 
 # una o mas variables separada por coma
-def p_variables_por_comma(t):
+def p_variables_por_comma(p):
     '''
     variables_por_comma : VARIABLE
                         | VARIABLE COMMA variables_por_comma
@@ -391,6 +401,7 @@ def p_key_map(p):
     '''
     key_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW KEYS LPAREN RPAREN RPAREN SEMICOLON
     '''
+    # key_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW KEYS LPAREN RPAREN RPAREN SEMICOLON
 
 def p_diff_map(p):
     '''
@@ -428,9 +439,8 @@ def p_union_set(p):
 
 def p_remove_set(p):
     '''
-    remove_set : VARIABLE SIMPLEARROW REMOVE LPAREN param RPAREN SEMICOLON
-                    | VARIABLE SIMPLEARROW REMOVE LPAREN params RPAREN SEMICOLON
-                    | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params RBRACKET RPAREN SEMICOLON
+    remove_set :  VARIABLE SIMPLEARROW REMOVE LPAREN params_unitype RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params_unitype RBRACKET RPAREN SEMICOLON
     '''
 
 # End - Jaramillo ###################################################

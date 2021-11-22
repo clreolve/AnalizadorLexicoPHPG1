@@ -5,8 +5,8 @@ from sintaxis import parser
 # TEST tokens
 def test_tokens():
     data = '''
+    $set->remove(1);
       <?php
-            function i(
             if ($i == 0) {
                 echo "$i es igual a 0";
             } elseif ($i == 1) {
@@ -71,5 +71,4 @@ def test_lexico_cli():
         result = parser.parse(s)
         print(result)
 
-test_lexico_file()
 test_lexico_cli()

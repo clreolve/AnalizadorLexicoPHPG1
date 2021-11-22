@@ -168,6 +168,7 @@ t_SET = r'\\Ds\\Set'
 # Inicia - Olvera
 def t_FUNCTION_NAME(t):
     r'[a-zA-Z_]+\w*(?=\()'
+    t.type = reserved.get(t.value, 'FUNCTION_NAME')
     return t
 
 def t_ID(t):
