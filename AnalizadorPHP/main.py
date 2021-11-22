@@ -71,4 +71,5 @@ def test_lexico_cli():
         result = parser.parse(s)
         print(result)
 
+test_lexico_file()
 test_lexico_cli()

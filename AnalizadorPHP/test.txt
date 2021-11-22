@@ -1,3 +1,11 @@
+if ($a > $b) {
+    echo "a es mayor que b";
+} elseif ($a == $b) {
+    echo "a es igual que b";
+} else {
+    echo "a es menor que b";
+}
+
 if ($a > $b):
     echo $a ," es mayor que ", $b;
 elseif ($a == $b):
@@ -32,11 +40,3 @@ while ($i <= 10):
 endwhile;
 
 echo "hola mundo";
-
-$map = new \Ds\Map(["a" => 1, "b" => 2, "c" => 3]);
-var_dump($map->keys());
-
-$a = new \Ds\Set([1, 2, 3]);
-$b = new \Ds\Set([3, 4, 5]);
-
-var_dump($a->union($b));
