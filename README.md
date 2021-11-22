@@ -6,7 +6,16 @@
 - Jose Jaramillo
 - Claudio Olvera
 
-El analizador sintáctico permite validar:
+# Uso de la herramienta de prueba
+
+- Durante la ejecución se generara una consola que permitira las validaciones directas de sentencias php
+
+- Por facilidad de uso la consola solo admitira sentencias directas de php sin usar la estructura ```php <!php ... ?>```
+
+- Se dispone de un archivo text.txt y un metodo opcional a activar en main.py que permite probar las sentencias que escritas en el mismo
+
+# El analizador sintáctico permite validar:
+
 - Declaraciones y asignaciones de variables
 - Operaciones matemáticas y booleanas
 - Funciones con o sin parametros 
