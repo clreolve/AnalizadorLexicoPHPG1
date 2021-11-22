@@ -17,7 +17,7 @@ def p_expresion(p):
                 | funciones_datos_estructurados
     '''
 
-#Start - Vivanco
+#Start - Vivanco ###################################################
 # var $variable = ...
 def p_var_declarar(p):
     '''
@@ -86,7 +86,6 @@ def p_elemento_logico(p):
                     | elemento_string comparador elemento_string
     '''
 
-###########
 def p_elemento_logico_pri(p):
     '''
     elemento_logico_pri : TRUE
@@ -107,8 +106,8 @@ def p_comparador(p):
                | ORLOGICAL
     '''
 
-# End - Vivanco
-# Start - Claudio Olvera
+# End - Vivanco ###################################################
+# Start - Claudio Olvera ###################################################
 
 # clave precisa para poner en las llamadas de funciones
 def p_param(p):
@@ -201,7 +200,7 @@ def p_funciones_ingreso_datos(p):
                         | READLINE LPAREN elemento_string RPAREN
     '''
 
-# Estructuras de Control ###############################
+# Estructuras de Control
 def p_estructuras_de_control(p):
     '''
     estructuras_de_control : if_structures
@@ -266,12 +265,16 @@ def p_while(p):
             | WHILE LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones ENDWHILE SEMICOLON
     '''
 
-# End - Claudio Olvera
+# End - Claudio Olvera ###################################################
 
-# Start - Vivanco
-# End - Vivanco
+# Start - Vivanco ###################################################
 
-# Start - Jaramillo
+# Funciones
+
+
+# End - Vivanco ###################################################
+
+# Start - Jaramillo ###################################################
 def p_datos_estructurados(p):
     '''
     datos_estructurados : map
@@ -388,9 +391,7 @@ def p_remove_set(p):
                     | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params RBRACKET RPAREN SEMICOLON
     '''
 
-# End - JaramilloR
-
-
+# End - Jaramillo ###################################################
 
 # Error rule for syntax errors
 def p_error(p):
