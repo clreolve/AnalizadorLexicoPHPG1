@@ -14,9 +14,7 @@ def p_expresion(p):
                 | expresiones_de_salida
                 | estructuras_de_control
                 | var_plusminus
-                | datos_estructurados
                 | funciones_datos_estructurados
-
     '''
 
 #Start - Vivanco
@@ -26,19 +24,26 @@ def p_var_declarar(p):
     var_declarar : VAR var_asignar
     '''
 
+# var variable = ...
+def p_var_asignar(p):
+    '''
+    var_asignar : VARIABLE EQUALS var_asignar_contenido SEMICOLON
+    '''
+
+def p_var_asignar_contenido(p):
+    '''
+    var_asignar_contenido : VARIABLE
+                    | elemento_numerico
+                    | elemento_string
+                    | elemento_logico
+                    | datos_estructurados
+                    | funciones_ingreso_datos
+    '''
+
 def p_var_plusminus(p):
     '''
     var_plusminus : VARIABLE PLUS PLUS SEMICOLON
                 | VARIABLE MINUS MINUS SEMICOLON
-    '''
-# var variable = ...
-def p_var_asignar(p):
-    '''
-    var_asignar : VARIABLE EQUALS VARIABLE SEMICOLON
-                    | VARIABLE EQUALS elemento_numerico SEMICOLON
-                    | VARIABLE EQUALS elemento_string SEMICOLON
-                    | VARIABLE EQUALS elemento_logico SEMICOLON
-                    | VARIABLE EQUALS funciones_ingreso_datos SEMICOLON
     '''
 
 
@@ -125,6 +130,22 @@ def p_params_points(p):
     '''
     params_points : param
                 | param POINT params_points
+    '''
+
+# clave precisa para poner en las llamadas de funciones
+def p_param_unitype(p):
+    '''
+    param_unictype : VARIABLE
+            | elemento_string
+            | elemento_numerico
+            | elemento_logico
+    '''
+
+# uno o mas parametros
+def p_params_unitype(p):
+    '''
+    params_unitype : param
+            | param COMMA params
     '''
 
 # parametros opcionales (cero o mas parametros)
@@ -254,25 +275,22 @@ def p_while(p):
 def p_datos_estructurados(p):
     '''
     datos_estructurados : map
-                            | vector
-                            | set
+                        | vector
+                        | set
     '''
+
 # $mapa = new \Ds\Map (["a"=>1,"b"=>2]);    $mapa = new \Ds\Map (["a"=>"c","b"=>"d"]);
 # $mapa = new \Ds\Map (["a"=>true,2=>"d"]);
 def p_map(p):
     '''
-    map : VARIABLE EQUALS NEW MAP LPAREN LBRACKET todos_clave_valor RBRACKET RPAREN SEMICOLON
-            | VARIABLE EQUALS NEW MAP LPAREN RPAREN SEMICOLON
+    map : NEW MAP LPAREN LBRACKET todos_clave_valor RBRACKET RPAREN
+        | NEW MAP LPAREN RPAREN
     '''
 
 def p_clave_valor(p):
     '''
-    clave_valor : elemento_string ARROW elemento_string
-                    | elemento_string ARROW NUMBER
-                    | NUMBER ARROW elemento_string
-                    | NUMBER ARROW NUMBER
-                    | NUMBER ARROW elemento_logico_pri
-                    | elemento_string ARROW elemento_logico_pri
+    clave_valor : elemento_string ARROW param
+                    | NUMBER ARROW param
     '''
 
 def p_todos_clave_valor(p):
@@ -284,8 +302,8 @@ def p_todos_clave_valor(p):
 # $vector = new \Ds\Vector (["a",1,"b",true]);
 def p_vector(p):
     '''
-    vector : VARIABLE EQUALS NEW VECTOR LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
-                | VARIABLE EQUALS NEW VECTOR LPAREN RPAREN SEMICOLON
+    vector : NEW VECTOR LPAREN LBRACKET params RBRACKET RPAREN
+                | NEW VECTOR LPAREN RPAREN
     '''
 
 def p_datos(p):
@@ -305,8 +323,8 @@ def p_llenar(p):
 
 def p_set(p):
     '''
-    set : VARIABLE EQUALS NEW SET LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
-            | VARIABLE EQUALS NEW SET LPAREN RPAREN SEMICOLON
+    set : NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+            | NEW SET LPAREN RPAREN
     '''
 
 
@@ -317,15 +335,18 @@ def p_funciones_datos_estructurados(p):
                                         | funciones_set
                                         | funciones_vector
     '''
+
 def p_funciones_map(p):
     '''
     funciones_map : key_map
                        | diff_map
     '''
+
 def p_key_map(p):
     '''
     key_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW KEYS LPAREN RPAREN RPAREN SEMICOLON
     '''
+
 def p_diff_map(p):
     '''
     diff_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW DIFF LPAREN VARIABLE RPAREN RPAREN SEMICOLON
@@ -336,15 +357,17 @@ def p_funciones_vector(p):
     funciones_vector : find_vector
                         | push_vector
     '''
+
 def p_find_vector(p):
     '''
-    find_vector : VAR_DUMP LPAREN VARIABLE SIMPLEARROW FIND LPAREN datos RPAREN RPAREN SEMICOLON
+    find_vector : VAR_DUMP LPAREN VARIABLE SIMPLEARROW FIND LPAREN param RPAREN RPAREN SEMICOLON
     '''
+
 def p_push_vector(p):
     '''
-    push_vector : VARIABLE SIMPLEARROW PUSH LPAREN datos RPAREN SEMICOLON
-                    | VARIABLE SIMPLEARROW PUSH LPAREN llenar RPAREN SEMICOLON
-                    | VARIABLE SIMPLEARROW PUSH LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+    push_vector : VARIABLE SIMPLEARROW PUSH LPAREN param RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW PUSH LPAREN params RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW PUSH LPAREN LBRACKET params RBRACKET RPAREN SEMICOLON
     '''
 
 def p_funciones_set(p):
@@ -352,16 +375,19 @@ def p_funciones_set(p):
     funciones_set : union_set
                     | remove_set
     '''
+
 def p_union_set(p):
     '''
     union_set : VAR_DUMP LPAREN VARIABLE SIMPLEARROW UNION LPAREN VARIABLE RPAREN RPAREN SEMICOLON
     '''
+
 def p_remove_set(p):
     '''
-    remove_set : VARIABLE SIMPLEARROW REMOVE LPAREN datos RPAREN SEMICOLON
-                    | VARIABLE SIMPLEARROW REMOVE LPAREN llenar RPAREN SEMICOLON
-                    | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET llenar RBRACKET RPAREN SEMICOLON
+    remove_set : VARIABLE SIMPLEARROW REMOVE LPAREN param RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW REMOVE LPAREN params RPAREN SEMICOLON
+                    | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params RBRACKET RPAREN SEMICOLON
     '''
+
 # End - JaramilloR
 
 
