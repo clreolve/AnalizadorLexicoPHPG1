@@ -73,9 +73,9 @@ def p_elemento_string(p):
 def p_elemento_logico(p):
     '''
     elemento_logico : elemento_logico_pri
-                    | elemento_logico_pri comparador elemento_logico_pri
-                    | NOTLOGICAL elemento_logico_pri
-                    | LPAREN elemento_logico_pri RPAREN
+                    | elemento_logico comparador elemento_logico
+                    | NOTLOGICAL elemento_logico
+                    | LPAREN elemento_logico RPAREN
                     | VARIABLE
                     | elemento_numerico comparador elemento_numerico
                     | elemento_string comparador elemento_string
