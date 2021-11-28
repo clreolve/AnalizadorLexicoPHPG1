@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-from lexico import tokens, lexer
+from lexico import tokens, lexer, out
 
 def p_expresiones(p):
     '''

@@ -1,6 +1,8 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 
+out = ""
+
 reserved = {
     # inicia - Vivanco
     'and': 'AND',
@@ -174,8 +176,10 @@ def t_FUNCTION_NAME(t):
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value, 'ID')
+    out = ""
     if t.type == 'ID':
-        print("Illegal character '%s'" % t.value[0])
+        #print("Illegal expression '%s'" % t.value)
+        out = out + t.value + '\n'
         t.lexer.skip(1)
     else:
         return t
