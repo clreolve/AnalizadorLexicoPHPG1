@@ -1,7 +1,7 @@
 #importacion tokens
 from lexico import lexer
 from sintaxis import parser
-
+from GUI import run
 # TEST tokens
 def test_tokens():
     data = '''
@@ -70,6 +70,3 @@ def test_lexico_cli():
         if not s: continue
         result = parser.parse(s)
         print(result)
-
-test_lexico_file()
-test_lexico_cli()

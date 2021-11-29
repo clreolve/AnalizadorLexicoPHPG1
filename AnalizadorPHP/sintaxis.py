@@ -1,11 +1,15 @@
 import ply.yacc as yacc
-from lexico import tokens, lexer, out
+from lexico import tokens, lexer
+
+syntax_out = dict()
+correct_lines = dict()
 
 def p_expresiones(p):
     '''
     expresiones : expresion
                 | expresion expresiones
     '''
+
 
 def p_expresion(p):
     '''
@@ -19,6 +23,8 @@ def p_expresion(p):
                 | return
                 | funcion_ejecucion
     '''
+    #syntax_out.update({lexer.lineno: {'text': f'CORRECT', 'error': False}})
+    #print(syntax_out, f'{lexer.lineno}: CORRECT')
 
 #Start - Vivanco ###################################################
 # var $variable = ...
@@ -447,6 +453,19 @@ def p_remove_set(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    if p == None:
+        token = "invalid syntax"
+    else:
+        token = f"{p.type}({p.value}) on line {p.lineno}"
+    print(f"Syntax error: Unexpected {token}")
+    syntax_out.update({p.lineno: {'text': f'Syntax error: {p.type}({p.value})' , 'error' : True}})
+    print(syntax_out)
 # Build the parser
 parser = yacc.yacc()
+
+def lexical_test(data):
+    '''Recibe un string para validarlo y retorna un diccionario con los resultados'''
+    lexer.lineno = 1
+    result = parser.parse(data)
+    #print(syntax_out)
+    return syntax_out

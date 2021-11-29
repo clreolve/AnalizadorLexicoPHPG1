@@ -1,7 +1,7 @@
+
 import ply.lex as lex
 from ply.lex import TOKEN
 
-out = ""
 
 reserved = {
     # inicia - Vivanco
@@ -176,13 +176,13 @@ def t_FUNCTION_NAME(t):
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value, 'ID')
-    out = ""
-    if t.type == 'ID':
+    return t
+
+    '''if t.type == 'ID':
         #print("Illegal expression '%s'" % t.value)
-        out = out + t.value + '\n'
         t.lexer.skip(1)
     else:
-        return t
+        return t '''
 
 # Termina - Olvera
 
@@ -196,7 +196,9 @@ def t_COMMENT(t):
 # saltos de Linea
 def t_newline(t):
     r'\n+'
-    t.lexer.lineno += len(t.value)
+    # t.lexer.lineno += len(t.value)
+    lexer.lineno += 1
+
 
 
 t_ignore = ' \t'
@@ -224,6 +226,7 @@ def leer(linea):
     # Tokenize
     print("Succesfull")
     return lista
+
 
 # Build the lexer
 lexer = lex.lex()
