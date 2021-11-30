@@ -1,7 +1,9 @@
 #
 import tkinter as tk
 from tkinter import ttk, tix
-from sintaxis import lexical_test
+from sintaxis import sintaxis_test
+from lexico import lexical_test
+
 bg = '#2b2b2b'
 foreground = '#d1dce8'
 # This is a scrollable text widget
@@ -10,12 +12,12 @@ class ScrollText(tk.Frame):
         tk.Frame.__init__(self, *args, **kwargs)
         self.text = tk.Text(self, bg= bg, foreground= foreground,
                             insertbackground='white',
-                            selectbackground="blue", width=100, height=30)
+                            selectbackground="blue", width=100, height=40)
 
         self.scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL, command=self.text.yview)
         self.text.configure(yscrollcommand=self.scrollbar.set)
 
-        self.numberLines = TextLineNumbers(self, width=40, bg='white')
+        self.numberLines = TextLineNumbers(self, width=30, bg=bg)
         self.numberLines.attach(self.text)
 
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -51,8 +53,6 @@ class ScrollText(tk.Frame):
     def redraw(self):
         self.numberLines.redraw()
 
-
-
 class TextLineNumbers(tk.Canvas):
     '''THIS CODE IS CREDIT OF Bryan Oakley:
     https://stackoverflow.com/questions/16369470/tkinter-adding-line-number-to-text-widget'''
@@ -73,7 +73,8 @@ class TextLineNumbers(tk.Canvas):
             if dline is None: break
             y = dline[1]
             linenum = str(i).split(".")[0]
-            self.create_text(2, y, anchor="nw", text=linenum, fill="#606366")
+            #self.create_text(2, y, anchor="nw", text=linenum, fill="#606366")
+            self.create_text(2, y, anchor="nw", text=linenum, fill="white")
             i = self.textwidget.index("%s+1line" % i)
 
 class Results(tk.Canvas):
@@ -81,7 +82,7 @@ class Results(tk.Canvas):
         tk.Frame.__init__(self, *args, **kwargs)
         self.text = tk.Text(self, bg=bg, foreground=foreground,
                             insertbackground='white',
-                            selectbackground="blue", width=30, height=30,state = tk.DISABLED)
+                            selectbackground="blue", width=40, height=35,state = tk.DISABLED)
 
         self.scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL, command=self.text.yview)
         self.text.configure(yscrollcommand=self.scrollbar.set)
@@ -97,36 +98,68 @@ class Results(tk.Canvas):
 
 
 project_name = 'Analizador PHP'
-sw = 100
-window_size = "1200x600"
 
 # main window
 main = tk.Tk()
 main.title(project_name)
-main.geometry(window_size)
+main.resizable(False, False)
+# main.geometry(window_size)
 
-response = tk.StringVar()
-button_stop = tk.Button(main, text='Cerrar', command=main.destroy, bg= "Red")
-text_code  = ScrollText(main)
-text_res  = tk.Text(main)
-label_response = Results(main)
-response.set("Resultado")
+# group frames
+button_frames = tk.Frame(main)
+text_frames = tk.Frame(main)
+
+text_code = ScrollText(text_frames)
+text_response = Results(text_frames)
+
 # the magic
+def get_text():
+    txt = text_code.get("1.0", "end")
+    return txt
+
+def validar_sintactico():
+    inputValue = get_text()
+    result = sintaxis_test(inputValue)
+    res = "Errores:\n"
+    keys = list(result.keys())
+    for e in keys:
+        res = res + f'Error line {e}: \n\t{result.pop(e)}\n'
+
+    if(len(keys) == 0):
+        text_response.rewrite("No hay Errores Sintacticos")
+    else:
+        text_response.rewrite(res)
+
+    print(result)
+
+
 def validar_lexico():
-    inputValue = text_code.get("1.0", "end-1c")
-    print(inputValue)
+    inputValue = get_text()
     result = lexical_test(inputValue)
     res = ""
-    for key in result:
-        if(result[key]['error'] == True):
-            res = res + f'Error line{key}: \n\t{result[key]["text"]}\n'
-    label_response.rewrite(res)
-button_lexical_valid = tk.Button(main, text='Validacion Léxica', command=validar_lexico)
+    for k in result:
+        res = res + f'{k}\n'
+    text_response.rewrite(res)
 
-text_code.grid(row = 0, column = 0)
-label_response.grid(row = 0, column = 2)
-button_lexical_valid.grid(row = 2, column = 0)
-button_stop.grid(row = 2, column = 1)
 
+button_sintax_valid = tk.Button(button_frames, text='Validacion Sintactica',
+                                command=validar_sintactico, width=40)
+
+button_lexical_valid = tk.Button(button_frames, text='Validacion Léxica',
+                                 command=validar_lexico,width=40)
+button_stop = tk.Button(button_frames, text='Cerrar', command=main.destroy,
+                        bg= "Red",width=40)
+
+
+text_code.pack(side ='left')
+text_response.pack(side='right')
+
+text_frames.pack(side='top')
+
+button_sintax_valid.pack(fill="x")
+button_lexical_valid.pack(fill="x")
+button_stop.pack(fill ="x")
+
+button_frames.pack()
 
 main.mainloop()

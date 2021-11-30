@@ -2,6 +2,7 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 
+error_tokens = list()
 
 reserved = {
     # inicia - Vivanco
@@ -230,3 +231,13 @@ def leer(linea):
 
 # Build the lexer
 lexer = lex.lex()
+
+def lexical_test(data):
+    lexer.input(data)
+    # Tokenize
+    while True:
+        t = lexer.token()
+        if not t:
+            break  # No more input
+        error_tokens.append(t)
+    return error_tokens

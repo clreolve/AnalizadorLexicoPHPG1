@@ -1,8 +1,8 @@
 import ply.yacc as yacc
+
 from lexico import tokens, lexer
 
 syntax_out = dict()
-correct_lines = dict()
 
 def p_expresiones(p):
     '''
@@ -457,15 +457,15 @@ def p_error(p):
         token = "invalid syntax"
     else:
         token = f"{p.type}({p.value}) on line {p.lineno}"
-    print(f"Syntax error: Unexpected {token}")
-    syntax_out.update({p.lineno: {'text': f'Syntax error: {p.type}({p.value})' , 'error' : True}})
-    print(syntax_out)
+        print(f"Syntax error: Unexpected {token}")
+        syntax_out.update( {p.lineno : f'Syntax error: {p.type}({p.value})'})
+
 # Build the parser
 parser = yacc.yacc()
 
-def lexical_test(data):
+def sintaxis_test(data):
     '''Recibe un string para validarlo y retorna un diccionario con los resultados'''
+    syntax_out.clear()
     lexer.lineno = 1
     result = parser.parse(data)
-    #print(syntax_out)
-    return syntax_out
+    return dict(syntax_out)
