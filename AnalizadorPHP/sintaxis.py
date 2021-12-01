@@ -22,6 +22,7 @@ def p_expresion(p):
                 | funcion_declaracion
                 | return
                 | funcion_ejecucion
+                | foreach
     '''
     #syntax_out.update({lexer.lineno: {'text': f'CORRECT', 'error': False}})
     #print(syntax_out, f'{lexer.lineno}: CORRECT')
@@ -283,6 +284,17 @@ def p_while(p):
     '''
     while : WHILE LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
             | WHILE LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones ENDWHILE SEMICOLON
+    '''
+
+def p_foreach(p):
+    '''
+    foreach : FOREACH LPAREN foreach_content RPAREN LCURLY expresiones RCURLY
+    '''
+
+def p_foreach_content(p):
+    '''
+    foreach_content : VARIABLE AS VARIABLE
+                    | VARIABLE AS VARIABLE ARROW VARIABLE
     '''
 
 # End - Claudio Olvera ###################################################

@@ -125,3 +125,22 @@ $hello = function (var){
 $hello(“Jhon Cena”);	//ejecutamos hello
 ```
 
+### Foreach
+
+Itera sobre arreglos de objetos y tipos primitivos, brindando una variable temporal que puede usarse dentro del foreach
+
+```php
+foreach($array as $e){
+	echo $e;
+}
+
+```
+
+También se puede obtener la clave/indice del arreglo
+
+```php
+foreach($array as $k => $e){
+	echo $array[$k];
+}
+```
+
