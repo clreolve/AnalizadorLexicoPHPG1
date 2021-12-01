@@ -6,9 +6,9 @@
 - Jose Jaramillo
 - Claudio Olvera
 
-# GUI
+# Uso de la Herramienta
 
-El archivo gui.py:
+Se debe ejecutar el  archivo **gui.py** para lanzar la interfaz grafica que:
 
 - La interfaz dispone de un editor de codigo y un espacio para mostrar la salida del programa
 - Enmcuentra la posicion del primer error en un bloque de errores
