@@ -2,32 +2,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    AND
-    BREAK
-    CASE
-    CATCH
-    CLASS
-    DO
-    ENDFOR
-    ENDFOREACH
-    ENDSWITCH
-    EXTENDS
-    FINAL
-    FOR
-    GLOBAL
     ID
-    IMPLEMENTS
-    INTERFACE
-    OR
-    PHPEND
-    PHPSTART
-    PRIVATE
-    PROTECTED
-    PUBLIC
-    STATIC
-    SWITCH
-    THROW
-    XOR
 
 Grammar
 
@@ -176,7 +151,7 @@ Rule 141   datos -> STRINGCC
 Rule 142   datos -> elemento_logico_pri
 Rule 143   llenar -> datos
 Rule 144   llenar -> datos COMMA llenar
-Rule 145   set -> NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+Rule 145   set -> NEW SET LPAREN LBRACKET params RBRACKET RPAREN
 Rule 146   set -> NEW SET LPAREN RPAREN
 Rule 147   funciones_datos_estructurados -> funciones_map
 Rule 148   funciones_datos_estructurados -> funciones_set
@@ -200,48 +175,33 @@ Rule 164   remove_set -> VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params_unit
 Terminals, with rules where they appear
 
                      : 74
-AND                  : 
 ANDlOGICAL           : 54
 ARROW                : 114 132 133
 AS                   : 113 114
-BREAK                : 
-CASE                 : 
-CATCH                : 
-CLASS                : 
 COMMA                : 61 68 70 72 75 87 126 135 144
 DIFF                 : 153
 DIFFERENT            : 49
 DIVIDE               : 31
-DO                   : 
 DOUBLEPOINT          : 105 106 107 111
 ECHO                 : 81 82
 ELSE                 : 101 103 106
 ELSEIF               : 102 107
-ENDFOR               : 
-ENDFOREACH           : 
 ENDIF                : 96 97 98 99
-ENDSWITCH            : 
 ENDWHILE             : 111
 EQUALS               : 14 15 116 117
 EQUALSLOGICAL        : 48
 EXPONENTIAL          : 32
-EXTENDS              : 
 FALSE                : 45
-FINAL                : 
 FIND                 : 156
 FLOAT                : 25 138
-FOR                  : 
 FOREACH              : 112
 FUNCTION             : 115 116 117
 FUNCTION_NAME        : 118 119 123 124
-GLOBAL               : 
 GREATEREQUAL         : 50
 GREATERTHAN          : 52
 ID                   : 
 IDENTICAL            : 46
 IF                   : 100 103 105
-IMPLEMENTS           : 
-INTERFACE            : 
 KEYS                 : 152
 LBRACKET             : 130 136 145 159 164
 LCURLY               : 100 101 102 103 110 112 120 121
@@ -254,17 +214,11 @@ NEW                  : 130 131 136 137 145 146
 NOTIDENTICAL         : 47
 NOTLOGICAL           : 39
 NUMBER               : 26 133 139
-OR                   : 
 ORLOGICAL            : 55
-PHPEND               : 
-PHPSTART             : 
 PLUS                 : 22 22 29
 POINT                : 63
 PRINT                : 83
 PRINT_R              : 84
-PRIVATE              : 
-PROTECTED            : 
-PUBLIC               : 
 PUSH                 : 157 158 159
 RBRACKET             : 130 136 145 159 164
 RCURLY               : 100 101 102 103 110 112 120 121
@@ -275,11 +229,8 @@ RPAREN               : 27 40 84 85 86 87 88 89 100 102 103 105 107 110 111 112 1
 SEMICOLON            : 14 22 23 81 82 83 84 85 86 96 97 98 99 111 122 123 124 152 153 156 157 158 159 162 163 164
 SET                  : 145 146
 SIMPLEARROW          : 152 153 156 157 158 159 162 163 164
-STATIC               : 
 STRING               : 34 140
 STRINGCC             : 35 141
-SWITCH               : 
-THROW                : 
 TIMES                : 33
 TRUE                 : 44
 UNION                : 162
@@ -289,7 +240,6 @@ VAR_DUMP             : 85 152 153 156 162
 VAR_EXPORT           : 86 87
 VECTOR               : 136 137
 WHILE                : 110 111
-XOR                  : 
 error                : 
 
 Nonterminals, with rules where they appear
@@ -337,9 +287,9 @@ only_string          : 64 68
 operador             : 24
 optional_params      : 75
 param                : 60 61 62 63 73 75 83 84 85 86 87 132 133 156 157
-params               : 61 81 123 136 158 159
+params               : 61 81 123 136 145 158 159
 params_points        : 63 82
-params_unitype       : 145 163 164
+params_unitype       : 163 164
 print                : 77
 print_r              : 79
 push_vector          : 155
@@ -1185,7 +1135,7 @@ state 26
     (131) map -> . NEW MAP LPAREN RPAREN
     (136) vector -> . NEW VECTOR LPAREN LBRACKET params RBRACKET RPAREN
     (137) vector -> . NEW VECTOR LPAREN RPAREN
-    (145) set -> . NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+    (145) set -> . NEW SET LPAREN LBRACKET params RBRACKET RPAREN
     (146) set -> . NEW SET LPAREN RPAREN
 
     VARIABLE        shift and go to state 55
@@ -1640,7 +1590,7 @@ state 46
     (131) map -> . NEW MAP LPAREN RPAREN
     (136) vector -> . NEW VECTOR LPAREN LBRACKET params RBRACKET RPAREN
     (137) vector -> . NEW VECTOR LPAREN RPAREN
-    (145) set -> . NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+    (145) set -> . NEW SET LPAREN LBRACKET params RBRACKET RPAREN
     (146) set -> . NEW SET LPAREN RPAREN
 
     FUNCTION        shift and go to state 102
@@ -2214,7 +2164,7 @@ state 75
     (131) map -> NEW . MAP LPAREN RPAREN
     (136) vector -> NEW . VECTOR LPAREN LBRACKET params RBRACKET RPAREN
     (137) vector -> NEW . VECTOR LPAREN RPAREN
-    (145) set -> NEW . SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+    (145) set -> NEW . SET LPAREN LBRACKET params RBRACKET RPAREN
     (146) set -> NEW . SET LPAREN RPAREN
 
     MAP             shift and go to state 141
@@ -2959,7 +2909,7 @@ state 107
     (131) map -> . NEW MAP LPAREN RPAREN
     (136) vector -> . NEW VECTOR LPAREN LBRACKET params RBRACKET RPAREN
     (137) vector -> . NEW VECTOR LPAREN RPAREN
-    (145) set -> . NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+    (145) set -> . NEW SET LPAREN LBRACKET params RBRACKET RPAREN
     (146) set -> . NEW SET LPAREN RPAREN
 
     FUNCTION        shift and go to state 178
@@ -3891,7 +3841,7 @@ state 142
 
 state 143
 
-    (145) set -> NEW SET . LPAREN LBRACKET params_unitype RBRACKET RPAREN
+    (145) set -> NEW SET . LPAREN LBRACKET params RBRACKET RPAREN
     (146) set -> NEW SET . LPAREN RPAREN
 
     LPAREN          shift and go to state 199
@@ -5285,7 +5235,7 @@ state 198
 
 state 199
 
-    (145) set -> NEW SET LPAREN . LBRACKET params_unitype RBRACKET RPAREN
+    (145) set -> NEW SET LPAREN . LBRACKET params RBRACKET RPAREN
     (146) set -> NEW SET LPAREN . RPAREN
 
     LBRACKET        shift and go to state 246
@@ -6120,16 +6070,13 @@ state 245
 
 state 246
 
-    (145) set -> NEW SET LPAREN LBRACKET . params_unitype RBRACKET RPAREN
-    (64) params_unitype -> . only_string
-    (65) params_unitype -> . only_numerico
-    (66) params_unitype -> . only_logico
-    (67) only_string -> . elemento_string
-    (68) only_string -> . elemento_string COMMA only_string
-    (69) only_numerico -> . elemento_numerico
-    (70) only_numerico -> . elemento_numerico COMMA only_numerico
-    (71) only_logico -> . elemento_logico
-    (72) only_logico -> . elemento_logico COMMA only_logico
+    (145) set -> NEW SET LPAREN LBRACKET . params RBRACKET RPAREN
+    (60) params -> . param
+    (61) params -> . param COMMA params
+    (56) param -> . VARIABLE
+    (57) param -> . elemento_string
+    (58) param -> . elemento_numerico
+    (59) param -> . elemento_logico
     (34) elemento_string -> . STRING
     (35) elemento_string -> . STRINGCC
     (36) elemento_string -> . VARIABLE
@@ -6148,9 +6095,9 @@ state 246
     (44) elemento_logico_pri -> . TRUE
     (45) elemento_logico_pri -> . FALSE
 
+    VARIABLE        shift and go to state 81
     STRING          shift and go to state 64
     STRINGCC        shift and go to state 65
-    VARIABLE        shift and go to state 223
     FLOAT           shift and go to state 61
     NUMBER          shift and go to state 62
     LPAREN          shift and go to state 63
@@ -6158,13 +6105,11 @@ state 246
     TRUE            shift and go to state 73
     FALSE           shift and go to state 74
 
-    params_unitype                 shift and go to state 284
-    only_string                    shift and go to state 226
-    only_numerico                  shift and go to state 227
-    only_logico                    shift and go to state 228
-    elemento_string                shift and go to state 229
-    elemento_numerico              shift and go to state 230
-    elemento_logico                shift and go to state 231
+    params                         shift and go to state 284
+    param                          shift and go to state 146
+    elemento_string                shift and go to state 82
+    elemento_numerico              shift and go to state 83
+    elemento_logico                shift and go to state 84
     elemento_logico_pri            shift and go to state 66
 
 state 247
@@ -7195,7 +7140,7 @@ state 283
 
 state 284
 
-    (145) set -> NEW SET LPAREN LBRACKET params_unitype . RBRACKET RPAREN
+    (145) set -> NEW SET LPAREN LBRACKET params . RBRACKET RPAREN
 
     RBRACKET        shift and go to state 316
 
@@ -7854,7 +7799,7 @@ state 315
 
 state 316
 
-    (145) set -> NEW SET LPAREN LBRACKET params_unitype RBRACKET . RPAREN
+    (145) set -> NEW SET LPAREN LBRACKET params RBRACKET . RPAREN
 
     RPAREN          shift and go to state 337
 
@@ -8188,9 +8133,9 @@ state 336
 
 state 337
 
-    (145) set -> NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN .
+    (145) set -> NEW SET LPAREN LBRACKET params RBRACKET RPAREN .
 
-    SEMICOLON       reduce using rule 145 (set -> NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN .)
+    SEMICOLON       reduce using rule 145 (set -> NEW SET LPAREN LBRACKET params RBRACKET RPAREN .)
 
 
 state 338

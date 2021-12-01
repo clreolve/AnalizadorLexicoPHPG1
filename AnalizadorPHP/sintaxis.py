@@ -396,7 +396,7 @@ def p_llenar(p):
 
 def p_set(p):
     '''
-    set : NEW SET LPAREN LBRACKET params_unitype RBRACKET RPAREN
+    set : NEW SET LPAREN LBRACKET params RBRACKET RPAREN
             | NEW SET LPAREN RPAREN
     '''
 
@@ -426,6 +426,9 @@ def p_diff_map(p):
     diff_map : VAR_DUMP LPAREN VARIABLE SIMPLEARROW DIFF LPAREN VARIABLE RPAREN RPAREN SEMICOLON
     '''
 
+# End - Jaramillo ###################################################
+
+# Start - Vivanco ###################################################
 def p_funciones_vector(p):
     '''
     funciones_vector : find_vector
@@ -443,7 +446,9 @@ def p_push_vector(p):
                     | VARIABLE SIMPLEARROW PUSH LPAREN params RPAREN SEMICOLON
                     | VARIABLE SIMPLEARROW PUSH LPAREN LBRACKET params RBRACKET RPAREN SEMICOLON
     '''
+# End - Vivanco ###################################################
 
+# Start - Olvera ###################################################
 def p_funciones_set(p):
     '''
     funciones_set : union_set
@@ -460,8 +465,7 @@ def p_remove_set(p):
     remove_set :  VARIABLE SIMPLEARROW REMOVE LPAREN params_unitype RPAREN SEMICOLON
                     | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params_unitype RBRACKET RPAREN SEMICOLON
     '''
-
-# End - Jaramillo ###################################################
+# End - Olvera ###################################################
 
 # Error rule for syntax errors
 def p_error(p):

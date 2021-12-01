@@ -11,18 +11,9 @@
 El archivo gui.py:
 
 - La interfaz dispone de un editor de codigo y un espacio para mostrar la salida del programa
+- Enmcuentra la posicion del primer error en un bloque de errores
 - El boton **validar lexico** permite validar los tokens de la entrada
 - El boton **validar sintactico** permite la validación de la sintaxis, dentro de los limites que permite YACC
-
-# Prueba por CLI
-
-El archivo **main.py**:
-
-- Durante la ejecución se generara una consola que permitira las validaciones directas de sentencias php
-
-- Por facilidad de uso la consola solo admitira sentencias directas de php sin usar la estructura ```php <!php ... ?>```
-
-- Se dispone de un archivo text.txt y un metodo de prueba opcional **permite probar las sentencias que escritas en el mismo**; cuyo resultado se mostrara al inicio de la consola
 
 # El analizador sintáctico permite validar:
 

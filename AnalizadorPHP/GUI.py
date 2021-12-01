@@ -137,8 +137,8 @@ def validar_lexico():
     inputValue = get_text()
     result = lexical_test(inputValue)
     res = ""
-    for k in result:
-        res = res + f'{k}\n'
+    for i in range(0,len(result)-1):
+        res = res + f'{result.pop(0)}\n'
     text_response.rewrite(res)
 
 

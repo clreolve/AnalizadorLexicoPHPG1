@@ -6,47 +6,47 @@ error_tokens = list()
 
 reserved = {
     # inicia - Vivanco
-    'and': 'AND',
+    # 'and': 'AND',
     'as': 'AS',
-    'break': 'BREAK',
-    'case': 'CASE',
-    'class': 'CLASS',
-    'do': 'DO',
+    # 'break': 'BREAK',
+    # 'case': 'CASE',
+    # 'class': 'CLASS',
+    # 'do': 'DO',
     'echo': 'ECHO',
     'else': 'ELSE',
     'elseif': 'ELSEIF',
-    'endfor': 'ENDFOR',
-    'endforeach': 'ENDFOREACH',
+    # 'endfor': 'ENDFOR',
+    # 'endforeach': 'ENDFOREACH',
     'endif': 'ENDIF',
     # Termina - Vivanco
     # Inicia - Olvera
-    'endswitch': 'ENDSWITCH',
+    # 'endswitch': 'ENDSWITCH',
     'endwhile': 'ENDWHILE',
-    'for': 'FOR',
+    # 'for': 'FOR',
     'foreach': 'FOREACH',
     'function': 'FUNCTION',
-    'global': 'GLOBAL',
+    # 'global': 'GLOBAL',
     'if': 'IF',
-    'implements': 'IMPLEMENTS',
-    'interface': 'INTERFACE',
+    # 'implements': 'IMPLEMENTS',
+    # 'interface': 'INTERFACE',
     'new': 'NEW',
-    'or': 'OR',
+    # 'or': 'OR',
     'print': 'PRINT',
     # Termina - Olvera
     # Inicia - Jaramillo
-    'private': 'PRIVATE',
-    'protected': 'PROTECTED',
-    'public': 'PUBLIC',
+    # 'private': 'PRIVATE',
+    #'protected': 'PROTECTED',
+    #'public': 'PUBLIC',
     'return': 'RETURN',
-    'static': 'STATIC',
-    'switch': 'SWITCH',
-    'throw': 'THROW',
+    #'static': 'STATIC',
+    #'switch': 'SWITCH',
+    #'throw': 'THROW',
     'while': 'WHILE',
     'var': 'VAR',
-    'xor': 'XOR',
-    'catch': 'CATCH',
-    'final': 'FINAL',
-    'extends': 'EXTENDS',
+    #'xor': 'XOR',
+    #'catch': 'CATCH',
+    # 'final': 'FINAL',
+    # 'extends': 'EXTENDS',
     'true': 'TRUE',
     'false': 'FALSE',
     'keys': 'KEYS',
@@ -70,8 +70,8 @@ reserved = {
 tokens = [
              # inicia - Vivanco
              'ID',
-             'PHPSTART',
-             'PHPEND',
+             #'PHPSTART',
+             #'PHPEND',
              'NUMBER',
              'FLOAT',
              'PLUS',
@@ -120,8 +120,8 @@ tokens = [
          ] + list(reserved.values())
 # inicia - Vivanco
 t_VARIABLE = r'\$[a-zA-Z_]\w*'
-t_PHPSTART = r'\<\?php\s'
-t_PHPEND = r'\?\>'
+#t_PHPSTART = r'\<\?php\s'
+#t_PHPEND = r'\?\>'
 t_ARROW = r'=\>'
 t_SIMPLEARROW = r'-\>'
 
