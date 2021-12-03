@@ -67,13 +67,13 @@ endif;
 ```php
 $x = 1;
 while ($x <= 10) {
-    echo $x++;
+    echo $x;
 }
 
 // sintaxis reducida
 $x = 1;
 while ($x <= 10):
-	echo $x++;
+	echo $x;
 endwhile;
 
 ```
@@ -133,5 +133,70 @@ También se puede obtener la clave/indice del arreglo
 foreach($array as $k => $e){
 	echo $array[$k];
 }
+```
+
+# Ejemplo
+
+```php
+function foo(){
+	echo $qw;
+}
+
+function foo($var){
+	echo  $var;
+}
+// funciones anonimas
+function(){
+	echo $a;
+}
+
+function ($var){
+	echo $var;
+}
+
+// funcion almacenada en una variable
+$foo = function(){
+	echo '12';
+}
+
+
+$foo = function($a, $b){
+	echo '12';
+}
+
+$foo();		//ejecutamos foo
+
+$hello = function ($var){
+	echo $var;
+}
+//$hello($a,'qweqwe');	
+
+//$i = 1;
+if($a){echo 'hello';}
+
+while(true){
+ $a =0;
+}
+
+foreach($array as $e){
+	echo $e;
+}
+
+foreach($array as $k => $e){
+	echo $array[$k];
+}
+
+$vector = new \Ds\Vector (["a",1,"b",true]);
+
+$mapa = new \Ds\Map (["a"=>1,"b"=>2]);
+$mapa = new \Ds\Map (["a"=>"c","b"=>'d']);
+$mapa = new \Ds\Map (["a"=>true,2=>'d']);
+
+$set = new \Ds\Set([1, 2, 3]);
+$set = new \Ds\Set(["1", $a, 3, true, "lala"]);
+
+
+var_dump( $a -> keys());
+var_dump( $a -> union( $a)) ;
 ```
 
