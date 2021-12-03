@@ -91,7 +91,7 @@ function foo(){
 	echo “yo soy foo”;
 }
 
-function foo(var){
+function foo($var){
 echo “tu eres ”, $var;
 }
 
@@ -100,7 +100,7 @@ function(){
 	echo “yo soy foo”;
 }
 
-function (var){
+function ($var){
 	echo “tu eres ”, $var;
 }
 
@@ -110,7 +110,7 @@ $foo = function(){
 }
 $foo();		//ejecutamos foo
 
-$hello = function (var){
+$hello = function ($var){
 	echo “tu eres ”, $var;
 }
 $hello(“Jhon Cena”);	//ejecutamos hello
