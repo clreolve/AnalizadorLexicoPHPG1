@@ -38,7 +38,7 @@ def p_var_declarar(p):
 def p_var_asignar(p):
     '''
     var_asignar : VARIABLE EQUALS var_asignar_contenido SEMICOLON
-                | VARIABLE EQUALS funcion_ejecucion
+                | VARIABLE EQUALS funcion_declaracion_anonima
     '''
 
 def p_var_asignar_contenido(p):
@@ -91,7 +91,6 @@ def p_elemento_logico(p):
     elemento_logico : elemento_logico_pri
                     | elemento_logico comparador elemento_logico
                     | NOTLOGICAL elemento_logico
-                    | LPAREN elemento_logico RPAREN
                     | VARIABLE
                     | elemento_numerico comparador elemento_numerico
                     | elemento_string comparador elemento_string
@@ -238,7 +237,6 @@ def p_if_structures(p):
             | if_r else_r ENDIF SEMICOLON
             | if_r elseif_r else_r ENDIF SEMICOLON
             | if_r elseif_r ENDIF SEMICOLON
-
     '''
 
 def p_if(p):
@@ -276,13 +274,13 @@ def p_elseif_r(p):
 
 def p_estructuras_while(p):
     '''
-    estructuras_while : while
+    estructuras_while : while_p
 
     '''
 
-def p_while(p):
+def p_while_p(p):
     '''
-    while : WHILE LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
+    while_p : WHILE LPAREN elemento_logico RPAREN LCURLY expresiones RCURLY
             | WHILE LPAREN elemento_logico RPAREN DOUBLEPOINT expresiones ENDWHILE SEMICOLON
     '''
 
@@ -307,6 +305,8 @@ def p_funcion_declaracion(p):
     funcion_declaracion : FUNCTION funcion_cabecera_declaracion funciones_cuerpo
                         | VARIABLE EQUALS FUNCTION LPAREN variables_por_comma RPAREN funciones_cuerpo
                         | VAR VARIABLE EQUALS FUNCTION LPAREN variables_por_comma RPAREN funciones_cuerpo
+                        | FUNCTION LPAREN variables_por_comma RPAREN funciones_cuerpo
+                        | FUNCTION LPAREN RPAREN funciones_cuerpo
     '''
 
 
@@ -330,9 +330,17 @@ def p_return(p):
 
 def p_funcion_ejecucion(p):
    '''
-   funcion_ejecucion : FUNCTION_NAME LPAREN params RPAREN SEMICOLON
-                    | FUNCTION_NAME LPAREN RPAREN SEMICOLON
+   funcion_ejecucion : FUNCTION_NAME LPAREN params RPAREN funciones_cuerpo SEMICOLON
+                    | FUNCTION_NAME LPAREN RPAREN funciones_cuerpo SEMICOLON
+                    | VARIABLE LPAREN RPAREN SEMICOLON
+                    | VARIABLE LPAREN params RPAREN SEMICOLON
    '''
+
+def p_funcion_declaracion_anonima(p):
+    '''
+    funcion_declaracion_anonima : FUNCTION LPAREN params RPAREN funciones_cuerpo
+                    | FUNCTION LPAREN RPAREN funciones_cuerpo
+    '''
 
 # una o mas variables separada por coma
 def p_variables_por_comma(p):

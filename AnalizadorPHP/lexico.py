@@ -67,7 +67,7 @@ reserved = {
 
 }
 
-tokens = [
+tokens = list(reserved.values())+ [
              # inicia - Vivanco
              'ID',
              #'PHPSTART',
@@ -117,7 +117,7 @@ tokens = [
         'FUNCTION_NAME',
 
 
-         ] + list(reserved.values())
+         ]
 # inicia - Vivanco
 t_VARIABLE = r'\$[a-zA-Z_]\w*'
 #t_PHPSTART = r'\<\?php\s'
@@ -170,7 +170,7 @@ t_SET = r'\\Ds\\Set'
 # Palabras Reservadas
 # Inicia - Olvera
 def t_FUNCTION_NAME(t):
-    r'[a-zA-Z_]+\w*(?=\()'
+    r'[a-zA-Z_]\w*(?=\()'
     t.type = reserved.get(t.value, 'FUNCTION_NAME')
     return t
 
