@@ -27,96 +27,6 @@ def p_expresion(p):
     #syntax_out.update({lexer.lineno: {'text': f'CORRECT', 'error': False}})
     #print(syntax_out, f'{lexer.lineno}: CORRECT')
 
-#Start - Vivanco ###################################################
-# var $variable = ...
-def p_var_declarar(p):
-    '''
-    var_declarar : VAR var_asignar
-    '''
-
-# var variable = ...
-def p_var_asignar(p):
-    '''
-    var_asignar : VARIABLE EQUALS var_asignar_contenido SEMICOLON
-                | VARIABLE EQUALS funcion_declaracion_anonima
-    '''
-
-def p_var_asignar_contenido(p):
-    '''
-    var_asignar_contenido : VARIABLE
-                    | elemento_numerico
-                    | elemento_string
-                    | elemento_logico
-                    | datos_estructurados
-                    | funciones_ingreso_datos
-    '''
-
-def p_var_plusminus(p):
-    '''
-    var_plusminus : VARIABLE PLUS PLUS SEMICOLON
-                | VARIABLE MINUS MINUS SEMICOLON
-    '''
-
-
-# 12212; (12+12/(12)); $asd + 12
-def p_elemento_numerico(p):
-    '''
-    elemento_numerico : elemento_numerico operador elemento_numerico
-                        | FLOAT
-                        | NUMBER
-                        | LPAREN elemento_numerico RPAREN
-                        | VARIABLE
-    '''
-
-# operadores numericos
-def p_operador(p):
-    '''
-    operador : PLUS
-            | MINUS
-            | DIVIDE
-            | EXPONENTIAL
-            | TIMES
-    '''
-
-# "lorem ipsum" ; 'lorem ipsum'
-def p_elemento_string(p):
-    '''elemento_string : STRING
-                        | STRINGCC
-                        | VARIABLE
-    '''
-
-# True False operaciones logicas
-def p_elemento_logico(p):
-    '''
-    elemento_logico : elemento_logico_pri
-                    | elemento_logico comparador elemento_logico
-                    | NOTLOGICAL elemento_logico
-                    | VARIABLE
-                    | elemento_numerico comparador elemento_numerico
-                    | elemento_string comparador elemento_string
-    '''
-
-def p_elemento_logico_pri(p):
-    '''
-    elemento_logico_pri : TRUE
-                        | FALSE
-    '''
-
-def p_comparador(p):
-    '''
-    comparador : IDENTICAL
-               | NOTIDENTICAL
-               | EQUALSLOGICAL
-               | DIFFERENT
-               | GREATEREQUAL
-               | LESSEQUAL
-               | GREATERTHAN
-               | LESSTHAN
-               | ANDlOGICAL
-               | ORLOGICAL
-    '''
-
-# End - Vivanco ###################################################
 # Start - Claudio Olvera ###################################################
 
 # clave precisa para poner en las llamadas de funciones
@@ -126,6 +36,7 @@ def p_param(p):
             | elemento_string
             | elemento_numerico
             | elemento_logico
+            | VARIABLE LBRACKET VARIABLE RBRACKET
     '''
 
 # uno o mas parametros
@@ -474,6 +385,97 @@ def p_remove_set(p):
                     | VARIABLE SIMPLEARROW REMOVE LPAREN LBRACKET params_unitype RBRACKET RPAREN SEMICOLON
     '''
 # End - Olvera ###################################################
+
+#Start - Vivanco ###################################################
+# var $variable = ...
+def p_var_declarar(p):
+    '''
+    var_declarar : VAR var_asignar
+    '''
+
+# var variable = ...
+def p_var_asignar(p):
+    '''
+    var_asignar : VARIABLE EQUALS var_asignar_contenido SEMICOLON
+                | VARIABLE EQUALS funcion_declaracion_anonima
+    '''
+
+def p_var_asignar_contenido(p):
+    '''
+    var_asignar_contenido : VARIABLE
+                    | elemento_numerico
+                    | elemento_string
+                    | elemento_logico
+                    | datos_estructurados
+                    | funciones_ingreso_datos
+    '''
+
+def p_var_plusminus(p):
+    '''
+    var_plusminus : VARIABLE PLUS PLUS SEMICOLON
+                | VARIABLE MINUS MINUS SEMICOLON
+    '''
+
+
+# 12212; (12+12/(12)); $asd + 12
+def p_elemento_numerico(p):
+    '''
+    elemento_numerico : elemento_numerico operador elemento_numerico
+                        | FLOAT
+                        | NUMBER
+                        | LPAREN elemento_numerico RPAREN
+                        | VARIABLE
+    '''
+
+# operadores numericos
+def p_operador(p):
+    '''
+    operador : PLUS
+            | MINUS
+            | DIVIDE
+            | EXPONENTIAL
+            | TIMES
+    '''
+
+# "lorem ipsum" ; 'lorem ipsum'
+def p_elemento_string(p):
+    '''elemento_string : STRING
+                        | STRINGCC
+                        | VARIABLE
+    '''
+
+# True False operaciones logicas
+def p_elemento_logico(p):
+    '''
+    elemento_logico : elemento_logico_pri
+                    | elemento_logico comparador elemento_logico
+                    | NOTLOGICAL elemento_logico
+                    | VARIABLE
+                    | elemento_numerico comparador elemento_numerico
+                    | elemento_string comparador elemento_string
+    '''
+
+def p_elemento_logico_pri(p):
+    '''
+    elemento_logico_pri : TRUE
+                        | FALSE
+    '''
+
+def p_comparador(p):
+    '''
+    comparador : IDENTICAL
+               | NOTIDENTICAL
+               | EQUALSLOGICAL
+               | DIFFERENT
+               | GREATEREQUAL
+               | LESSEQUAL
+               | GREATERTHAN
+               | LESSTHAN
+               | ANDlOGICAL
+               | ORLOGICAL
+    '''
+
+# End - Vivanco ###################################################
 
 # Error rule for syntax errors
 def p_error(p):
